@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import WhatsAppButton from '../components/WhatsAppButton';
@@ -131,6 +130,28 @@ export default function GovernorPage() {
     { lk: 'governor.optUcm', v: [false, false, false] },
   ];
 
+  const TECH_PROPERTIES = [
+    'Factory adjusted and sealed according to the rated speed.',
+    'Suitable for instantaneous and progressive safety gears.',
+    'Easy installation and maintenance.',
+    'Quiet and smooth operation.',
+    'Activates safety gears in upward and downward directions.',
+    'Fully compliant with EN 81-20 and EN 81-50.',
+    'Governor rope diameter: Ø6 / Ø6.5 / Ø8 mm.',
+    'Designed for long service life.',
+    'High-quality steel construction.',
+    'Reliable performance under continuous operation.',
+  ];
+
+  const TECH_STANDARDS = [
+    'EN 81-20',
+    'EN 81-50',
+    'Passenger Elevators',
+    'Freight Elevators',
+    'High Reliability',
+    'Long Service Life',
+  ];
+
   /*
   const WEIGHTS = [
     { nk: 'governor.wStandard', bg: '#D6EDF9', c: [{ m: 'FS-01', w: '30 kg', d: '▼▲' }, { m: 'FS-01LR, 200, 250', w: '60 kg', d: '▼' }] },
@@ -150,12 +171,14 @@ export default function GovernorPage() {
   const [galleryDot, setGalleryDot] = useState(0);
   // const [weightDot, setWeightDot] = useState(0);
   const [modalIndex, setModalIndex] = useState<number | null>(null);
+  const [isTechnicalVisible, setIsTechnicalVisible] = useState(false);
 
   const tabBarRef = useRef<HTMLDivElement>(null);
   const visualRef = useRef<HTMLElement>(null);
   const specsRef = useRef<HTMLElement>(null);
   const optionalRef = useRef<HTMLElement>(null);
   const galleryRef = useRef<HTMLDivElement>(null);
+  const technicalRef = useRef<HTMLElement>(null);
   // const weightsRef = useRef<HTMLDivElement>(null);
 
   /* ── drag scroll ──────────────────────────────────────────────────── */
@@ -191,6 +214,21 @@ export default function GovernorPage() {
     };
     el.addEventListener('scroll', fn, { passive: true });
     return () => el.removeEventListener('scroll', fn);
+  }, []);
+
+  useEffect(() => {
+    const el = technicalRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setIsTechnicalVisible(true);
+        observer.disconnect();
+      }
+    }, { threshold: 0.18 });
+
+    observer.observe(el);
+    return () => observer.disconnect();
   }, []);
 
   /* ── weight dots ──────────────────────────────────────────────────── */
@@ -290,6 +328,116 @@ export default function GovernorPage() {
         .pdp-tab:hover:not(.pdp-tab--on){ color:#333; }
         .pdp-tab--on { color:${A}; border-bottom-color:${A}; }
 
+        /* Technical properties section */
+        .pdp-tech {
+          background: #FFFFFF;
+          padding: 100px 5%;
+        }
+        .pdp-tech__inner {
+          max-width: 1280px;
+          margin: 0 auto;
+          display: grid;
+          grid-template-columns: minmax(0, 58fr) minmax(0, 42fr);
+          gap: 80px;
+          align-items: start;
+        }
+        .pdp-tech-reveal {
+          opacity: 0;
+          transform: translateY(40px);
+          transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .pdp-tech-reveal--visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        .pdp-tech__title {
+          margin: 0 0 30px;
+          color: #123F73;
+          font-size: 52px;
+          font-weight: 500;
+          line-height: 1.1;
+          letter-spacing: 0;
+        }
+        .pdp-tech__list {
+          margin: 0;
+          padding-left: 28px;
+          color: #5F6775;
+          font-size: 22px;
+          line-height: 1.9;
+        }
+        .pdp-tech__list li {
+          padding-left: 10px;
+          margin-bottom: 24px;
+        }
+        .pdp-tech__list li::marker {
+          color: #5F6775;
+          font-size: 0.75em;
+        }
+        .pdp-tech__panel-title {
+          margin: 4px 0 20px;
+          color: #123F73;
+          font-size: 28px;
+          font-weight: 600;
+          line-height: 1.2;
+          letter-spacing: 0;
+        }
+        .pdp-tech-table-wrap {
+          overflow: hidden;
+          border: 2px solid #123F73;
+          border-radius: 8px;
+          background: #FFFFFF;
+        }
+        .pdp-tech-table {
+          width: 100%;
+          border-collapse: collapse;
+          table-layout: fixed;
+          color: #5F6775;
+          font-size: 20px;
+          text-align: center;
+        }
+        .pdp-tech-table th {
+          background: #123F73;
+          color: #FFFFFF;
+          font-weight: 600;
+          padding: 18px;
+          border-right: 2px solid #123F73;
+          border-bottom: 2px solid #123F73;
+        }
+        .pdp-tech-table th:last-child,
+        .pdp-tech-table td:last-child {
+          border-right: none;
+        }
+        .pdp-tech-table td {
+          padding: 18px;
+          border-right: 2px solid #123F73;
+          background: #FFFFFF;
+          font-weight: 500;
+        }
+        .pdp-standards {
+          margin-top: 46px;
+        }
+        .pdp-standards__list {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 16px 28px;
+          margin: 0;
+          padding: 0;
+          list-style: none;
+          color: #5F6775;
+          font-size: 20px;
+          line-height: 1.45;
+        }
+        .pdp-standards__list li {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+        }
+        .pdp-standards__check {
+          color: #2F78C4;
+          font-weight: 700;
+          line-height: 1;
+        }
+
         /* Badge */
         .pdp-badge {
           background: rgba(11, 61, 120, 0.07); color:${A}; font-size:11px; font-weight:700;
@@ -348,6 +496,30 @@ export default function GovernorPage() {
         @media (max-width: 768px) {
           .pdp-decor-triangle { display: none !important; }
           .pdp-arr { display: none !important; }
+          .pdp-tech {
+            padding: 72px 5%;
+          }
+          .pdp-tech__inner {
+            grid-template-columns: 1fr;
+            gap: 48px;
+          }
+          .pdp-tech__title {
+            font-size: clamp(36px, 10vw, 52px);
+          }
+          .pdp-tech__list {
+            font-size: 18px;
+            line-height: 1.75;
+          }
+          .pdp-tech__list li {
+            margin-bottom: 18px;
+          }
+          .pdp-tech-table,
+          .pdp-standards__list {
+            font-size: 17px;
+          }
+          .pdp-standards__list {
+            grid-template-columns: 1fr;
+          }
         }
 
         /* Contact button hover style */
@@ -480,6 +652,54 @@ export default function GovernorPage() {
         </section>
 
         {/* ══ S4 — Specs Description ═══════════════════════════════════ */}
+        <section
+          ref={technicalRef}
+          className={`pdp-tech pdp-tech-reveal${isTechnicalVisible ? ' pdp-tech-reveal--visible' : ''}`}
+        >
+          <div className="pdp-tech__inner">
+            <div>
+              <h2 className="pdp-tech__title">⚙ Properties</h2>
+              <ul className="pdp-tech__list">
+                {TECH_PROPERTIES.map(item => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="pdp-tech__panel-title">Technical Specifications</h3>
+              <div className="pdp-tech-table-wrap">
+                <table className="pdp-tech-table">
+                  <thead>
+                    <tr>
+                      <th>Diameter</th>
+                      <th>Min–Max Nominal Speed</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Ø200 mm</td>
+                      <td>0.50 – 1.60 m/s</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div className="pdp-standards">
+                <h3 className="pdp-tech__panel-title">International Standards</h3>
+                <ul className="pdp-standards__list">
+                  {TECH_STANDARDS.map(item => (
+                    <li key={item}>
+                      <span className="pdp-standards__check" aria-hidden="true">✓</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section ref={specsRef} id="specs"
           style={{ padding: '72px 5%', background: '#fff', position: 'relative', overflow: 'hidden' }}>
           {/* decorative triangles */}
@@ -527,7 +747,7 @@ export default function GovernorPage() {
 
         {/* ══ S6 — Optional Features ═══════════════════════════════════ */}
         <section ref={optionalRef} id="optional"
-          style={{ padding: '64px 5% 72px', background: 'linear-gradient(135deg,#EBF7FD 0%,#F2F5F9 100%)' }}>
+          style={{ padding: '64px 5% 72px', background: '#fff' }}>
           <p className="pdp-stitle" style={{ marginBottom: 8 }}>{t('governor.optTitle')}</p>
           <p style={{ textAlign: 'center', color: '#9aa3b0', fontSize: 14, marginBottom: 40 }}>{t('governor.optSubtitle')}</p>
           <div style={{ overflowX: 'auto', padding: '12px 4px 28px' }}>
@@ -607,37 +827,7 @@ export default function GovernorPage() {
 
 
         {/* ══ S8 — More Information ═══════════════════════════════════ */}
-        <section style={{
-          padding: '72px 5%',
-          background: 'linear-gradient(180deg, #F0F4F8 0%, #FFFFFF 100%)',
-          textAlign: 'center',
-          borderTop: '1.5px solid #e5e7eb',
-          position: 'relative'
-        }}>
-          <h2 style={{
-            fontSize: 'clamp(24px, 3.2vw, 36px)',
-            fontWeight: 800,
-            color: '#0B3D78',
-            fontFamily: "inherit",
-            marginBottom: 16,
-            lineHeight: 1.2
-          }}>
-            {t('governor.moreInfoTitle')}
-          </h2>
-          <p style={{
-            fontSize: 16,
-            color: '#556677',
-            marginBottom: 32,
-            maxWidth: 600,
-            marginLeft: 'auto',
-            marginRight: 'auto',
-            lineHeight: 1.6
-          }}>
-            {t('governor.moreInfoDesc')}
-          </p>
-
-
-        </section>
+      
 
         {/* ══ S9 — Order Form ═══════════════════════════════════════════ */}
         <section style={{

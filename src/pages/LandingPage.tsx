@@ -1,10 +1,7 @@
 import Navbar from '../components/Navbar'
 import Hero from '../components/Hero'
-import TrustedStandardSection from '../components/TrustedStandardSection'
 import PrecisionManufacturingSection from '../components/PrecisionManufacturingSection'
 import StatsCounter from '../components/StatsCounter'
-
-import Media from '../components/Media'
 import Footer from '../components/Footer'
 import WhatsAppButton from '../components/WhatsAppButton'
 import FloatingToolbar from '../components/FloatingToolbar'

@@ -4,6 +4,10 @@ import { Menu, X, ChevronDown, Globe } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { useLocation, Link } from 'react-router-dom'
 
+interface NavbarProps {
+  forceDark?: boolean
+}
+
 /* ------------------------------------------------------------------ */
 /*  Data                                                               */
 /* ------------------------------------------------------------------ */
@@ -200,7 +204,7 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
 /*  Navbar                                                             */
 /* ------------------------------------------------------------------ */
 
-export default function Navbar() {
+export default function Navbar({ forceDark = false }: NavbarProps) {
   const { t } = useTranslation()
   const [mobileOpen, setMobileOpen] = useState(false)
   const location = useLocation()
@@ -219,8 +223,8 @@ export default function Navbar() {
     <>
       <header
         style={{ zIndex: 1000 }}
-        className="fixed inset-x-0 top-0 flex items-center justify-between
-                   px-6 lg:px-10 h-[76px] bg-white border-b border-gray-100 shadow-sm"
+        className={`fixed inset-x-0 top-0 flex items-center justify-between
+                   px-6 lg:px-10 h-[76px] ${forceDark ? 'bg-transparent border-b border-white/10 text-white' : 'bg-white border-b border-gray-100 text-gray-900'} shadow-sm`}
       >
         {/* ---- Logo (left) ---- */}
         <Link to="/" className="relative shrink-0 flex items-center">
@@ -242,8 +246,12 @@ export default function Navbar() {
                 className={`relative py-2 text-[15px] font-medium tracking-wide transition-colors duration-200 font-['Inter',sans-serif]
                            ${
                              active
-                               ? 'text-[#0B3D78] font-semibold'
-                               : 'text-gray-600 hover:text-[#0B3D78]'
+                               ? forceDark
+                                 ? 'text-white font-semibold'
+                                 : 'text-[#0B3D78] font-semibold'
+                               : forceDark
+                                 ? 'text-white/80 hover:text-white'
+                                 : 'text-gray-600 hover:text-[#0B3D78]'
                            }`}
               >
                 {t(item.labelKey)}
@@ -270,8 +278,8 @@ export default function Navbar() {
           <button
             onClick={() => setMobileOpen(true)}
             aria-label="Open menu"
-            className="flex lg:hidden h-10 w-10 items-center justify-center rounded-lg
-                       text-gray-600 hover:bg-gray-100 hover:text-[#0B3D78] transition-colors duration-200 cursor-pointer"
+            className={`flex lg:hidden h-10 w-10 items-center justify-center rounded-lg
+                       transition-colors duration-200 cursor-pointer ${forceDark ? 'text-white hover:bg-white/10 hover:text-white' : 'text-gray-600 hover:bg-gray-100 hover:text-[#0B3D78]'}`}
           >
             <Menu size={22} />
           </button>
