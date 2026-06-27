@@ -1,13 +1,15 @@
 const fr = {
   nav: {
     home: 'Accueil',
+    aboutUs: 'À Propos',
+    products: 'Produits',
+    documents: 'Documents',
+    contact: 'Contact',
     corporate: 'Entreprise',
     mediaCenter: 'Galerie de Produits',
     productGroups: 'Groupe de Produits',
-    aboutUs: 'À Propos',
     production: 'Production',
     career: 'Carrière',
-    contact: 'Contact',
     eCatalog: 'E-Catalogue',
     gallery: 'Galerie',
     speedGovernors: 'Limiteurs de Vitesse',

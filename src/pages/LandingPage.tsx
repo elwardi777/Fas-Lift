@@ -26,10 +26,10 @@ export default function LandingPage() {
         </section>
 
         <section id="products">
-       
+
         </section>
 
-        <TrustedStandardSection />
+
 
         <section id="precision">
           <PrecisionManufacturingSection />
@@ -41,12 +41,10 @@ export default function LandingPage() {
 
 
 
-        <section id="media">
-          <Media />
-        </section>
+
 
         <section id="contact">
-       
+
         </section>
       </main>
 

@@ -14,9 +14,9 @@ export default function StatsCounter() {
   const { t } = useTranslation();
 
   const stats: Stat[] = [
-    { target: 20, suffix: '+', label: t('about.years') },
-    { target: 200, suffix: '+', label: t('about.products') },
-    { target: 45, suffix: '+', label: t('about.countries') },
+    { target: 5, suffix: '+', label: t('about.years') },
+    { target: 2, suffix: '+', label: t('about.products') },
+    { target: 92, suffix: '+', label: t('about.countries') },
     { target: 1500, suffix: '+', label: t('about.clients') },
   ];
 

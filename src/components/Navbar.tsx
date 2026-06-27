@@ -2,44 +2,44 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, ChevronDown, Globe } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { useLocation, Link } from 'react-router-dom'
 
 /* ------------------------------------------------------------------ */
 /*  Data                                                               */
 /* ------------------------------------------------------------------ */
 
-interface NavLink {
-  label: string
+interface NavItem {
+  labelKey: string
   href: string
+  isActive: (pathname: string) => boolean
 }
 
-interface NavGroup {
-  title: string
-  links: NavLink[]
-}
-
-function useNavGroups(): NavGroup[] {
-  const { t } = useTranslation()
+function useNavItems(): NavItem[] {
   return [
     {
-      title: t('nav.corporate'),
-      links: [
-        { label: t('nav.aboutUs'), href: '/about' },
-        { label: t('nav.production'), href: '/corporate/production' },
-      ],
+      labelKey: 'nav.home',
+      href: '/',
+      isActive: (pathname) => pathname === '/',
     },
     {
-      title: t('nav.mediaCenter'),
-      links: [
-        { label: t('nav.gallery'), href: '/media/gallery' },
-        { label: t('nav.eCatalog'), href: '/catalog' },
-      ],
+      labelKey: 'nav.aboutUs',
+      href: '/about',
+      isActive: (pathname) => pathname === '/about',
     },
     {
-      title: t('nav.productGroups'),
-      links: [
-        { label: t('nav.speedGovernors'), href: '/products/speed-governors' },
-        { label: t('nav.safetyGears'), href: '/products/safety-gears' },
-      ],
+      labelKey: 'nav.products',
+      href: '/products/speed-governors',
+      isActive: (pathname) => pathname.startsWith('/products'),
+    },
+    {
+      labelKey: 'nav.documents',
+      href: '/catalog',
+      isActive: (pathname) => pathname === '/catalog' || pathname.startsWith('/media/e-catalog'),
+    },
+    {
+      labelKey: 'nav.contact',
+      href: '/corporate/contact',
+      isActive: (pathname) => pathname === '/corporate/contact',
     },
   ]
 }
@@ -50,62 +50,12 @@ const LANGUAGES = [
 ]
 
 /* ------------------------------------------------------------------ */
-/*  Desktop dropdown (pure CSS hover via group)                        */
-/* ------------------------------------------------------------------ */
-
-function DesktopDropdown({ group, scrolled, forceDark }: { group: NavGroup; scrolled: boolean; forceDark?: boolean }) {
-  const isLight = !scrolled && !forceDark;
-  return (
-    <div className="group relative">
-      {/* Trigger */}
-      <button
-        className={`flex items-center gap-1 px-3 py-2 text-[14px] uppercase font-medium tracking-[0.08em]
-                   transition-colors duration-200 cursor-pointer font-['Inter',sans-serif]
-                   ${isLight ? 'text-[#0B3D78] hover:text-[#0B3D78]/70' : 'text-white/90 hover:text-white'}`}
-      >
-        {group.title}
-        <ChevronDown
-          size={14}
-          className="transition-transform duration-200 group-hover:rotate-180"
-        />
-      </button>
-
-      {/* Dropdown panel */}
-      <div
-        className="pointer-events-none absolute left-1/2 top-full -translate-x-1/2 pt-2
-                    opacity-0 -translate-y-2 transition-all duration-200 ease-out
-                    group-hover:pointer-events-auto group-hover:opacity-100 group-hover:translate-y-0"
-      >
-        <div
-          className="min-w-[220px] rounded-xl border border-white/[0.06]
-                      bg-[rgba(11,61,120,0.97)] backdrop-blur-[16px]
-                      shadow-[0_8px_32px_rgba(0,0,0,0.28)] overflow-hidden"
-        >
-          {group.links.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="block px-5 py-3 text-[13px] font-medium tracking-wide text-white/75
-                         transition-colors duration-150 hover:bg-white/[0.08] hover:text-white
-                         font-['Inter',sans-serif]"
-            >
-              {link.label}
-            </a>
-          ))}
-        </div>
-      </div>
-    </div>
-  )
-}
-
-/* ------------------------------------------------------------------ */
 /*  Language selector (desktop)                                        */
 /* ------------------------------------------------------------------ */
 
-function LanguageSelector({ scrolled, forceDark }: { scrolled: boolean; forceDark?: boolean }) {
+function LanguageSelector() {
   const { t, i18n } = useTranslation()
   const currentLang = i18n.language?.startsWith('fr') ? 'fr' : 'en'
-  const isLight = !scrolled && !forceDark;
 
   const switchLang = (code: string) => {
     i18n.changeLanguage(code)
@@ -114,27 +64,25 @@ function LanguageSelector({ scrolled, forceDark }: { scrolled: boolean; forceDar
   return (
     <div className="group relative">
       <button
-        className={`flex items-center gap-1.5 px-3 py-2 text-[13px] font-semibold tracking-wide
-                   transition-colors duration-200 cursor-pointer font-['JetBrains_Mono',monospace]
-                   ${isLight ? 'text-[#0B3D78] hover:text-[#0B3D78]/70' : 'text-white/80 hover:text-white'}`}
+        className="flex items-center gap-1.5 px-3 py-2 text-[13px] font-semibold tracking-wide
+                   text-gray-700 hover:text-[#0B3D78] transition-colors duration-200 cursor-pointer font-['JetBrains_Mono',monospace]"
       >
-        <Globe size={15} className="opacity-70" />
+        <Globe size={15} className="opacity-70 text-[#0B3D78]" />
         {currentLang.toUpperCase()}
         <ChevronDown
           size={12}
-          className="transition-transform duration-200 group-hover:rotate-180"
+          className="transition-transform duration-200 group-hover:rotate-180 text-gray-500"
         />
       </button>
 
       <div
         className="pointer-events-none absolute right-0 top-full pt-2
                     opacity-0 -translate-y-2 transition-all duration-200 ease-out
-                    group-hover:pointer-events-auto group-hover:opacity-100 group-hover:translate-y-0"
+                    group-hover:pointer-events-auto group-hover:opacity-100 group-hover:translate-y-0 z-50"
       >
         <div
-          className="min-w-[120px] rounded-xl border border-white/[0.06]
-                      bg-[rgba(11,61,120,0.97)] backdrop-blur-[16px]
-                      shadow-[0_8px_32px_rgba(0,0,0,0.28)] overflow-hidden"
+          className="min-w-[120px] rounded-xl border border-gray-100
+                      bg-white shadow-lg overflow-hidden"
         >
           {LANGUAGES.map((lang) => (
             <button
@@ -144,12 +92,12 @@ function LanguageSelector({ scrolled, forceDark }: { scrolled: boolean; forceDar
                          transition-colors duration-150 cursor-pointer font-['JetBrains_Mono',monospace]
                          ${
                            currentLang === lang.code
-                             ? 'bg-white/[0.12] text-white'
-                             : 'text-white/75 hover:bg-white/[0.08] hover:text-white'
+                             ? 'bg-gray-50 text-[#0B3D78] font-bold'
+                             : 'text-gray-600 hover:bg-gray-50 hover:text-[#0B3D78]'
                          }`}
             >
               {lang.code.toUpperCase()}
-              <span className="text-[11px] text-white/40 font-['Inter',sans-serif]">
+              <span className="text-[11px] text-gray-400 font-['Inter',sans-serif]">
                 {t(lang.labelKey)}
               </span>
             </button>
@@ -161,150 +109,88 @@ function LanguageSelector({ scrolled, forceDark }: { scrolled: boolean; forceDar
 }
 
 /* ------------------------------------------------------------------ */
-/*  Mobile language selector                                           */
-/* ------------------------------------------------------------------ */
-
-function MobileLangSelector() {
-  const { t, i18n } = useTranslation()
-  const currentLang = i18n.language?.startsWith('fr') ? 'fr' : 'en'
-
-  return (
-    <div className="mt-8">
-      <p className="mb-3 text-[11px] uppercase tracking-[0.12em] text-white/40 font-['JetBrains_Mono',monospace]">
-        {t('nav.language')}
-      </p>
-      <div className="flex gap-3">
-        {LANGUAGES.map((lang) => (
-          <button
-            key={lang.code}
-            onClick={() => i18n.changeLanguage(lang.code)}
-            className={`rounded-lg border border-white/[0.1] px-5 py-2.5 text-[13px]
-                       font-semibold transition-colors duration-150 cursor-pointer
-                       font-['JetBrains_Mono',monospace]
-                       ${currentLang === lang.code
-                         ? 'bg-white/[0.12] text-white'
-                         : 'text-white/80 hover:bg-white/[0.08] hover:text-white'
-                       }`}
-          >
-            {lang.code.toUpperCase()}
-          </button>
-        ))}
-      </div>
-    </div>
-  )
-}
-
-/* ------------------------------------------------------------------ */
 /*  Mobile menu                                                        */
 /* ------------------------------------------------------------------ */
 
 function MobileMenu({ onClose }: { onClose: () => void }) {
-  const [openGroup, setOpenGroup] = useState<string | null>(null)
-  const NAV_GROUPS = useNavGroups()
-  const { t } = useTranslation()
-
-  const toggleGroup = (title: string) =>
-    setOpenGroup((prev) => (prev === title ? null : title))
+  const { t, i18n } = useTranslation()
+  const currentLang = i18n.language?.startsWith('fr') ? 'fr' : 'en'
+  const location = useLocation()
+  const pathname = location.pathname
+  const NAV_ITEMS = useNavItems()
 
   return (
     <motion.div
       initial={{ x: '100%' }}
       animate={{ x: 0 }}
       exit={{ x: '100%' }}
-      transition={{ type: 'tween', duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
-      className="fixed inset-0 z-[1001] flex flex-col bg-[#0B3D78]/95 backdrop-blur-[20px]"
+      transition={{ type: 'tween', duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+      className="fixed inset-0 z-[1001] flex flex-col bg-white"
     >
       {/* Header row */}
-      <div className="flex h-[76px] items-center justify-between px-6">
+      <div className="flex h-[76px] items-center justify-between px-6 border-b border-gray-100">
         <img
           src="/images/governor-4-removebg-preview.png"
           alt="FasLift Solutions"
-          className="h-auto max-h-[76px] w-auto"
+          className="h-auto max-h-[56px] w-auto"
         />
         <button
           onClick={onClose}
           aria-label="Close menu"
           className="flex h-10 w-10 items-center justify-center rounded-lg
-                     text-white/80 transition-colors duration-200 hover:bg-white/[0.08]
-                     hover:text-white cursor-pointer"
+                     text-gray-700 hover:bg-gray-100 hover:text-black cursor-pointer"
         >
           <X size={24} />
         </button>
       </div>
 
       {/* Nav items */}
-      <nav className="flex-1 overflow-y-auto px-6 pb-10 pt-4">
-        {NAV_GROUPS.map((group) => (
-          <div key={group.title} className="border-b border-white/[0.06]">
-            <button
-              onClick={() => toggleGroup(group.title)}
-              className="flex w-full items-center justify-between py-4 text-[16px] uppercase
-                         font-semibold tracking-[0.08em] text-white/90
-                         font-['Inter',sans-serif] cursor-pointer"
-            >
-              {group.title}
-              <ChevronDown
-                size={18}
-                className={`transition-transform duration-200 ${
-                  openGroup === group.title ? 'rotate-180' : ''
-                }`}
-              />
-            </button>
-
-            <AnimatePresence initial={false}>
-              {openGroup === group.title && (
-                <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: 'auto', opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
-                  className="overflow-hidden"
-                >
-                  <div className="pb-3 pl-4">
-                    {group.links.map((link) => (
-                      <a
-                        key={link.href}
-                        href={link.href}
-                        className="block py-3 text-[15px] font-medium text-white/60
-                                   transition-colors duration-150 hover:text-white
-                                   font-['Inter',sans-serif]"
-                      >
-                        {link.label}
-                      </a>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        ))}
-
-        <div className="border-b border-white/[0.06]">
-          <a
-            href="/support"
-            onClick={onClose}
-            className="flex w-full items-center justify-between py-4 text-[16px] uppercase
-                       font-semibold tracking-[0.08em] text-white/90
-                       font-['Inter',sans-serif] hover:text-white cursor-pointer"
-          >
-            {t('nav.support')}
-          </a>
-        </div>
-
-        <div className="border-b border-white/[0.06]">
-          <a
-            href="/corporate/contact"
-            onClick={onClose}
-            className="flex w-full items-center justify-between py-4 text-[16px] uppercase
-                       font-semibold tracking-[0.08em] text-white/90
-                       font-['Inter',sans-serif] hover:text-white cursor-pointer"
-          >
-            {t('nav.contact')}
-          </a>
+      <nav className="flex-1 overflow-y-auto px-6 pb-10 pt-6 flex flex-col justify-between">
+        <div className="flex flex-col gap-2">
+          {NAV_ITEMS.map((item) => {
+            const active = item.isActive(pathname)
+            return (
+              <Link
+                key={item.href}
+                to={item.href}
+                onClick={onClose}
+                className={`block py-3 text-[18px] font-medium tracking-wide transition-colors duration-150 font-['Inter',sans-serif]
+                           ${
+                             active
+                               ? 'text-[#0B3D78] font-semibold border-l-4 border-[#0B3D78] pl-3'
+                               : 'text-gray-600 pl-3 hover:text-[#0B3D78]'
+                           }`}
+              >
+                {t(item.labelKey)}
+              </Link>
+            )
+          })}
         </div>
 
         {/* Mobile language selector */}
-        <MobileLangSelector />
+        <div className="border-t border-gray-100 pt-6">
+          <p className="mb-3 text-[11px] uppercase tracking-[0.12em] text-gray-400 font-['JetBrains_Mono',monospace]">
+            {t('nav.language')}
+          </p>
+          <div className="flex gap-3">
+            {LANGUAGES.map((lang) => (
+              <button
+                key={lang.code}
+                onClick={() => i18n.changeLanguage(lang.code)}
+                className={`rounded-lg border px-5 py-2.5 text-[13px]
+                           font-semibold transition-colors duration-150 cursor-pointer
+                           font-['JetBrains_Mono',monospace]
+                           ${
+                             currentLang === lang.code
+                               ? 'bg-gray-100 border-[#0B3D78] text-[#0B3D78]'
+                               : 'border-gray-200 text-gray-600 hover:bg-gray-50'
+                           }`}
+              >
+                {lang.code.toUpperCase()}
+              </button>
+            ))}
+          </div>
+        </div>
       </nav>
     </motion.div>
   )
@@ -314,86 +200,78 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
 /*  Navbar                                                             */
 /* ------------------------------------------------------------------ */
 
-export default function Navbar({ forceDark }: { forceDark?: boolean } = {}) {
+export default function Navbar() {
   const { t } = useTranslation()
-  const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
-  const NAV_GROUPS = useNavGroups()
-  const isLight = !scrolled && !forceDark;
-
-  /* Track scroll position ------------------------------------------ */
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 80)
-    window.addEventListener('scroll', onScroll, { passive: true })
-    onScroll()                 // initialise on mount
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+  const location = useLocation()
+  const pathname = location.pathname
+  const NAV_ITEMS = useNavItems()
 
   /* Lock body scroll when mobile menu is open ---------------------- */
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? 'hidden' : ''
-    return () => { document.body.style.overflow = '' }
+    return () => {
+      document.body.style.overflow = ''
+    }
   }, [mobileOpen])
 
   return (
     <>
       <header
         style={{ zIndex: 1000 }}
-        className={`fixed inset-x-0 top-0 flex items-center justify-between
-                    px-6 lg:px-10 transition-all duration-300 ease-out
-                    ${scrolled
-                      ? 'h-[72px] bg-[rgba(11,61,120,0.92)] backdrop-blur-[12px] shadow-[0_1px_0_rgba(255,255,255,0.06)]'
-                      : 'h-[80px] bg-transparent'
-                    }`}
+        className="fixed inset-x-0 top-0 flex items-center justify-between
+                   px-6 lg:px-10 h-[76px] bg-white border-b border-gray-100 shadow-sm"
       >
         {/* ---- Logo (left) ---- */}
-        <a href="/" className="relative shrink-0">
+        <Link to="/" className="relative shrink-0 flex items-center">
           <img
             src="/images/governor-4-removebg-preview.png"
             alt="FasLift Solutions"
-            className={`h-auto w-auto transition-all duration-300 hover:opacity-80 ${
-              scrolled ? 'max-h-[66px]' : 'max-h-[78px]'
-            }`}
+            className="h-auto max-h-[56px] w-auto transition-opacity hover:opacity-80"
           />
-        </a>
+        </Link>
 
-        {/* ---- Desktop nav (center) ---- */}
-        <nav className="hidden lg:flex items-center gap-1">
-          {NAV_GROUPS.map((group) => (
-            <DesktopDropdown key={group.title} group={group} scrolled={scrolled} forceDark={forceDark} />
-          ))}
-          <a
-            href="/support"
-            className={`px-3 py-2 text-[14px] uppercase font-medium tracking-[0.08em]
-                       transition-colors duration-200 cursor-pointer font-['Inter',sans-serif]
-                       ${isLight ? 'text-[#0B3D78] hover:text-[#0B3D78]/70' : 'text-white/90 hover:text-white'}`}
-          >
-            {t('nav.support')}
-          </a>
-          <a
-            href="/corporate/contact"
-            className={`px-3 py-2 text-[14px] uppercase font-medium tracking-[0.08em]
-                       transition-colors duration-200 cursor-pointer font-['Inter',sans-serif]
-                       ${isLight ? 'text-[#0B3D78] hover:text-[#0B3D78]/70' : 'text-white/90 hover:text-white'}`}
-          >
-            {t('nav.contact')}
-          </a>
+        {/* ---- Desktop nav (center - mathematically centered) ---- */}
+        <nav className="absolute left-1/2 -translate-x-1/2 hidden lg:flex items-center gap-8">
+          {NAV_ITEMS.map((item) => {
+            const active = item.isActive(pathname)
+            return (
+              <Link
+                key={item.href}
+                to={item.href}
+                className={`relative py-2 text-[15px] font-medium tracking-wide transition-colors duration-200 font-['Inter',sans-serif]
+                           ${
+                             active
+                               ? 'text-[#0B3D78] font-semibold'
+                               : 'text-gray-600 hover:text-[#0B3D78]'
+                           }`}
+              >
+                {t(item.labelKey)}
+                {active && (
+                  <motion.div
+                    layoutId="activeNavLine"
+                    className="absolute bottom-[-10px] left-0 right-0 h-0.5 bg-[#0B3D78] rounded-full"
+                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                  />
+                )}
+              </Link>
+            )
+          })}
         </nav>
 
         {/* ---- Right side ---- */}
         <div className="flex items-center gap-2">
           {/* Language – desktop only */}
           <div className="hidden lg:block">
-            <LanguageSelector scrolled={scrolled} forceDark={forceDark} />
+            <LanguageSelector />
           </div>
 
           {/* Hamburger – mobile only */}
           <button
             onClick={() => setMobileOpen(true)}
             aria-label="Open menu"
-            className={`flex lg:hidden h-10 w-10 items-center justify-center rounded-lg
-                       transition-colors duration-200 cursor-pointer
-                       ${isLight ? 'text-[#0B3D78] hover:text-[#0B3D78]/70' : 'text-white hover:text-white'}`}
+            className="flex lg:hidden h-10 w-10 items-center justify-center rounded-lg
+                       text-gray-600 hover:bg-gray-100 hover:text-[#0B3D78] transition-colors duration-200 cursor-pointer"
           >
             <Menu size={22} />
           </button>

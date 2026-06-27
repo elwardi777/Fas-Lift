@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>FAS LIFT – Overspeed Governor Order Form</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: #808080;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11.5px;
+    color: #000;
+  }
+
+  /* ══ Toolbar ══ */
+  .toolbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 44px;
+    background: #404040;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    z-index: 999;
+  }
+  .toolbar-label {
+    color: #ccc;
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+  }
+  .tb-btn {
+    padding: 6px 18px;
+    border: none;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+  }
+  .tb-btn-blue { background: #123F73; color: #fff; }
+  .tb-btn-blue:hover { background: #0b2d54; }
+  .tb-btn-gray { background: #666; color: #fff; }
+  .tb-btn-gray:hover { background: #888; }
+
+  /* ══ A4 page ══ */
+  .page-wrap {
+    padding: 56px 0 48px;
+    display: flex;
+    justify-content: center;
+  }
+  .doc {
+    width: 794px;
+    background: #fff;
+    padding: 28px 36px 32px;
+    box-shadow: 0 3px 16px rgba(0,0,0,0.4);
+  }
+
+  /* ══ Header ══ */
+  .hdr {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    gap: 20px;
+  }
+  .hdr-title-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    flex-grow: 1;
+    max-width: 480px;
+  }
+  .hdr-block-top {
+    background: #123F73;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 6px 40px 6px 14px;
+    width: fit-content;
+    min-width: 140px;
+    clip-path: polygon(0 0, 88% 0, 100% 100%, 0 100%);
+    letter-spacing: 0.08em;
+  }
+  .hdr-block-bottom {
+    background: linear-gradient(90deg, #0d2e54 0%, #123F73 100%);
+    color: #fff;
+    font-size: 12.5px;
+    font-weight: 700;
+    padding: 9px 48px 9px 14px;
+    clip-path: polygon(0 0, 92% 0, 100% 100%, 0 100%);
+    border-bottom: 3.5px solid #123F73;
+    letter-spacing: 0.05em;
+    margin-top: 1px;
+  }
+  .hdr-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    flex-shrink: 0;
+  }
+  .hdr-logo img {
+    height: 54px;
+    width: auto;
+    object-fit: contain;
+  }
+  .site-line {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #123F73;
+    font-size: 10px;
+    font-weight: bold;
+    width: 100%;
+    justify-content: center;
+  }
+  .site-line::before, .site-line::after {
+    content: "";
+    flex: 1;
+    height: 1.5px;
+    background: #123F73;
+    min-width: 25px;
+  }
+
+  /* ══ Specs info table ══ */
+  .spec-tbl {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1.5px solid #123F73;
+    margin-bottom: 16px;
+    font-size: 10.5px;
+  }
+  .spec-tbl td {
+    padding: 2.5px 8px;
+    border-bottom: 1px solid #123F73;
+    line-height: 1.5;
+    text-align: center;
+  }
+  .spec-tbl tr:last-child td { border-bottom: none; }
+  .spec-tbl b { font-weight: 700; color: #123F73; }
+
+  /* ══ Sections ══ */
+  .sec-hdr {
+    background: #eef4fb;
+    border: 1.5px solid #123F73;
+    border-bottom: none;
+    padding: 3px 8px;
+    font-size: 10px;
+    font-weight: 700;
+    color: #123F73;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+  }
+  .sec-body { border: 1.5px solid #123F73; }
+
+  /* ══ Form row ══ */
+  .frow {
+    display: flex;
+    align-items: flex-start;
+    border-bottom: 1px solid #c9d5e3;
+    min-height: 50px;
+  }
+  .frow:last-child { border-bottom: none; }
+
+  .flabel {
+    width: 115px;
+    padding: 10px 6px 0 10px;
+    font-size: 10.5px;
+    font-weight: 700;
+    color: #123F73;
+    letter-spacing: .06em;
+    flex-shrink: 0;
+    line-height: 1.2;
+  }
+  .fcolon {
+    width: 14px;
+    padding-top: 10px;
+    font-size: 11px;
+    color: #123F73;
+    flex-shrink: 0;
+  }
+  .fitems {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 8px 10px 8px 6px;
+    gap: 10px 36px;
+  }
+
+  /* ══ Checkbox item — EXACTLY like reference image ══ */
+  /* Label text on top, large square box below */
+  .ci {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    min-width: 70px;
+  }
+  .ci .ci-top {
+    font-size: 10.5px;
+    font-weight: 600;
+    color: #111;
+    white-space: nowrap;
+    line-height: 1.2;
+  }
+  .ci .ci-sub {
+    font-size: 9.5px;
+    color: #555;
+    white-space: nowrap;
+    margin-top: -2px;
+  }
+  /* The large empty square — matches the PDF reference exactly */
+  .ci .cb-sq {
+    width: 17px;
+    height: 17px;
+    border: 1.5px solid #123F73;
+    display: block;
+    background: #fff;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background 0.1s;
+  }
+  .ci .cb-sq.checked { background: #123F73; }
+  .ci .cb-sq:hover { border-color: #0b2d54; }
+
+  /* Inline text input */
+  .txt-in {
+    border: none;
+    border-bottom: 1px solid #123F73;
+    outline: none;
+    font-size: 11.5px;
+    font-family: Arial, sans-serif;
+    padding: 1px 4px;
+    background: transparent;
+    width: 100px;
+  }
+  .txt-in:focus { border-bottom-color: #0b2d54; }
+
+  /* ══ Customer info ══ */
+  .cust-hdr {
+    background: #eef4fb;
+    border: 1.5px solid #123F73;
+    border-bottom: none;
+    padding: 3px 8px;
+    font-size: 10px;
+    font-weight: 700;
+    color: #123F73;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    margin-top: 16px;
+  }
+  .cust-tbl {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1.5px solid #123F73;
+  }
+  .cust-tbl tr { border-bottom: 1px solid #c9d5e3; }
+  .cust-tbl tr:last-child { border-bottom: none; }
+  .cust-tbl .cl {
+    width: 145px;
+    background: #f7fafc;
+    border-right: 1px solid #c9d5e3;
+    padding: 4px 8px;
+    font-size: 9.5px;
+    font-weight: 700;
+    color: #123F73;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    vertical-align: middle;
+  }
+  .cust-tbl .cv { padding: 4px 10px; vertical-align: middle; }
+  .cust-tbl .cv input, .cust-tbl .cv textarea {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 11.5px;
+    font-family: Arial, sans-serif;
+    background: transparent;
+    resize: none;
+  }
+  .cust-tbl .nrow { height: 44px; vertical-align: top; padding: 6px 10px; }
+
+  /* ══ Signature ══ */
+  .sig-row { display:flex; gap:32px; margin-top:22px; }
+  .sig-block {
+    flex: 1;
+    border-top: 1px solid #123F73;
+    padding-top: 4px;
+    font-size: 9px;
+    color: #666;
+    text-align: center;
+    min-height: 32px;
+  }
+
+  /* ══ Footer ══ */
+  .doc-ft {
+    margin-top: 18px;
+    border-top: 1.5px solid #123F73;
+    padding-top: 5px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 9px;
+    color: #555;
+  }
+
+  /* ══ Print ══ */
+  @media print {
+    html, body { background: #fff; }
+    .toolbar { display: none !important; }
+    .page-wrap { padding: 0; }
+    .doc { box-shadow: none; width: 100%; padding: 12px 16px; }
+    @page { size: A4 portrait; margin: 8mm; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Toolbar -->
+<div class="toolbar">
+  <span class="toolbar-label">FAS LIFT – Overspeed Governor Order Form</span>
+  <button class="tb-btn tb-btn-blue" onclick="window.print()">🖨&nbsp; Print / Save as PDF</button>
+  <button class="tb-btn tb-btn-gray" onclick="window.close()">✕ Close</button>
+</div>
+
+<div class="page-wrap">
+<div class="doc">
+
+  <!-- HEADER -->
+  <div class="hdr">
+    <div class="hdr-title-wrap">
+      <div class="hdr-block-top">CL - 08</div>
+      <div class="hdr-block-bottom">OVERSPEED GOVERNOR ORDER FORM</div>
+    </div>
+    <div class="hdr-logo">
+      <img src="/images/governor-4-removebg-preview.png" alt="FAS LIFT Logo" />
+      <div class="site-line">
+        <span> www.faslift.com</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SPECS INFO TABLE -->
+  <table class="spec-tbl">
+    <tr><td><b>Diameter</b> &nbsp;: Ø 200 mm &nbsp; — &nbsp; min Nominal Speed: 0.20 m/sn. &nbsp;–&nbsp; max Nominal Speed: 1.60 m/sn.</td></tr>
+    <tr><td><b>Diameter</b> &nbsp;: Ø 250 mm &nbsp; — &nbsp; min Nominal Speed: 0.30 m/sn. &nbsp;–&nbsp; max Nominal Speed: 2.00 m/sn.</td></tr>
+    <tr><td><b>Diameter</b> &nbsp;: Ø 300 mm &nbsp; — &nbsp; min Nominal Speed: 0.50 m/sn. &nbsp;–&nbsp; max Nominal Speed: 2.50 m/sn.</td></tr>
+  </table>
+
+  <!-- TECHNICAL SPECIFICATIONS -->
+  <div class="sec-hdr">Technical Specifications</div>
+  <div class="sec-body">
+
+    <!-- DIAMETER -->
+    <div class="frow">
+      <div class="flabel">DIAMETER</div>
+      <div class="fcolon">:</div>
+      <div class="fitems">
+        <div class="ci"><div class="ci-top">Ø200 mm</div><div class="cb-sq" onclick="this.classList.toggle('checked')"></div></div>
+        <div class="ci"><div class="ci-top">Ø250 mm</div><div class="cb-sq" onclick="this.classList.toggle('checked')"></div></div>
+        <div class="ci"><div class="ci-top">Ø300 mm</div><div class="cb-sq" onclick="this.classList.toggle('checked')"></div></div>
+      </div>
+    </div>
+
+    <!-- TYPE -->
+    <div class="frow">
+      <div class="flabel">TYPE</div>
+      <div class="fcolon">:</div>
+      <div class="fitems">
+        <div class="ci">
+          <div class="ci-top">(-)</div>
+          <div class="ci-sub">Without coil</div>
+          <div class="cb-sq" onclick="this.classList.toggle('checked')"></div>
+        </div>
+        <div class="ci">
+          <div class="ci-top">UZ</div>
+          <div class="ci-sub">UZ (Remote Control – MRL)</div>
+          <div class="cb-sq" onclick="this.classList.toggle('checked')"></div>
+        </div>
+        <div class="ci">
+          <div class="ci-top">A3 (UCM)</div>
+          <div class="ci-sub">A3 Compatible</div>
+          <div class="cb-sq" onclick="this.classList.toggle('checked')"></div>
+        </div>
+        <div class="ci">
+          <div class="ci-top">A3 + UZ</div>
+          <div class="ci-sub">A3 Compatible + Remote Control</div>
+          <div class="cb-sq" onclick="this.classList.toggle('checked')"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VOLTAGE -->
+    <div class="frow">
+      <div class="flabel">VOLTAGE</div>
+      <div class="fcolon">:</div>
+      <div class="fitems">
+        <div class="ci"><div class="ci-top">24 V.DC.</div><div class="cb-sq" onclick="this.classList.toggle('checked')"></div></div>
+        <div class="ci"><div class="ci-top">190 V.DC.</div><div class="cb-sq" onclick="this.classList.toggle('checked')"></div></div>
+      </div>
+    </div>
+
+    <!-- TENSION -->
+    <div class="frow">
+      <div class="flabel">TENSION</div>
+      <div class="fcolon">:</div>
+      <div class="fitems">
+        <div class="ci"><div class="ci-top">Springed Tension</div><div class="cb-sq" onclick="this.classList.toggle('checked')"></div></div>
+        <div class="ci"><div class="ci-top">Weighted Tension</div><div class="cb-sq" onclick="this.classList.toggle('checked')"></div></div>
+        <div class="ci"><div class="ci-top">Plastic Pulley</div><div class="cb-sq" onclick="this.classList.toggle('checked')"></div></div>
+        <div class="ci"><div class="ci-top">Casting Pulley</div><div class="cb-sq" onclick="this.classList.toggle('checked')"></div></div>
+      </div>
+    </div>
+
+    <!-- TENSION DIRECTION -->
+    <div class="frow">
+      <div class="flabel">TENSION DIRECTION</div>
+      <div class="fcolon">:</div>
+      <div class="fitems">
+        <div class="ci"><div class="ci-top">Left</div><div class="cb-sq" onclick="this.classList.toggle('checked')"></div></div>
+        <div class="ci"><div class="ci-top">Right</div><div class="cb-sq" onclick="this.classList.toggle('checked')"></div></div>
+      </div>
+    </div>
+
+    <!-- NOMINAL SPEED -->
+    <div class="frow" style="align-items:center; min-height:42px;">
+      <div class="flabel">NOMINAL SPEED</div>
+      <div class="fcolon">:</div>
+      <div class="fitems" style="align-items:center; gap:8px; padding-top:6px; padding-bottom:6px;">
+        <input class="txt-in" type="text" style="width:180px;" />
+        <span style="font-size:10.5px; font-weight: 700; color: #123F73;">m/sn</span>
+      </div>
+    </div>
+
+    <!-- QUANTITY -->
+    <div class="frow" style="align-items:center; min-height:42px;">
+      <div class="flabel">QUANTITY</div>
+      <div class="fcolon">:</div>
+      <div class="fitems" style="align-items:center; gap:8px; padding-top:6px; padding-bottom:6px;">
+        <input class="txt-in" type="text" style="width:180px;" />
+        <span style="font-size:10.5px; font-weight: 700; color: #123F73;">Set</span>
+      </div>
+    </div>
+
+    <!-- REFERENCE -->
+    <div class="frow" style="align-items:center; min-height:42px;">
+      <div class="flabel">REFERENCE</div>
+      <div class="fcolon">:</div>
+      <div class="fitems" style="align-items:center; gap:12px; padding-top:6px; padding-bottom:6px;">
+        <input class="txt-in" type="text" style="width:280px;" />
+        <span style="font-size:10px; color:#555; font-style: italic;">(You do not have to fill this part)</span>
+      </div>
+    </div>
+
+  </div><!-- end sec-body -->
+
+  <!-- CUSTOMER INFORMATION -->
+  <div class="cust-hdr">Customer Information</div>
+  <table class="cust-tbl">
+    <tr>
+      <td class="cl">Company Name</td>
+      <td class="cv"><input type="text" /></td>
+    </tr>
+    <tr>
+      <td class="cl">Contact Person</td>
+      <td class="cv"><input type="text" /></td>
+    </tr>
+    <tr>
+      <td class="cl">Email Address</td>
+      <td class="cv"><input type="email" /></td>
+    </tr>
+    <tr>
+      <td class="cl">Phone / WhatsApp</td>
+      <td class="cv"><input type="tel" /></td>
+    </tr>
+    <tr>
+      <td class="cl">Address</td>
+      <td class="cv"><input type="text" /></td>
+    </tr>
+    <tr>
+      <td class="cl">Country / City</td>
+      <td class="cv"><input type="text" /></td>
+    </tr>
+    <tr>
+      <td class="cl">Notes / Remarks</td>
+      <td class="nrow"><input type="text" style="width:100%; border:none; outline:none; font-family:Arial,sans-serif; font-size:11.5px; background:transparent;" /></td>
+    </tr>
+  </table>
+
+  <!-- SIGNATURE -->
+  <div class="sig-row">
+    <div class="sig-block">Date</div>
+    <div class="sig-block">Authorized Signature / Company Stamp</div>
+    <div class="sig-block">Received by (FAS LIFT)</div>
+  </div>
+
+  <!-- FOOTER BANNER WAVE STYLE -->
+  <style>
+    .doc-ft-banner {
+      position: relative;
+      background: linear-gradient(95deg, #0d2e54 0%, #123F73 60%, #58C5E8 100%);
+      color: #fff;
+      padding: 14px 24px;
+      margin-top: 24px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      clip-path: polygon(0 22%, 100% 0, 100% 100%, 0% 100%);
+    }
+    .doc-ft-banner-text {
+      font-size: 11px;
+      font-weight: bold;
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 2;
+    }
+    .doc-ft-banner-text::before, .doc-ft-banner-text::after {
+      content: "";
+      display: inline-block;
+      width: 25px;
+      height: 1.5px;
+      background: #58C5E8;
+    }
+    .doc-ft-gear {
+      position: absolute;
+      left: 14px;
+      bottom: -10px;
+      height: 52px;
+      width: auto;
+      opacity: 0.85;
+      filter: brightness(0) invert(1);
+    }
+    /* Hide toolbar & adjust margins for clean printing */
+    @media print {
+      .doc-ft-banner {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+  </style>
+
+  <div class="doc-ft-banner">
+    <!-- SVG Gear Icon -->
+    <svg class="doc-ft-gear" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5">
+      <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.1a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
+      <circle cx="12" cy="12" r="3"/>
+    </svg>
+    <div class="doc-ft-banner-text">
+      We would like to thank you for your interest and trust on our products.
+    </div>
+  </div>
+
+  <div class="doc-ft">
+    <span><b>FAS LIFT SOLUTIONS</b> &nbsp;·&nbsp; Zone Industrielle, Bloc B, N°7 Casablanca 20250 / MOROCCO</span>
+    <span>Tel: +212 531 613 923 &nbsp;·&nbsp; faslift@outlook.com</span>
+  </div>
+
+</div><!-- end doc -->
+</div><!-- end page-wrap -->
+
+</body>
+</html>

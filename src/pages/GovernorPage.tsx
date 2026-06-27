@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import WhatsAppButton from '../components/WhatsAppButton';
@@ -634,28 +635,97 @@ export default function GovernorPage() {
           }}>
             {t('governor.moreInfoDesc')}
           </p>
-          <div style={{ marginBottom: 24 }}>
-            <a href="/corporate/contact" style={{
-              display: 'inline-block',
-              background: '#fff',
-              border: '1.5px solid #dde3ec',
-              borderRadius: '8px',
-              padding: '14px 44px',
-              fontSize: '13px',
-              fontWeight: 700,
-              color: '#0B3D78',
-              letterSpacing: '0.08em',
-              textDecoration: 'none',
-              boxShadow: '0 4px 12px rgba(0,0,0,0.03)',
-              transition: 'all 0.25s ease'
-            }}
-              className="pdp-contact-btn"
-            >
-              {t('governor.moreInfoBtn')}
-            </a>
-          </div>
+
 
         </section>
+
+        {/* ══ S9 — Order Form ═══════════════════════════════════════════ */}
+        <section style={{
+          background: '#fff',
+          padding: '52px 5% 48px',
+          textAlign: 'center',
+          borderTop: '1px solid #dde3ec',
+        }}>
+          <style>{`
+            @keyframes order-fade-up {
+              from { opacity: 0; transform: translateY(24px); }
+              to   { opacity: 1; transform: translateY(0); }
+            }
+            .order-anim {
+              animation: order-fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+            }
+            .order-anim-d1 { animation-delay: 0.05s; }
+            .order-anim-d2 { animation-delay: 0.18s; }
+            .order-pdf-link {
+              font-size: 15px;
+              color: #374151;
+              text-decoration: underline;
+              text-underline-offset: 3px;
+              text-decoration-color: #9ca3af;
+              cursor: pointer;
+              transition: color 0.2s ease, text-decoration-color 0.2s ease;
+              font-family: 'Inter', system-ui, sans-serif;
+              font-weight: 400;
+              line-height: 1;
+            }
+            .order-pdf-link:hover {
+              color: #0B3D78;
+              text-decoration-color: #0B3D78;
+            }
+          `}</style>
+
+          {/* Title */}
+          <div className="order-anim order-anim-d1">
+            <h2 style={{
+              fontSize: 'clamp(20px, 2.2vw, 28px)',
+              fontWeight: 400,
+              color: '#111827',
+              lineHeight: 1.3,
+              marginBottom: 28,
+              fontFamily: "'Georgia', 'Times New Roman', serif",
+              letterSpacing: '0.01em',
+            }}>
+              FAS LIFT Overspeed Governor Order Form
+            </h2>
+          </div>
+
+          {/* PDF Icon + Filename link — identical layout to reference image */}
+          <div className="order-anim order-anim-d2"
+            style={{ display: 'inline-flex', alignItems: 'center', gap: 10 }}>
+
+            {/* Small outlined PDF document icon — matches reference */}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="28"
+              height="28"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#374151"
+              strokeWidth="1.6"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              style={{ flexShrink: 0, marginTop: 1 }}
+            >
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+              <polyline points="14 2 14 8 20 8" />
+              <line x1="8" y1="13" x2="16" y2="13" />
+              <line x1="8" y1="17" x2="12" y2="17" />
+            </svg>
+
+            {/* Clickable filename — opens the HTML order form in a new tab */}
+            <a
+              href="/documents/FAS_LIFT_Overspeed_Governor_Order_Form.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="order-pdf-link"
+            >
+              Overspeed_Governor_Order_Form.pdf
+            </a>
+          </div>
+        </section>
+
+        {/* Bottom thin divider */}
+        <div style={{ borderTop: '1px solid #dde3ec' }} />
 
         {/* ══ Footer ═══════════════════════════════════════════════════ */}
         {/* Rendered outside pdp-scope so its Tailwind classes are not overridden */}

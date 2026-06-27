@@ -33,7 +33,7 @@ const PrecisionManufacturingSection: React.FC = () => {
 
       <div className="relative w-full">
         <img
-          src="/images/Gemini_g.png"
+          src="/images/Gemini_Generated_Image_8ry5m58ry5m58ry5.png"
           alt="FasLift Speed Governor"
           className="block h-[430px] w-full object-cover object-[44%_center] lg:h-auto lg:object-contain lg:object-center"
           draggable={false}

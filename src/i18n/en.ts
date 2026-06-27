@@ -1,13 +1,15 @@
 const en = {
   nav: {
     home: 'Home',
+    aboutUs: 'About Us',
+    products: 'Products',
+    documents: 'Documents',
+    contact: 'Contact',
     corporate: 'Corporate',
     mediaCenter: 'PRODUCT GALLERY',
     productGroups: 'Product Groups',
-    aboutUs: 'About Us',
     production: 'Production',
     career: 'Career',
-    contact: 'Contact',
     eCatalog: 'E-Catalog',
     gallery: 'Gallery',
     speedGovernors: 'Speed Governors',
