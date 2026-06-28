@@ -286,6 +286,7 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
 export default function Navbar({ forceDark = false }: NavbarProps) {
   const { t } = useTranslation()
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
   const location = useLocation()
   const pathname = location.pathname
   const NAV_ITEMS = useNavItems()
@@ -298,12 +299,27 @@ export default function Navbar({ forceDark = false }: NavbarProps) {
     }
   }, [mobileOpen])
 
+  /* Handle Scroll for Sticky Navbar Transition --------------------- */
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10)
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    handleScroll() // Init on mount
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   return (
     <>
       <header
         style={{ zIndex: 1000 }}
         className={`fixed inset-x-0 top-0 flex items-center justify-between
-                   px-6 lg:px-10 h-[76px] ${forceDark ? 'bg-transparent border-b border-white/10 text-white' : 'bg-white border-b border-gray-100 text-gray-900'} shadow-sm`}
+                   px-6 lg:px-10 h-[76px] transition-all duration-300 ease-in-out
+                   ${
+                     isScrolled
+                       ? 'bg-white/95 backdrop-blur-md border-b border-[rgba(18,63,115,0.08)] shadow-none text-[#123F73]'
+                       : 'bg-transparent border-b border-transparent ' + (forceDark ? 'text-white' : 'text-[#123F73]')
+                   }`}
       >
         {/* ---- Logo (left) ---- */}
         <Link to="/" className="relative shrink-0 flex items-center">
@@ -325,19 +341,19 @@ export default function Navbar({ forceDark = false }: NavbarProps) {
                 className={`relative py-2 text-[15px] font-medium tracking-wide transition-colors duration-200 font-['Inter',sans-serif]
                            ${
                              active
-                               ? forceDark
+                               ? (forceDark && !isScrolled)
                                  ? 'text-white font-semibold'
-                                 : 'text-[#0B3D78] font-semibold'
-                               : forceDark
+                                 : 'text-[#123F73] font-semibold'
+                               : (forceDark && !isScrolled)
                                  ? 'text-white/80 hover:text-white'
-                                 : 'text-gray-600 hover:text-[#0B3D78]'
+                                 : 'text-gray-600 hover:text-[#123F73]'
                            }`}
               >
                 {t(item.labelKey)}
                 {active && (
                   <motion.div
                     layoutId="activeNavLine"
-                    className="absolute bottom-[-10px] left-0 right-0 h-0.5 bg-[#0B3D78] rounded-full"
+                    className="absolute bottom-[-10px] left-0 right-0 h-0.5 bg-[#123F73] rounded-full"
                     transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                   />
                 )}
@@ -358,7 +374,11 @@ export default function Navbar({ forceDark = false }: NavbarProps) {
             onClick={() => setMobileOpen(true)}
             aria-label="Open menu"
             className={`flex lg:hidden h-10 w-10 items-center justify-center rounded-lg
-                       transition-colors duration-200 cursor-pointer ${forceDark ? 'text-white hover:bg-white/10 hover:text-white' : 'text-gray-600 hover:bg-gray-100 hover:text-[#0B3D78]'}`}
+                       transition-colors duration-200 cursor-pointer ${
+                         (forceDark && !isScrolled)
+                           ? 'text-white hover:bg-white/10 hover:text-white'
+                           : 'text-gray-600 hover:bg-gray-100 hover:text-[#123F73]'
+                       }`}
           >
             <Menu size={22} />
           </button>

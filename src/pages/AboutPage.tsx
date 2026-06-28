@@ -54,10 +54,10 @@ function AnniversarySection() {
   return (
     <section className="bg-white pt-24 pb-12 md:pt-28 md:pb-20">
       <div className="mx-auto max-w-[1200px] px-6 lg:px-12">
-        <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-20">
+        <div className="flex flex-col lg:flex-row items-center gap-2 md:gap-16 lg:gap-20">
 
           {/* ── LEFT: Premium Anniversary Composition (≈45%) ── */}
-          <div className="w-full lg:w-[45%] flex flex-col items-center justify-center relative min-h-[480px] lg:mt-[100px]">
+          <div className="w-full lg:w-[45%] flex flex-col items-center justify-center relative min-h-[480px] lg:mt-[20px]">
             <style>{`
               @keyframes diagonal-descend {
                 0% {
@@ -95,9 +95,9 @@ function AnniversarySection() {
                 50% { background-position: 100% 50%; }
                 100% { background-position: 0% 50%; }
               }
-              @keyframes years-fadein {
-                0% { opacity: 0; transform: translateX(-8px); }
-                100% { opacity: 1; transform: translateX(0); }
+              @keyframes premium-years-fadein {
+                0% { opacity: 0; transform: translateY(-12px); }
+                100% { opacity: 1; transform: translateY(0); }
               }
               .anim-diagonal-line {
                 animation: diagonal-descend 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
@@ -110,8 +110,8 @@ function AnniversarySection() {
                 animation: number-float 5s ease-in-out infinite;
                 animation-delay: 2.2s;
               }
-              .anim-years-fadein {
-                animation: years-fadein 0.8s ease-out 2.2s forwards;
+              .anim-premium-years {
+                animation: premium-years-fadein 700ms cubic-bezier(0.22, 1, 0.36, 1) 2.2s forwards;
                 opacity: 0;
               }
             `}</style>
@@ -123,16 +123,6 @@ function AnniversarySection() {
                 background: 'radial-gradient(circle, rgba(88,197,232,0.3) 0%, transparent 70%)',
                 filter: 'blur(30px)',
                 top: '18%',
-              }}
-            />
-
-            {/* Diagonal Line crossing underneath the number */}
-            <div
-              className="absolute w-[95%] h-[1.5px] anim-diagonal-line z-0"
-              style={{
-                top: '64%',
-                background: 'linear-gradient(90deg, transparent 0%, #123F73 25%, #58C5E8 50%, #8D98A8 75%, transparent 100%)',
-                boxShadow: '0 0 8px rgba(88,197,232,0.4)',
               }}
             />
 
@@ -149,7 +139,7 @@ function AnniversarySection() {
             />
 
             {/* Number "5" Group */}
-            <div className="relative anim-number-descend z-10 flex flex-col items-center select-none mb-12">
+            <div className="relative anim-number-descend z-10 flex flex-col items-center select-none mb-6 md:mb-12 lg:mb-2">
               <div className="anim-number-float relative">
                 {/* Large "5" with brushed metallic sweep */}
                 <span
@@ -170,10 +160,14 @@ function AnniversarySection() {
 
                 {/* YEARS label upper-right */}
                 <span
-                  className="absolute top-[-10px] right-[-150px] md:right-[-190px] lg:right-[-210px] font-['Inter',sans-serif] font-semibold text-[#123F73] uppercase anim-years-fadein"
+                  className="absolute top-[-25px] right-[-110px] md:top-[-30px] md:right-[-150px] lg:top-[-20px] lg:right-[-190px] font-['Playfair_Display','Cinzel','Cormorant_Garamond',serif] font-bold uppercase anim-premium-years"
                   style={{
-                    fontSize: 'clamp(1.5rem, 2.5vw, 1.875rem)',
-                    letterSpacing: '10px',
+                    fontSize: 'clamp(1.5rem, 3vw, 2.2rem)',
+                    letterSpacing: '0.45em',
+                    background: 'linear-gradient(180deg, #67B9E6 0%, #1E4F92 100%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    filter: 'drop-shadow(0 0 12px rgba(103,185,230,0.3)) drop-shadow(0 2px 4px rgba(30,79,146,0.15))',
                   }}
                 >
                   {t('about.years')}
@@ -181,13 +175,23 @@ function AnniversarySection() {
               </div>
             </div>
 
-            {/* Subtitle */}
-            <FadeIn delay={1.8} className="z-10 mt-4">
-              <p
-                className="text-center font-['Georgia','Times_New_Roman',serif] font-normal text-[#4A5568] uppercase tracking-[6px]"
+            {/* Diagonal Line (Relative flow to sit perfectly between number and text) */}
+            <div className="relative w-[85%] md:w-[95%] h-[50px] md:h-[70px] z-0 flex items-center justify-center my-2 md:my-4">
+              <div
+                className="absolute w-full h-[1.5px] anim-diagonal-line"
                 style={{
-                  fontSize: 'clamp(0.9rem, 1.8vw, 1.1rem)',
-                  letterSpacing: '6px'
+                  background: 'linear-gradient(90deg, transparent 0%, #123F73 25%, #58C5E8 50%, #8D98A8 75%, transparent 100%)',
+                  boxShadow: '0 0 8px rgba(88,197,232,0.4)',
+                }}
+              />
+            </div>
+
+            {/* Subtitle */}
+            <FadeIn delay={1.8} className="z-10 mt-2 md:mt-4">
+              <p
+                className="text-center font-['Georgia','Times_New_Roman',serif] font-medium md:font-normal text-[#4A5568] uppercase tracking-[4px] md:tracking-[6px]"
+                style={{
+                  fontSize: 'clamp(14px, 3vw, 1.1rem)',
                 }}
               >
                 {t('aboutPage.anniversaryTagline')}
@@ -196,15 +200,15 @@ function AnniversarySection() {
 
             {/* Logo */}
             <motion.div
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.75, delay: 0.8, ease: 'easeOut' }}
-              className="mt-5 z-10 flex justify-center"
+              transition={{ duration: 0.7, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              className="mt-6 md:mt-8 lg:mt-8 mb-0 md:mb-0 z-10 flex justify-center w-full"
             >
               <img
                 src="/images/governor-4-removebg-preview.png"
                 alt="FAS LIFT"
-                className="h-16 md:h-20 w-auto object-contain"
+                className="h-[120px] md:h-[130px] lg:h-auto lg:w-[200px] object-contain drop-shadow-sm"
                 draggable={false}
               />
             </motion.div>

@@ -194,13 +194,13 @@ const Hero: React.FC = () => {
       {/* =========================================================
           CONTENT WRAPPER
           ========================================================= */}
-      <div className="relative z-10 mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-16 pt-32 sm:pt-40 pb-16 lg:pt-20 lg:pb-12 lg:-mt-16">
+      <div className="relative z-10 mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-16 pt-[108px] sm:pt-40 pb-16 lg:pt-20 lg:pb-12 lg:-mt-16">
         <div className="flex flex-col lg:flex-row items-center lg:items-center gap-12 lg:gap-4">
           {/* -------------------------------------------------------
               LEFT SIDE — Text Content  (≈52%)
               ------------------------------------------------------- */}
           <motion.div
-            className="w-full lg:w-[52%] flex flex-col items-start pt-16"
+            className="w-full lg:w-[52%] flex flex-col items-start pt-0 sm:pt-16"
             initial="hidden"
             animate="visible"
           >
