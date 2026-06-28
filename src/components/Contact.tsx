@@ -184,10 +184,10 @@ const Contact: React.FC = () => {
                   <li className="flex items-center gap-3">
                     <Mail size={15} className="text-white/60 shrink-0" />
                     <a
-                      href="mailto:info@faslift.com"
+                      href="mailto:faslift@outlook.com"
                       className="text-white/80 text-[14px] hover:text-white transition-colors"
                     >
-                      info@faslift.com
+                      faslift@outlook.com
                     </a>
                   </li>
                   <li className="flex items-center gap-3">

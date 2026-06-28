@@ -203,12 +203,20 @@ function AnniversarySection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-6 md:mt-8 lg:mt-8 mb-0 md:mb-0 z-10 flex justify-center w-full"
+              style={{
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                alignSelf: 'center',
+                marginTop: '24px',
+              }}
             >
               <img
                 src="/images/governor-4-removebg-preview.png"
                 alt="FAS LIFT"
                 className="h-[120px] md:h-[130px] lg:h-auto lg:w-[200px] object-contain drop-shadow-sm"
+                style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto', transform: 'translateX(-20px)' }}
                 draggable={false}
               />
             </motion.div>
@@ -583,3 +591,4 @@ export default function AboutPage() {
     </div>
   );
 }
+

@@ -72,7 +72,7 @@ const Footer: React.FC = () => {
         .ft-grid {
           max-width: 1280px;
           margin: 0 auto;
-          padding: 96px 40px 80px;
+          padding: 50px 40px 80px;
           display: grid;
           grid-template-columns: 1.6fr 1fr 1.2fr 1fr;
           gap: 48px;
@@ -92,23 +92,58 @@ const Footer: React.FC = () => {
         }
 
         /* ── Col 1 – Company ── */
+        .ft-col-company {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          margin-top: -30px;
+        }
         .ft-logo {
-          height: 80px;
-          width: auto;
+          width: 240px;
+          height: auto;
           object-fit: contain;
-          margin-bottom: 20px;
+          margin-left: auto;
+          margin-right: auto;
+          margin-bottom: -15px;
           display: block;
+          transform: translateX(-20px);
         }
         .ft-company-name {
-          font-size: 15px;
+          font-size: 16px;
           font-weight: 700;
-          color: #0B3D78;
-          margin: 0 0 10px;
+          color: #123F73;
+          margin: 0 0 6px;
         }
-        .ft-address-block {
-          font-size: 13px;
-          line-height: 1.85;
+        .ft-tagline {
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 1.35;
+          color: #566273;
+          max-width: 320px;
+          margin: 0 0 6px;
+        }
+        .ft-address-line1 {
+          font-size: 14px;
           color: #4b5563;
+          margin: 0 0 6px;
+        }
+        .ft-address-line2 {
+          font-size: 14px;
+          color: #4b5563;
+          margin: 0 0 6px;
+        }
+        .ft-contact-group {
+          font-size: 14px;
+          color: #4b5563;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+        .ft-contact-item {
+          margin: 0 0 6px;
+        }
+        .ft-contact-item:last-child {
           margin: 0;
         }
         .ft-contact-link {
@@ -254,14 +289,21 @@ const Footer: React.FC = () => {
           .ft-grid {
             grid-template-columns: 1fr 1fr;
             gap: 40px;
-            padding: 72px 32px 60px;
+            padding: 35px 32px 60px;
+          }
+          .ft-logo {
+            width: 200px;
+            margin-left: auto;
+            margin-right: auto;
+            transform: translateX(-16px);
+            margin-bottom: -12px;
           }
         }
         @media (max-width: 640px) {
           .ft-grid {
             grid-template-columns: 1fr;
             gap: 36px;
-            padding: 56px 20px 48px;
+            padding: 28px 20px 48px;
             text-align: center;
           }
           /* Column headings: center + full-width rule */
@@ -270,13 +312,14 @@ const Footer: React.FC = () => {
           }
           /* Col 1 – Logo & address centered */
           .ft-logo {
+            width: 170px;
             margin-left: auto;
             margin-right: auto;
+            transform: translateX(-12px);
+            margin-bottom: -10px;
           }
-          .ft-company-name {
-            text-align: center;
-          }
-          .ft-address-block {
+          .ft-col-company {
+            align-items: center;
             text-align: center;
           }
           /* Col 2 – Nav links centered */
@@ -313,25 +356,35 @@ const Footer: React.FC = () => {
         <div className="ft-grid">
 
           {/* ── Column 1: Company ── */}
-          <div>
+          <div className="ft-col-company">
             <img
               src="/images/governor-4-removebg-preview.png"
               alt={t('footer.logoAlt')}
               className="ft-logo"
             />
-            <p className="ft-address-block" style={{ whiteSpace: 'pre-line' }}>
-              {t('footer.address')}
-              <br /><br />
-              <span style={{ color: '#6b7280' }}>{t('footer.phoneLabel')}: </span>
-              <a href="tel:+212653660399" className="ft-contact-link">
-                +212 653-660399
-              </a>
-              <br />
-              <span style={{ color: '#6b7280' }}>{t('footer.emailLabel')}: </span>
-              <a href="mailto:info@faslift.com" className="ft-contact-link">
-                info@faslift.com
-              </a>
+            <p className="ft-tagline">
+              {t('footer.taglineDesc')}
             </p>
+            <p className="ft-address-line1">
+              {t('footer.address').split('\n')[0]}
+            </p>
+            <p className="ft-address-line2">
+              {t('footer.address').split('\n')[1] || ''}
+            </p>
+            <div className="ft-contact-group">
+              <div className="ft-contact-item">
+                <span style={{ color: '#6b7280' }}>{t('footer.phoneLabel')}: </span>
+                <a href="tel:+212653660399" className="ft-contact-link">
+                  +212 653-660399
+                </a>
+              </div>
+              <div className="ft-contact-item">
+                <span style={{ color: '#6b7280' }}>{t('footer.emailLabel')}: </span>
+                <a href="mailto:faslift@outlook.com" className="ft-contact-link">
+                  faslift@outlook.com
+                </a>
+              </div>
+            </div>
           </div>
 
           {/* ── Column 2: Quick Links ── */}
@@ -387,7 +440,7 @@ const Footer: React.FC = () => {
         <div className="ft-bottom">
           <div className="ft-bottom-inner">
             <p className="ft-copy">
-              © 2026{' '}
+              © 2021{' '}
               <span style={{ fontWeight: 600, color: '#0B3D78' }}>FasLift Solutions</span>
               {' '}· {t('footer.rightsReserved')}
             </p>

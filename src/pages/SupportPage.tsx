@@ -80,7 +80,7 @@ export default function SupportPage() {
     // Open mailto link pre-filled
     const subject = `FAS LIFT Support Request - ${selectedType}`;
     const body = `Name: ${formData.name}\nEmail: ${formData.email}\nCompany: ${formData.company}\nRequested Information: ${formData.requestedInfo}\n\nMessage:\n${formData.text}`;
-    window.location.href = `mailto:abderahmanelwardi62@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:faslift@outlook.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
     setFormSubmitted(true);
   };
@@ -105,7 +105,7 @@ export default function SupportPage() {
     // Open mailto link pre-filled
     const subject = `FAS LIFT Newsletter Subscription`;
     const body = `I would like to subscribe to the FasLift newsletter.\n\nEmail: ${newsEmail}`;
-    window.location.href = `mailto:abderahmanelwardi62@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:faslift@outlook.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
     setNewsSuccess(true);
     setNewsEmail('');

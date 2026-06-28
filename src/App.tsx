@@ -10,6 +10,7 @@ import ProductionPage from './pages/ProductionPage'
 import GalleryPage from './pages/GalleryPage'
 import GovernorPage from './pages/GovernorPage'
 import OrderFormPage from './pages/OrderFormPage'
+import Chatbot from './components/Chatbot/Chatbot'
 
 const ROUTE_MAP: Record<string, React.ComponentType> = {
   '/': LandingPage,
@@ -152,7 +153,12 @@ function App() {
     );
   }
 
-  return <Component key={location.pathname} />;
+  return (
+    <>
+      <Component key={location.pathname} />
+      <Chatbot />
+    </>
+  );
 }
 
 export default App;
