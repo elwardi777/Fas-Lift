@@ -63,7 +63,7 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="relative bg-[#F5F7FA] py-20 md:py-28">
+    <section id="contact" className="relative bg-[#F5F7FA] pb-6 md:pb-10 mt-6 pt-6 md:mt-[30px] md:pt-[30px] lg:mt-10 lg:pt-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row gap-10 lg:gap-12">
           {/* Left — Form */}

@@ -4,7 +4,10 @@
    Route: /order-form (opens in new tab)
    Printable: window.print() → Save as PDF
 ═══════════════════════════════════════════════════════════════════════════ */
+import { useTranslation } from 'react-i18next';
+
 export default function OrderFormPage() {
+  const { t } = useTranslation();
   return (
     <>
       <style>{`
@@ -337,8 +340,8 @@ export default function OrderFormPage() {
 
       {/* Action Bar */}
       <div className="action-bar no-print">
-        <button className="btn-close-bar" onClick={() => window.close()}>✕ Close</button>
-        <button className="btn-pdf" onClick={() => window.print()}>🖨 Save as PDF / Print</button>
+        <button className="btn-close-bar" onClick={() => window.close()}>✕ {t('orderForm.close')}</button>
+        <button className="btn-pdf" onClick={() => window.print()}>🖨 {t('orderForm.savePrint')}</button>
       </div>
 
       <div className="page-wrap">
@@ -348,7 +351,7 @@ export default function OrderFormPage() {
           <div className="doc-header">
             <div className="doc-title-box">
               <div className="line1">FAS LIFT</div>
-              <div className="line2">Overspeed Governor Order Form</div>
+              <div className="line2">{t('orderForm.formTitle')}</div>
             </div>
             <div className="doc-logo-area">
               <img src="/images/governor-4-removebg-preview.png" alt="FAS LIFT" />
@@ -360,27 +363,27 @@ export default function OrderFormPage() {
           <table className="info-table">
             <tbody>
               <tr>
-                <td className="lbl">Diameter</td>
-                <td>: Ø 200 mm &nbsp;: min Nominal Speed: 0.20 m/sn. – max Nominal Speed: 1.60 m/sn.</td>
+                <td className="lbl">{t('orderForm.diameter')}</td>
+                <td>: Ø 200 mm &nbsp;: {t('orderForm.minNominalSpeed')}: 0.20 m/sn. – {t('orderForm.maxNominalSpeed')}: 1.60 m/sn.</td>
               </tr>
               <tr>
-                <td className="lbl">Diameter</td>
-                <td>: Ø 250 mm &nbsp;: min Nominal Speed: 0.30 m/sn. – max Nominal Speed: 2.00 m/sn.</td>
+                <td className="lbl">{t('orderForm.diameter')}</td>
+                <td>: Ø 250 mm &nbsp;: {t('orderForm.minNominalSpeed')}: 0.30 m/sn. – {t('orderForm.maxNominalSpeed')}: 2.00 m/sn.</td>
               </tr>
               <tr>
-                <td className="lbl">Diameter</td>
-                <td>: Ø 300 mm &nbsp;: min Nominal Speed: 0.50 m/sn. – max Nominal Speed: 2.50 m/sn.</td>
+                <td className="lbl">{t('orderForm.diameter')}</td>
+                <td>: Ø 300 mm &nbsp;: {t('orderForm.minNominalSpeed')}: 0.50 m/sn. – {t('orderForm.maxNominalSpeed')}: 2.50 m/sn.</td>
               </tr>
             </tbody>
           </table>
 
           {/* ── FORM OPTIONS ── */}
-          <div className="section-divider">TECHNICAL SPECIFICATIONS</div>
+          <div className="section-divider">{t('orderForm.techSpecs')}</div>
           <div className="options-wrap">
 
             {/* DIAMETER */}
             <div className="form-row">
-              <div className="row-label">DIAMETER</div>
+              <div className="row-label">{t('orderForm.diameter')}</div>
               <div className="row-colon">:</div>
               <div className="row-options">
                 {[
@@ -400,27 +403,27 @@ export default function OrderFormPage() {
 
             {/* TYPE */}
             <div className="form-row">
-              <div className="row-label">TYPE</div>
+              <div className="row-label">{t('orderForm.type')}</div>
               <div className="row-colon">:</div>
               <div className="row-options">
                 <div className="cb-option">
                   <div className="opt-label">(–)</div>
-                  <div className="opt-sub">Without coil</div>
+                  <div className="opt-sub">{t('orderForm.withoutCoil')}</div>
                   <div className="cb-row"><input type="checkbox" /></div>
                 </div>
                 <div className="cb-option">
                   <div className="opt-label">UZ</div>
-                  <div className="opt-sub">UZ (Remote Control – MRL)</div>
+                  <div className="opt-sub">{t('orderForm.remoteMrl')}</div>
                   <div className="cb-row"><input type="checkbox" /></div>
                 </div>
                 <div className="cb-option">
                   <div className="opt-label">A3 (UCM)</div>
-                  <div className="opt-sub">A3 Compatible</div>
+                  <div className="opt-sub">{t('orderForm.a3Comp')}</div>
                   <div className="cb-row"><input type="checkbox" /></div>
                 </div>
                 <div className="cb-option">
                   <div className="opt-label">A3 + UZ</div>
-                  <div className="opt-sub">A3 Compatible + Remote Control</div>
+                  <div className="opt-sub">{t('orderForm.a3Remote')}</div>
                   <div className="cb-row"><input type="checkbox" /></div>
                 </div>
               </div>
@@ -428,7 +431,7 @@ export default function OrderFormPage() {
 
             {/* VOLTAGE */}
             <div className="form-row">
-              <div className="row-label">VOLTAGE</div>
+              <div className="row-label">{t('orderForm.voltage')}</div>
               <div className="row-colon">:</div>
               <div className="row-options">
                 {[
@@ -447,17 +450,17 @@ export default function OrderFormPage() {
 
             {/* DIRECTION */}
             <div className="form-row">
-              <div className="row-label">DIRECTION</div>
+              <div className="row-label">{t('orderForm.direction')}</div>
               <div className="row-colon">:</div>
               <div className="row-options">
                 <div className="cb-option">
-                  <div className="opt-label">Downward</div>
-                  <div className="opt-sub">▼ only</div>
+                  <div className="opt-label">{t('orderForm.downward')}</div>
+                  <div className="opt-sub">▼ {t('orderForm.only')}</div>
                   <div className="cb-row"><input type="checkbox" /></div>
                 </div>
                 <div className="cb-option">
-                  <div className="opt-label">Bidirectional</div>
-                  <div className="opt-sub">▼ ▲ both</div>
+                  <div className="opt-label">{t('orderForm.bidirectional')}</div>
+                  <div className="opt-sub">▼ ▲ {t('orderForm.both')}</div>
                   <div className="cb-row"><input type="checkbox" /></div>
                 </div>
               </div>
@@ -465,7 +468,7 @@ export default function OrderFormPage() {
 
             {/* ROPE DIAMETER */}
             <div className="form-row">
-              <div className="row-label">ROPE DIA.</div>
+              <div className="row-label">{t('orderForm.ropeDia')}</div>
               <div className="row-colon">:</div>
               <div className="row-options">
                 {['6 mm', '8 mm', '10 mm', '12 mm', '13 mm'].map(o => (
@@ -479,10 +482,10 @@ export default function OrderFormPage() {
 
             {/* CERTIFICATION */}
             <div className="form-row">
-              <div className="row-label">CERTIFICATE</div>
+              <div className="row-label">{t('orderForm.certificate')}</div>
               <div className="row-colon">:</div>
               <div className="row-options">
-                {['CE (EN81-20/50)', 'GOST-R', 'Other'].map(o => (
+                {['CE (EN81-20/50)', 'GOST-R', t('orderForm.other')].map(o => (
                   <div className="cb-option" key={o}>
                     <div className="opt-label">{o}</div>
                     <div className="cb-row"><input type="checkbox" /></div>
@@ -493,7 +496,7 @@ export default function OrderFormPage() {
 
             {/* NOMINAL SPEED */}
             <div className="form-row" style={{ alignItems: 'center' }}>
-              <div className="row-label">NOMINAL SPEED</div>
+              <div className="row-label">{t('orderForm.nominalSpeed')}</div>
               <div className="row-colon">:</div>
               <div className="row-options" style={{ alignItems: 'center' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -505,17 +508,17 @@ export default function OrderFormPage() {
 
             {/* QUANTITY */}
             <div className="form-row" style={{ alignItems: 'center' }}>
-              <div className="row-label">QUANTITY</div>
+              <div className="row-label">{t('orderForm.quantity')}</div>
               <div className="row-colon">:</div>
               <div className="row-options" style={{ alignItems: 'center' }}>
                 <input type="number" min="1" className="text-field" style={{ width: 80 }} placeholder="1" />
-                <span style={{ fontSize: 11, color: '#555' }}>piece(s)</span>
+                <span style={{ fontSize: 11, color: '#555' }}>{t('orderForm.pieces')}</span>
               </div>
             </div>
 
             {/* DELIVERY DATE */}
             <div className="form-row" style={{ alignItems: 'center' }}>
-              <div className="row-label">DELIVERY DATE</div>
+              <div className="row-label">{t('orderForm.deliveryDate')}</div>
               <div className="row-colon">:</div>
               <div className="row-options">
                 <input type="date" className="text-field" style={{ width: 160 }} />
@@ -525,15 +528,15 @@ export default function OrderFormPage() {
           </div>{/* end options-wrap */}
 
           {/* ── CUSTOMER INFORMATION ── */}
-          <div className="section-divider" style={{ marginTop: 20 }}>CUSTOMER INFORMATION</div>
+          <div className="section-divider" style={{ marginTop: 20 }}>{t('orderForm.customerInfo')}</div>
           <div className="customer-section">
             {[
-              { label: 'Company Name', placeholder: '' },
-              { label: 'Contact Person', placeholder: '' },
-              { label: 'Email Address', placeholder: '' },
-              { label: 'Phone / WhatsApp', placeholder: '' },
-              { label: 'Address', placeholder: '' },
-              { label: 'Country / City', placeholder: '' },
+              { label: t('orderForm.companyName'), placeholder: '' },
+              { label: t('orderForm.contactPerson'), placeholder: '' },
+              { label: t('orderForm.emailAddress'), placeholder: '' },
+              { label: t('orderForm.phoneWhatsapp'), placeholder: '' },
+              { label: t('orderForm.address'), placeholder: '' },
+              { label: t('orderForm.countryCity'), placeholder: '' },
             ].map(f => (
               <div className="cs-row" key={f.label}>
                 <div className="cs-label">{f.label}</div>
@@ -543,7 +546,7 @@ export default function OrderFormPage() {
               </div>
             ))}
             <div className="cs-row">
-              <div className="cs-label">Notes / Remarks</div>
+              <div className="cs-label">{t('orderForm.notes')}</div>
               <div className="cs-val" style={{ minHeight: 44 }}>
                 <input type="text" />
               </div>
@@ -552,9 +555,9 @@ export default function OrderFormPage() {
 
           {/* ── SIGNATURE ── */}
           <div className="sig-row">
-            <div className="sig-block">Date</div>
-            <div className="sig-block">Authorized Signature / Stamp</div>
-            <div className="sig-block">Received by (FAS LIFT)</div>
+            <div className="sig-block">{t('orderForm.date')}</div>
+            <div className="sig-block">{t('orderForm.signatureStamp')}</div>
+            <div className="sig-block">{t('orderForm.receivedBy')}</div>
           </div>
 
           {/* ── DOC FOOTER ── */}

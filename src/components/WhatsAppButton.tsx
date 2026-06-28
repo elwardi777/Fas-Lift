@@ -1,6 +1,7 @@
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
-const WhatsAppIcon: React.FC<{ size?: number }> = ({ size = 28 }) => (
+const WhatsAppIcon: React.FC<{ size?: number }> = ({ size = 32 }) => (
   <svg
     width={size}
     height={size}
@@ -12,38 +13,146 @@ const WhatsAppIcon: React.FC<{ size?: number }> = ({ size = 28 }) => (
   </svg>
 );
 
+type LanguageConfig = {
+  id: string;
+  flag: string;
+  label: string;
+  bubbleText: string;
+  prefillMessage: string;
+  dir?: 'rtl' | 'ltr';
+};
+
+const LANGUAGES: LanguageConfig[] = [
+  {
+    id: 'tr',
+    flag: '🇹🇷',
+    label: 'TR',
+    bubbleText: 'Merhaba, size nasıl yardımcı olabiliriz?',
+    prefillMessage: 'Merhaba, FAS LIFT ürünleri hakkında bilgi almak istiyorum.',
+  },
+  {
+    id: 'en',
+    flag: '🇬🇧',
+    label: 'EN',
+    bubbleText: 'Hello, how can we help you?',
+    prefillMessage: 'Hello, I would like more information about FAS LIFT products.',
+  },
+  {
+    id: 'ar',
+    flag: '🇸🇦',
+    label: 'AR',
+    bubbleText: 'مرحباً، كيف يمكننا مساعدتك؟',
+    prefillMessage: 'مرحباً، أود الحصول على مزيد من المعلومات حول منتجات FAS LIFT.',
+    dir: 'rtl',
+  },
+];
+
 const WhatsAppButton: React.FC = () => {
-  const handleClick = () => {
-    window.open('https://wa.me/212653660399', '_blank');
+  const [activeBubble, setActiveBubble] = useState<string | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.matchMedia('(max-width: 768px)').matches);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Handle click outside to close bubble on mobile
+  useEffect(() => {
+    if (!isMobile) return;
+    
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest('.whatsapp-widget')) {
+        setActiveBubble(null);
+      }
+    };
+    
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [isMobile]);
+
+  const handleAction = (lang: LanguageConfig, e: React.MouseEvent) => {
+    if (isMobile) {
+      if (activeBubble === lang.id) {
+        // Tap again - open WhatsApp
+        openWhatsApp(lang.prefillMessage);
+        setActiveBubble(null);
+      } else {
+        // First tap - open bubble
+        e.preventDefault();
+        e.stopPropagation();
+        setActiveBubble(lang.id);
+      }
+    } else {
+      // Desktop - click always opens WhatsApp
+      openWhatsApp(lang.prefillMessage);
+    }
+  };
+
+  const openWhatsApp = (text: string) => {
+    const baseUrl = 'https://wa.me/212531613923';
+    const encodedText = encodeURIComponent(text);
+    window.open(`${baseUrl}?text=${encodedText}`, '_blank', 'noopener,noreferrer');
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-[999]">
-      {/* Pulse ring */}
-      <motion.div
-        className="absolute inset-0 rounded-full bg-[#25D366]"
-        animate={{
-          scale: [1, 2.2],
-          opacity: [0.6, 0],
-        }}
-        transition={{
-          duration: 2,
-          ease: 'easeOut',
-          repeat: Infinity,
-        }}
-      />
+    <div className="fixed bottom-5 left-4 md:bottom-[30px] md:left-[20px] lg:bottom-[40px] lg:left-[24px] z-[9999] flex flex-col gap-4 whatsapp-widget">
+      {LANGUAGES.map((lang, index) => (
+        <div 
+          key={lang.id} 
+          className="relative flex items-center group"
+          onMouseEnter={() => !isMobile && setActiveBubble(lang.id)}
+          onMouseLeave={() => !isMobile && setActiveBubble(null)}
+        >
+          {/* WhatsApp Button */}
+          <motion.button
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.4, delay: index * 0.15 }}
+            whileHover={{ scale: 1.08 }}
+            className="relative flex flex-col items-center justify-center w-[52px] h-[52px] rounded-full bg-[#25D366] text-white shadow-[0_4px_12px_rgba(37,211,102,0.3)] cursor-pointer outline-none border-none hover:shadow-[0_6px_16px_rgba(37,211,102,0.4)] transition-shadow z-10"
+            onClick={(e) => handleAction(lang, e)}
+            aria-label={`Chat in ${lang.label}`}
+          >
+            <div className="flex flex-col items-center justify-center mt-0.5 gap-0.5">
+              <WhatsAppIcon size={22} />
+              <div className="flex items-center gap-0.5 font-bold text-[9px] leading-none tracking-wide mt-[1px]">
+                <span>{lang.flag}</span>
+                <span>{lang.label}</span>
+              </div>
+            </div>
+          </motion.button>
 
-      {/* Button */}
-      <motion.button
-        className="relative w-14 h-14 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-lg cursor-pointer"
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
-        transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-        onClick={handleClick}
-        aria-label="Chat on WhatsApp"
-      >
-        <WhatsAppIcon size={28} />
-      </motion.button>
+          {/* Chat Bubble */}
+          <AnimatePresence>
+            {activeBubble === lang.id && (
+              <motion.div
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -5 }}
+                transition={{ duration: 0.2, ease: 'easeOut' }}
+                className="absolute left-[64px] pointer-events-none"
+              >
+                <div 
+                  className="relative bg-white text-[#111] px-[18px] py-[12px] rounded-[16px] shadow-[0_2px_15px_rgba(0,0,0,0.1)] w-max max-w-[280px]"
+                  dir={lang.dir || 'ltr'}
+                >
+                  {/* Speech Tail */}
+                  <div className="absolute top-1/2 -left-[6px] -translate-y-1/2 w-0 h-0 border-t-[6px] border-t-transparent border-r-[8px] border-r-white border-b-[6px] border-b-transparent filter drop-shadow-[-1px_0_1px_rgba(0,0,0,0.03)]" />
+                  
+                  <p className="m-0 text-[14px] font-medium leading-snug">
+                    {lang.bubbleText}
+                  </p>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      ))}
     </div>
   );
 };

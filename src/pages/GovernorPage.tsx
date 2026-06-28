@@ -98,6 +98,97 @@ function WeightSVG() {
 /* ═══════════════════════════════════════════════════════════════════════════
    Page Component
    ═══════════════════════════════════════════════════════════════════════════ */
+const ProductShowcase = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+  const [zoomOrigin, setZoomOrigin] = useState('50% 50%');
+
+  useEffect(() => {
+    if (isHovered) return;
+    
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev === 0 ? 1 : 0));
+    }, 4000); // Toggle between images every 4 seconds
+
+    return () => clearInterval(interval);
+  }, [isHovered]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLImageElement>) => {
+    if (window.innerWidth <= 768) return; // Disable hover-tracking zoom on mobile
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setZoomOrigin(`${x}% ${y}%`);
+  };
+
+  return (
+    <div 
+      className="pdp-showcase-container"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => {
+        setIsHovered(false);
+        setZoomOrigin('50% 50%');
+      }}
+    >
+      {/* Soft radial light */}
+      <div className="pdp-showcase-glow" />
+
+      {/* Elegant shadow */}
+      <div className="pdp-showcase-shadow" />
+
+      {/* Slide 1: Real Product Photo */}
+      <div 
+        className="pdp-showcase-slide"
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          opacity: activeIndex === 0 ? 1 : 0,
+          pointerEvents: activeIndex === 0 ? 'auto' : 'none',
+          transition: 'opacity 900ms cubic-bezier(0.22, 1, 0.36, 1)',
+          zIndex: activeIndex === 0 ? 3 : 2
+        }}
+      >
+        <img 
+          src="/images/WhatsApp_Image_2026-06-09_at_21..15-removebg-preview.png" 
+          alt="FAS LIFT Overspeed Governor" 
+          className="pdp-showcase-img"
+        />
+        <div className="pdp-metallic-sweep" />
+      </div>
+
+      {/* Slide 2: Technical Drawing Blueprint */}
+      <div 
+        className="pdp-showcase-slide"
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          opacity: activeIndex === 1 ? 1 : 0,
+          pointerEvents: activeIndex === 1 ? 'auto' : 'none',
+          transition: 'opacity 900ms cubic-bezier(0.22, 1, 0.36, 1)',
+          zIndex: activeIndex === 1 ? 3 : 2
+        }}
+      >
+        <img 
+          src="/images/f3396119-20be-4312-97d0-0df5729bb02a.png" 
+          alt="Overspeed Governor Technical Drawing" 
+          className="pdp-showcase-img pdp-showcase-blueprint"
+          style={{ 
+            transformOrigin: zoomOrigin,
+            transition: 'transform 350ms ease-out, filter 350ms ease-out'
+          }}
+          onMouseMove={handleMouseMove}
+        />
+      </div>
+    </div>
+  );
+};
+
 type Tab = 'visual' | 'specs' | 'optional';
 
 export default function GovernorPage() {
@@ -131,16 +222,14 @@ export default function GovernorPage() {
   ];
 
   const TECH_PROPERTIES = [
-    'Factory adjusted and sealed according to the rated speed.',
+    'Adjusted and sealed according to the rated speed.',
     'Suitable for instantaneous and progressive safety gears.',
-    'Easy installation and maintenance.',
-    'Quiet and smooth operation.',
-    'Activates safety gears in upward and downward directions.',
-    'Fully compliant with EN 81-20 and EN 81-50.',
-    'Governor rope diameter: Ø6 / Ø6.5 / Ø8 mm.',
-    'Designed for long service life.',
-    'High-quality steel construction.',
-    'Reliable performance under continuous operation.',
+    'Easy assembly.',
+    'Quiet operation.',
+    'Activates safety gear upward and downward in compliance with EN 81:20 and EN 81:50.',
+    'First cuts the safety contact and then locks as per EN 81:20 and EN 81:50.',
+    'Governor Rope Diameter: Ø6-6,5-8mm',
+    'Governor Rope Technical Property: TS EN 12385-5',
   ];
 
   const TECH_STANDARDS = [
@@ -282,19 +371,43 @@ export default function GovernorPage() {
         /* Drag strip */
         .pdp-strip {
           display:flex; overflow-x:scroll; scroll-snap-type:x mandatory;
-          scrollbar-width:none; gap:16px; padding:32px 5%;
+          scrollbar-width:none; gap:24px; padding:32px 24px;
+          justify-content: safe center;
+          align-items: center;
+          scroll-padding-left: 24px;
+          scroll-padding-right: 24px;
         }
         .pdp-strip::-webkit-scrollbar { display:none; }
-        .pdp-strip > * { scroll-snap-align:start; }
+        .pdp-strip > * { scroll-snap-align:center; }
 
         /* Gallery card widths & container height */
-        .pdp-gcard { flex: 0 0 calc(25% - 5px); }
+        .pdp-gcard { flex: 0 0 calc(25% - 18px); }
         .pdp-gallery-img-container { height: 320px; }
-        @media(max-width:900px){ .pdp-gcard{flex:0 0 calc(50% - 8px);} }
-        @media(max-width:480px){ 
-          .pdp-gcard{flex:0 0 calc(33.33% - 11px) !important;} 
+        
+        @media(max-width:900px){ 
+          .pdp-strip { 
+            gap: 20px; 
+            padding: 24px 20px; 
+            scroll-padding-left: 20px;
+            scroll-padding-right: 20px;
+          }
+          .pdp-gcard { flex: 0 0 calc(50% - 10px); } 
+        }
+        
+        @media(max-width:768px){ 
+          .pdp-strip { 
+            padding: 16px 16px !important; 
+            gap: 16px !important; 
+            justify-content: safe center !important; 
+            align-items: center !important;
+            scroll-padding-left: 16px !important;
+            scroll-padding-right: 16px !important;
+          }
+          .pdp-gcard {
+            flex: 0 0 calc(33.33% - 11px) !important; 
+            scroll-snap-align: center !important;
+          } 
           .pdp-gallery-img-container { height: 120px !important; }
-          .pdp-strip { padding: 16px 5% !important; }
         }
 
         /* Weight card */
@@ -331,14 +444,14 @@ export default function GovernorPage() {
         /* Technical properties section */
         .pdp-tech {
           background: #FFFFFF;
-          padding: 100px 5%;
+          padding: 80px 5%;
         }
         .pdp-tech__inner {
           max-width: 1280px;
           margin: 0 auto;
           display: grid;
           grid-template-columns: minmax(0, 58fr) minmax(0, 42fr);
-          gap: 80px;
+          gap: 60px;
           align-items: start;
         }
         .pdp-tech-reveal {
@@ -351,32 +464,35 @@ export default function GovernorPage() {
           transform: translateY(0);
         }
         .pdp-tech__title {
-          margin: 0 0 30px;
-          color: #123F73;
-          font-size: 52px;
+          margin: 0 0 24px;
+          color: #0e1726;
+          font-size: 32px;
           font-weight: 500;
-          line-height: 1.1;
+          line-height: 1.2;
           letter-spacing: 0;
+          display: flex;
+          align-items: center;
+          gap: 12px;
         }
         .pdp-tech__list {
           margin: 0;
-          padding-left: 28px;
-          color: #5F6775;
-          font-size: 22px;
-          line-height: 1.9;
+          padding-left: 20px;
+          color: #6b7280;
+          font-size: 15px;
+          line-height: 1.7;
         }
         .pdp-tech__list li {
-          padding-left: 10px;
-          margin-bottom: 24px;
+          padding-left: 4px;
+          margin-bottom: 14px;
         }
         .pdp-tech__list li::marker {
-          color: #5F6775;
-          font-size: 0.75em;
+          color: #9ca3af;
+          font-size: 0.8em;
         }
         .pdp-tech__panel-title {
           margin: 4px 0 20px;
           color: #123F73;
-          font-size: 28px;
+          font-size: 22px;
           font-weight: 600;
           line-height: 1.2;
           letter-spacing: 0;
@@ -392,23 +508,24 @@ export default function GovernorPage() {
           border-collapse: collapse;
           table-layout: fixed;
           color: #5F6775;
-          font-size: 20px;
+          font-size: 15px;
           text-align: center;
         }
         .pdp-tech-table th {
           background: #123F73;
           color: #FFFFFF;
           font-weight: 600;
-          padding: 18px;
+          padding: 14px 18px;
           border-right: 2px solid #123F73;
           border-bottom: 2px solid #123F73;
+          text-transform: none;
         }
         .pdp-tech-table th:last-child,
         .pdp-tech-table td:last-child {
           border-right: none;
         }
         .pdp-tech-table td {
-          padding: 18px;
+          padding: 14px 18px;
           border-right: 2px solid #123F73;
           background: #FFFFFF;
           font-weight: 500;
@@ -440,9 +557,23 @@ export default function GovernorPage() {
 
         /* Badge */
         .pdp-badge {
-          background: rgba(11, 61, 120, 0.07); color:${A}; font-size:11px; font-weight:700;
-          padding:5px 13px; border-radius:20px; border:1px solid rgba(11, 61, 120, 0.18);
-          letter-spacing:.03em; white-space:nowrap;
+          background: #FFFFFF;
+          color: ${A};
+          font-size: 13px;
+          font-weight: 600;
+          padding: 8px 18px;
+          border-radius: 30px;
+          border: 1px solid rgba(11, 61, 120, 0.2);
+          box-shadow: 0 4px 10px rgba(11, 61, 120, 0.05);
+          letter-spacing: 0.02em;
+          white-space: nowrap;
+          transition: all 0.3s ease;
+          cursor: default;
+        }
+        .pdp-badge:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 15px rgba(11, 61, 120, 0.12);
+          border-color: rgba(11, 61, 120, 0.4);
         }
 
         /* Rounded Table Card with Shadow */
@@ -541,6 +672,134 @@ export default function GovernorPage() {
           transform: scale(1.1);
           filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.24));
         }
+
+        /* Product Showcase Styles */
+        .pdp-showcase-container {
+          width: 100%;
+          max-width: 480px;
+          height: 480px;
+          background: #ffffff;
+          position: relative;
+          overflow: hidden;
+          border-radius: 24px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          user-select: none;
+          animation: pdp-float 6s ease-in-out infinite;
+        }
+
+        @keyframes pdp-float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-3px); }
+        }
+
+        .pdp-showcase-glow {
+          position: absolute;
+          width: 320px;
+          height: 320px;
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(11, 61, 120, 0.08) 0%, rgba(255, 255, 255, 0) 70%);
+          z-index: 1;
+          pointer-events: none;
+        }
+
+        .pdp-showcase-shadow {
+          position: absolute;
+          bottom: 30px;
+          width: 260px;
+          height: 16px;
+          background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.08) 0%, rgba(0, 0, 0, 0) 70%);
+          z-index: 1;
+          pointer-events: none;
+        }
+
+        .pdp-showcase-slider {
+          display: flex;
+          width: 200%;
+          height: 100%;
+          transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+          will-change: transform;
+          z-index: 2;
+        }
+
+        .pdp-showcase-slide {
+          width: 50%;
+          height: 100%;
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+        }
+
+        .pdp-showcase-img {
+          width: 100%;
+          max-width: 420px;
+          height: auto;
+          max-height: 420px;
+          object-fit: contain;
+          transition: transform 350ms ease-out, filter 350ms ease-out, box-shadow 350ms ease-out;
+          will-change: transform, transform-origin;
+          transform-style: preserve-3d;
+          backface-visibility: hidden;
+        }
+
+        .pdp-showcase-blueprint {
+          cursor: zoom-in;
+          transition: transform 350ms ease-out, filter 350ms ease-out, box-shadow 350ms ease-out;
+        }
+        
+        @media(min-width: 769px) {
+          .pdp-showcase-blueprint:hover {
+            transform: scale(1.25);
+            filter: drop-shadow(0 10px 25px rgba(11, 61, 120, 0.15));
+          }
+        }
+
+        .pdp-metallic-sweep {
+          position: absolute;
+          top: 0; left: -150%; width: 100%; height: 100%;
+          background: linear-gradient(
+            90deg, 
+            transparent 0%, 
+            rgba(255, 255, 255, 0) 30%, 
+            rgba(255, 255, 255, 0.45) 50%, 
+            rgba(255, 255, 255, 0) 70%, 
+            transparent 100%
+          );
+          transform: skewX(-25deg);
+          pointer-events: none;
+          animation: pdp-shimmer 8s infinite linear;
+          z-index: 3;
+        }
+
+        @keyframes pdp-shimmer {
+          0% { left: -150%; }
+          12% { left: 150%; }
+          100% { left: 150%; }
+        }
+
+        @media (max-width: 768px) {
+          .pdp-showcase-container {
+            max-width: 100%;
+            height: 380px;
+            margin: 0 auto;
+          }
+          .pdp-showcase-img {
+            max-width: 320px;
+            max-height: 320px;
+          }
+        }
+        @media (max-width: 480px) {
+          .pdp-showcase-container {
+            height: 300px;
+          }
+          .pdp-showcase-img {
+            max-width: 260px;
+            max-height: 260px;
+          }
+        }
       `}</style>
 
       {/* Navbar with standard dynamic visibility (dark blue links over white bg) */}
@@ -560,29 +819,124 @@ export default function GovernorPage() {
 
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 48, flexWrap: 'wrap', paddingBottom: 56 }}>
             {/* Left */}
-            <div style={{ flex: '1 1 340px', maxWidth: 560 }}>
-              <h1 className="pdp-fu pdp-fu-d1"
-                style={{ fontSize: 'clamp(28px,3.8vw,44px)', fontWeight: 800, lineHeight: 1.1, color: '#0e0e1a', margin: 0 }}>
-                {t('governor.title1')}
-              </h1>
-              <p className="pdp-fu pdp-fu-d2"
-                style={{ fontSize: 'clamp(20px,2.8vw,34px)', fontWeight: 700, lineHeight: 1.2, color: '#1a2a3a', margin: '6px 0 18px' }}>
-                {t('governor.title2')}
-              </p>
+            <div 
+              style={{ 
+                flex: '1 1 340px', 
+                maxWidth: 620,
+                position: 'relative',
+                zIndex: 1,
+                padding: '30px 0',
+              }}
+            >
+              {/* Subtle geometric pattern background */}
+              <div 
+                style={{
+                  position: 'absolute',
+                  top: '-10px', left: '-20px', right: '-40px', bottom: '-10px',
+                  backgroundImage: 'radial-gradient(#cbd5e1 1.2px, transparent 1.2px)',
+                  backgroundSize: '24px 24px',
+                  opacity: 0.35,
+                  zIndex: -1,
+                  borderRadius: '24px'
+                }}
+              />
+
+              {/* Premium Badge Above Title */}
+              <div className="pdp-fu" style={{ marginBottom: '24px', paddingLeft: 'clamp(16px, 3vw, 32px)' }}>
+                <span style={{ 
+                  background: '#E8F2FC', 
+                  color: '#0B3D78', 
+                  padding: '6px 14px', 
+                  borderRadius: '30px',
+                  fontSize: '12px',
+                  fontWeight: 700,
+                  letterSpacing: '0.06em',
+                  textTransform: 'uppercase',
+                  border: '1px solid rgba(11,61,120,0.12)',
+                  display: 'inline-block'
+                }}>
+                  Industrial Safety Sensor
+                </span>
+              </div>
+
+              {/* Title Container with Left Accent Line */}
+              <div style={{ borderLeft: '3px solid #0B3D78', paddingLeft: 'clamp(16px, 3vw, 32px)', marginBottom: '32px' }}>
+                <h1 className="pdp-fu pdp-fu-d1"
+                  style={{ 
+                    fontSize: 'clamp(28px, 5.5vw, 72px)', 
+                    fontWeight: 800, 
+                    lineHeight: 1.05, 
+                    color: '#090d16', 
+                    margin: '0 0 16px 0',
+                    letterSpacing: '-0.025em',
+                    wordBreak: 'break-word'
+                  }}>
+                  FS-01 Monodirectionnel
+                </h1>
+                
+                <h2 className="pdp-fu pdp-fu-d2"
+                  style={{ 
+                    fontSize: 'clamp(18px, 2.5vw, 28px)', 
+                    fontWeight: 600, 
+                    lineHeight: 1.3, 
+                    color: '#0F172A', 
+                    margin: '0 0 12px 0',
+                    letterSpacing: '-0.01em'
+                  }}>
+                  FS-01LR • FS-200 • FS-250
+                </h2>
+
+                <h2 className="pdp-fu pdp-fu-d2"
+                  style={{ 
+                    fontSize: 'clamp(18px, 2.5vw, 28px)', 
+                    fontWeight: 600, 
+                    lineHeight: 1.3, 
+                    color: '#0F172A', 
+                    margin: 0,
+                    letterSpacing: '-0.01em'
+                  }}>
+                  <span style={{ position: 'relative', display: 'inline-block', paddingBottom: '4px' }}>
+                    Bidirectionnel
+                    <span style={{
+                      position: 'absolute',
+                      bottom: '0px',
+                      left: 0,
+                      right: 0,
+                      height: '2px',
+                      background: 'linear-gradient(90deg, #0B3D78 0%, #60A5FA 100%)',
+                      borderRadius: '1px'
+                    }} />
+                  </span>
+                </h2>
+              </div>
+
+              {/* Subtitle */}
               <p className="pdp-fu pdp-fu-d3"
-                style={{ fontSize: 17, color: '#9aa3b0', fontWeight: 400, margin: '0 0 34px' }}>
-                {t('governor.subtitle')}
+                style={{ 
+                  fontSize: '18px', 
+                  color: '#4B5563', 
+                  fontWeight: 400, 
+                  lineHeight: 1.6, 
+                  margin: '0 0 28px 0',
+                  paddingLeft: 'clamp(16px, 3vw, 32px)',
+                  maxWidth: '480px'
+                }}>
+                Le plus simple, le plus répandu.
               </p>
-              <div className="pdp-fu pdp-fu-d4" style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+
+              {/* Horizontal Divider */}
+              <div className="pdp-fu pdp-fu-d3" style={{ height: '1px', background: '#E2E8F0', margin: '0 0 32px clamp(16px, 3vw, 32px)', width: '75%' }} />
+
+              {/* Certification Badges */}
+              <div className="pdp-fu pdp-fu-d4" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', paddingLeft: 'clamp(16px, 3vw, 32px)' }}>
                 {(['governor.badge1', 'governor.badge2', 'governor.badge3', 'governor.badge4'] as const).map(k => (
                   <span key={k} className="pdp-badge">{t(k)}</span>
                 ))}
               </div>
             </div>
             {/* Right */}
-            <div className="pdp-fu pdp-fu-d2" style={{ flex: '0 1 460px', display: 'flex', justifyContent: 'center', alignItems: 'flex-end' }}>
-              <img src="/images/Gemini_Generated_Image_j9zws1j9zws1j9zw-removebg-preview.png" alt={t('governor.title1')}
-                style={{ width: '100%', maxWidth: 460, height: 'auto', objectFit: 'contain', display: 'block' }} />
+            <div className="pdp-fu pdp-fu-d2" style={{ flex: '0 1 480px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <ProductShowcase />
             </div>
           </div>
         </section>
@@ -827,7 +1181,7 @@ export default function GovernorPage() {
 
 
         {/* ══ S8 — More Information ═══════════════════════════════════ */}
-      
+
 
         {/* ══ S9 — Order Form ═══════════════════════════════════════════ */}
         <section style={{
@@ -902,9 +1256,9 @@ export default function GovernorPage() {
               <line x1="8" y1="17" x2="12" y2="17" />
             </svg>
 
-            {/* Clickable filename — opens the HTML order form in a new tab */}
+            {/* Clickable filename — opens the PDF order form in a new tab */}
             <a
-              href="/documents/FAS_LIFT_Overspeed_Governor_Order_Form.html"
+              href="/documents/FAS_LIFT_Overspeed_Governor_Order_Form.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="order-pdf-link"

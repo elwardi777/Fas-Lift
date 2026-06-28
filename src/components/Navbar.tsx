@@ -51,7 +51,14 @@ function useNavItems(): NavItem[] {
 const LANGUAGES = [
   { code: 'en', labelKey: 'nav.langEn' },
   { code: 'fr', labelKey: 'nav.langFr' },
+  { code: 'tr', labelKey: 'nav.langTr' },
 ]
+
+const flagMap: Record<string, string> = {
+  en: '🇬🇧',
+  fr: '🇫🇷',
+  tr: '🇹🇷',
+}
 
 /* ------------------------------------------------------------------ */
 /*  Language selector (desktop)                                        */
@@ -59,55 +66,75 @@ const LANGUAGES = [
 
 function LanguageSelector() {
   const { t, i18n } = useTranslation()
-  const currentLang = i18n.language?.startsWith('fr') ? 'fr' : 'en'
+  const [isOpen, setIsOpen] = useState(false)
+
+  const currentLang = i18n.language?.startsWith('tr') ? 'tr' : (i18n.language?.startsWith('fr') ? 'fr' : 'en')
 
   const switchLang = (code: string) => {
     i18n.changeLanguage(code)
+    setIsOpen(false)
   }
 
+  // Close when clicking outside
+  useEffect(() => {
+    if (!isOpen) return
+    const handleClick = () => setIsOpen(false)
+    window.addEventListener('click', handleClick)
+    return () => window.removeEventListener('click', handleClick)
+  }, [isOpen])
+
   return (
-    <div className="group relative">
+    <div className="relative" onClick={(e) => e.stopPropagation()}>
       <button
+        onClick={() => setIsOpen(!isOpen)}
         className="flex items-center gap-1.5 px-3 py-2 text-[13px] font-semibold tracking-wide
                    text-gray-700 hover:text-[#0B3D78] transition-colors duration-200 cursor-pointer font-['JetBrains_Mono',monospace]"
       >
         <Globe size={15} className="opacity-70 text-[#0B3D78]" />
-        {currentLang.toUpperCase()}
+        <span className="text-[15px]">{flagMap[currentLang]}</span>
+        <span>{currentLang.toUpperCase()}</span>
         <ChevronDown
           size={12}
-          className="transition-transform duration-200 group-hover:rotate-180 text-gray-500"
+          className={`transition-transform duration-200 text-gray-500 ${isOpen ? 'rotate-180' : ''}`}
         />
       </button>
 
-      <div
-        className="pointer-events-none absolute right-0 top-full pt-2
-                    opacity-0 -translate-y-2 transition-all duration-200 ease-out
-                    group-hover:pointer-events-auto group-hover:opacity-100 group-hover:translate-y-0 z-50"
-      >
-        <div
-          className="min-w-[120px] rounded-xl border border-gray-100
-                      bg-white shadow-lg overflow-hidden"
-        >
-          {LANGUAGES.map((lang) => (
-            <button
-              key={lang.code}
-              onClick={() => switchLang(lang.code)}
-              className={`flex w-full items-center gap-2 px-4 py-2.5 text-[13px] font-medium
-                         transition-colors duration-150 cursor-pointer font-['JetBrains_Mono',monospace]
-                         ${
-                           currentLang === lang.code
-                             ? 'bg-gray-50 text-[#0B3D78] font-bold'
-                             : 'text-gray-600 hover:bg-gray-50 hover:text-[#0B3D78]'
-                         }`}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.15, ease: 'easeOut' }}
+            className="absolute right-0 top-full pt-2 z-50"
+          >
+            <div
+              className="min-w-[140px] rounded-xl border border-gray-100
+                          bg-white shadow-lg overflow-hidden py-1"
             >
-              {lang.code.toUpperCase()}
-              <span className="text-[11px] text-gray-400 font-['Inter',sans-serif]">
-                {t(lang.labelKey)}
-              </span>
-            </button>
-          ))}
-        </div>
-      </div>
+              {LANGUAGES.map((lang) => (
+                <button
+                  key={lang.code}
+                  onClick={() => switchLang(lang.code)}
+                  className={`flex w-full items-center gap-2 px-4 py-2.5 text-[13px] font-medium
+                             transition-colors duration-150 cursor-pointer font-['JetBrains_Mono',monospace]
+                             ${
+                               currentLang === lang.code
+                                 ? 'bg-gray-50 text-[#0B3D78] font-bold'
+                                 : 'text-gray-600 hover:bg-gray-50 hover:text-[#0B3D78]'
+                             }`}
+                >
+                  <span className="text-[16px]">{flagMap[lang.code]}</span>
+                  <span>{lang.code.toUpperCase()}</span>
+                  <span className="text-[11px] text-gray-400 font-['Inter',sans-serif] ml-auto">
+                    {t(lang.labelKey)}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
@@ -118,7 +145,7 @@ function LanguageSelector() {
 
 function MobileMenu({ onClose }: { onClose: () => void }) {
   const { t, i18n } = useTranslation()
-  const currentLang = i18n.language?.startsWith('fr') ? 'fr' : 'en'
+  const currentLang = i18n.language?.startsWith('tr') ? 'tr' : (i18n.language?.startsWith('fr') ? 'fr' : 'en')
   const location = useLocation()
   const pathname = location.pathname
   const NAV_ITEMS = useNavItems()
@@ -180,17 +207,21 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
             {LANGUAGES.map((lang) => (
               <button
                 key={lang.code}
-                onClick={() => i18n.changeLanguage(lang.code)}
-                className={`rounded-lg border px-5 py-2.5 text-[13px]
+                onClick={() => {
+                  i18n.changeLanguage(lang.code)
+                  onClose()
+                }}
+                className={`rounded-lg border px-4 py-2.5 text-[13px]
                            font-semibold transition-colors duration-150 cursor-pointer
-                           font-['JetBrains_Mono',monospace]
+                           font-['JetBrains_Mono',monospace] flex items-center gap-1.5
                            ${
                              currentLang === lang.code
                                ? 'bg-gray-100 border-[#0B3D78] text-[#0B3D78]'
                                : 'border-gray-200 text-gray-600 hover:bg-gray-50'
                            }`}
               >
-                {lang.code.toUpperCase()}
+                <span>{flagMap[lang.code]}</span>
+                <span>{lang.code.toUpperCase()}</span>
               </button>
             ))}
           </div>

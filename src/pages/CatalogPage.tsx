@@ -1,132 +1,211 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { motion } from 'framer-motion';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+import WhatsAppButton from '../components/WhatsAppButton';
+import ScrollToTop from '../components/ScrollToTop';
+import FloatingToolbar from '../components/FloatingToolbar';
+
+const PdfIcon = ({ size = 64, color = "#123F73", className = "" }: { size?: number, color?: string, className?: string }) => (
+  <svg 
+    width={size} 
+    height={size} 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke={color} 
+    strokeWidth="2" 
+    strokeLinecap="round" 
+    strokeLinejoin="round" 
+    className={className}
+  >
+    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+    <polyline points="14 2 14 8 20 8" />
+    <line x1="8" y1="13" x2="16" y2="13" />
+    <line x1="8" y1="17" x2="12" y2="17" />
+  </svg>
+);
+
 import { useTranslation } from 'react-i18next';
-import { ArrowLeft, Download, ExternalLink } from 'lucide-react';
-import { CATALOG_PDF_URL, CATALOG_PDF_FILENAME } from '../constants/catalog';
 
 export default function CatalogPage() {
   const { t } = useTranslation();
-  const navigate = useNavigate();
-  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const checkMobile = /iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(
-      navigator.userAgent
-    );
-    setIsMobile(checkMobile);
+    window.scrollTo(0, 0);
   }, []);
 
-  const triggerMobileDownload = async () => {
-    try {
-      const response = await fetch(CATALOG_PDF_URL);
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = CATALOG_PDF_FILENAME;
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      window.URL.revokeObjectURL(url);
-    } catch (error) {
-      console.error("Failed to download catalog", error);
-      // Fallback: open in new window/tab if blob fetch fails
-      window.open(CATALOG_PDF_URL, '_blank');
-    }
-  };
-
   return (
-    <div className="flex flex-col h-screen bg-[#1E2530] text-white overflow-hidden font-sans">
-      {/* Premium Top Bar */}
-      <header className="h-16 bg-[#0B3D78] flex items-center justify-between px-4 sm:px-6 shadow-[0_4px_20px_rgba(11,61,120,0.15)] z-25 border-b border-white/10 shrink-0">
-        <div className="flex items-center gap-3">
-          <button
-            onClick={() => navigate(-1)}
-            className="w-10 h-10 rounded-xl hover:bg-white/10 flex items-center justify-center transition-colors cursor-pointer"
-            aria-label="Back"
+    <div className="bg-white min-h-screen flex flex-col font-sans overflow-x-hidden">
+      <Navbar />
+
+      <main className="flex-1 w-full max-w-[1200px] mx-auto px-6 pt-[110px] pb-12 md:pt-[140px] md:pb-12">
+        
+        {/* Top Header */}
+        <motion.h1 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="text-left font-light text-[#7A7A7A] mb-[70px]"
+          style={{ fontSize: 'clamp(36px, 5vw, 48px)', lineHeight: 1 }}
+        >
+          {t('catalog.title')}
+        </motion.h1>
+
+        {/* Top Divider */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="w-full h-[1px] bg-[#D9D9D9]" 
+        />
+
+        {/* Space 80px */}
+        <div className="h-[60px] md:h-[80px]" />
+
+        {/* Main Catalog Block */}
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
+          className="flex flex-col items-center justify-center text-center w-full"
+        >
+          {/* Centered Title */}
+          <h2 
+            className="font-light text-[#7A7A7A]"
+            style={{ fontSize: 'clamp(36px, 5vw, 48px)', lineHeight: 1 }}
           >
-            <ArrowLeft size={20} />
-          </button>
-          <div>
-            <h1 className="font-display font-bold text-sm sm:text-base tracking-wide uppercase">
-              {t('catalog.name')}
-            </h1>
-            <p className="text-[10px] text-white/50 font-mono tracking-widest uppercase">
-              Document Viewer
-            </p>
+            {t('catalog.catalogLabel')}
+          </h2>
+
+          {/* Space 55px */}
+          <div className="h-[40px] md:h-[55px]" />
+
+          {/* PDF Download Row */}
+          <div className="flex flex-col md:flex-row items-center gap-3 md:gap-4">
+            <PdfIcon className="w-[40px] h-[40px] md:w-[50px] md:h-[50px]" color="#2c3e50" />
+            
+            <a 
+              href="/catalog.pdf" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-[#7B8794] font-medium transition-colors duration-300 hover:text-[#123F73] text-[14px] md:text-[16px] no-underline"
+            >
+              {t('catalog.catalogPdf')}
+            </a>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="flex items-center gap-2">
-          {/* Open full screen / new window button */}
-          <a
-            href={CATALOG_PDF_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden sm:flex items-center gap-2 bg-[#082d5a] hover:bg-[#0B3D78] text-white text-xs font-semibold px-4 py-2 rounded-lg transition-colors border border-white/10"
-          >
-            <ExternalLink size={14} />
-            Full Screen
-          </a>
-          
-          {/* Download button */}
-          <a
-            href={CATALOG_PDF_URL}
-            download={CATALOG_PDF_FILENAME}
-            onClick={(e) => {
-              if (isMobile) {
-                e.preventDefault();
-                triggerMobileDownload();
-              }
-            }}
-            className="flex items-center gap-2 bg-white text-[#0B3D78] hover:bg-white/90 text-xs font-bold px-4 py-2 rounded-lg transition-colors cursor-pointer"
-          >
-            <Download size={14} />
-            {t('catalog.download')}
-          </a>
-        </div>
-      </header>
+        {/* Space 90px */}
+        <div className="h-[70px] md:h-[90px]" />
 
-      {/* Main Content Area */}
-      <div className="flex-1 relative bg-[#525659] flex items-center justify-center p-4">
-        {isMobile ? (
-          <div className="flex flex-col items-center text-center max-w-sm w-full bg-[#1E2530]/80 p-8 rounded-3xl border border-white/10 backdrop-blur-md shadow-2xl">
-            <img
-              src="/images/catalog-cover.png"
-              alt="Catalog Cover"
-              className="w-36 h-auto rounded-xl shadow-[0_15px_30px_rgba(0,0,0,0.3)] mb-6 border border-white/5"
-            />
-            <h2 className="text-xl font-bold mb-3">{t('catalog.name')}</h2>
-            <p className="text-sm text-white/60 mb-8 leading-relaxed max-w-[280px]">
-              {t('catalog.description')}
-            </p>
-            <div className="flex flex-col gap-3 w-full">
-              <a
-                href={CATALOG_PDF_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full py-3.5 bg-[#0B3D78] hover:bg-[#0B3D78]/90 text-white rounded-xl text-xs font-bold transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
-              >
-                <ExternalLink size={14} />
-                Open PDF
-              </a>
-              <button
-                onClick={triggerMobileDownload}
-                className="w-full py-3.5 bg-white text-[#0B3D78] hover:bg-white/95 rounded-xl text-xs font-black transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
-              >
-                <Download size={14} />
-                {t('catalog.downloadText')}
-              </button>
+        {/* First Divider */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="w-full h-[1px] bg-[#D9D9D9] mb-16 md:mb-20" 
+        />
+
+        {/* Certificate Lists */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="flex flex-col gap-16 md:gap-24 w-full"
+        >
+          {/* Row 1: TSEK & CE */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-8">
+            {/* TSEK */}
+            <div className="flex flex-col items-center w-full">
+              <h3 className="font-bold text-[#7A7A7A] mb-8 text-[18px] md:text-[20px]">{t('catalog.tsekTitle')}</h3>
+              <div className="w-full max-w-[360px] flex flex-col pl-14 pr-4 md:px-0">
+                {[
+                  t('catalog.tsekDoorLock'),
+                  t('catalog.tsekShockAbsorber'),
+                  t('catalog.tsekRetiringCam')
+                ].map((item, index, arr) => (
+                  <div key={index} className={`flex items-center py-4 ${index !== arr.length - 1 ? 'border-b border-[#D9D9D9]' : ''}`}>
+                    <PdfIcon className="w-[32px] h-[32px] mr-5 shrink-0" color="#2c3e50" />
+                    <a href="#" target="_blank" rel="noopener noreferrer" className="text-[#7B8794] text-[14px] md:text-[15px] font-medium transition-colors hover:text-[#123F73] no-underline">
+                      {item}
+                    </a>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* CE */}
+            <div className="flex flex-col items-center w-full">
+              <h3 className="font-bold text-[#7A7A7A] mb-8 text-[18px] md:text-[20px]">{t('catalog.ceTitle')}</h3>
+              <div className="w-full max-w-[360px] flex flex-col pl-14 pr-4 md:px-0">
+                {[
+                  t('catalog.clSgCe'),
+                  t('catalog.cl08_200Ce'),
+                  t('catalog.cl08_250Ce'),
+                  t('catalog.cl08_300Ce'),
+                  t('catalog.cl01Ce')
+                ].map((item, index, arr) => (
+                  <div key={index} className={`flex items-center py-4 ${index !== arr.length - 1 ? 'border-b border-[#D9D9D9]' : ''}`}>
+                    <PdfIcon className="w-[32px] h-[32px] mr-5 shrink-0" color="#2c3e50" />
+                    <a href="#" target="_blank" rel="noopener noreferrer" className="text-[#7B8794] text-[14px] md:text-[15px] font-medium transition-colors hover:text-[#123F73] no-underline">
+                      {item}
+                    </a>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-        ) : (
-          <iframe
-            src={CATALOG_PDF_URL}
-            title={t('catalog.title')}
-            className="w-full h-full border-0"
-          />
-        )}
-      </div>
+
+          {/* Middle Divider */}
+          <div className="w-full h-[1px] bg-[#D9D9D9]" />
+
+          {/* Row 2: EAC & ISO */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-8">
+            {/* EAC */}
+            <div className="flex flex-col items-center w-full">
+              <h3 className="font-bold text-[#7A7A7A] mb-8 text-[18px] md:text-[20px]">{t('catalog.eacTitle')}</h3>
+              <div className="w-full max-w-[360px] flex flex-col pl-14 pr-4 md:px-0">
+                {[
+                  t('catalog.clSgEac'),
+                  t('catalog.cl08Eac')
+                ].map((item, index, arr) => (
+                  <div key={index} className={`flex items-center py-4 ${index !== arr.length - 1 ? 'border-b border-[#D9D9D9]' : ''}`}>
+                    <PdfIcon className="w-[32px] h-[32px] mr-5 shrink-0" color="#2c3e50" />
+                    <a href="#" target="_blank" rel="noopener noreferrer" className="text-[#7B8794] text-[14px] md:text-[15px] font-medium transition-colors hover:text-[#123F73] no-underline">
+                      {item}
+                    </a>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* ISO */}
+            <div className="flex flex-col items-center w-full">
+              <h3 className="font-bold text-[#7A7A7A] mb-8 text-[18px] md:text-[20px]">{t('catalog.isoTitle')}</h3>
+              <div className="w-full max-w-[360px] flex flex-col pl-14 pr-4 md:px-0">
+                {[
+                  t('catalog.iso9001'),
+                  t('catalog.iso14001'),
+                  t('catalog.iso45001')
+                ].map((item, index, arr) => (
+                  <div key={index} className={`flex items-center py-4 ${index !== arr.length - 1 ? 'border-b border-[#D9D9D9]' : ''}`}>
+                    <PdfIcon className="w-[32px] h-[32px] mr-5 shrink-0" color="#2c3e50" />
+                    <a href="#" target="_blank" rel="noopener noreferrer" className="text-[#7B8794] text-[14px] md:text-[15px] font-medium transition-colors hover:text-[#123F73] no-underline">
+                      {item}
+                    </a>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+      </main>
+
+      <Footer />
+      <WhatsAppButton />
+      <ScrollToTop />
+      <FloatingToolbar />
     </div>
   );
 }

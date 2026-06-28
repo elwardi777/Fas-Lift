@@ -319,10 +319,10 @@ const Footer: React.FC = () => {
               alt="FasLift Solutions"
               className="ft-logo"
             />
-            <p className="ft-address-block">
-              Zone Industrielle, Bloc B, No 7<br />
-              Casablanca 20250 / MAROC<br /><br />
-              <span style={{ color: '#6b7280' }}>Tél: </span>
+            <p className="ft-address-block" style={{ whiteSpace: 'pre-line' }}>
+              {t('footer.address')}
+              <br /><br />
+              <span style={{ color: '#6b7280' }}>{t('footer.phoneLabel')}: </span>
               <a href="tel:+212653660399" className="ft-contact-link">
                 +212 653-660399
               </a>
@@ -336,7 +336,7 @@ const Footer: React.FC = () => {
 
           {/* ── Column 2: Quick Links ── */}
           <div>
-            <p className="ft-col-title">Quick Links</p>
+            <p className="ft-col-title">{t('footer.quickLinks')}</p>
             <ul className="ft-nav-list">
               {NAV_LINKS.map((link) => (
                 <li key={link.href}>
@@ -350,9 +350,9 @@ const Footer: React.FC = () => {
 
           {/* ── Column 3: Resources / QR ── */}
           <div className="ft-qr-col">
-            <p className="ft-col-title">Resources</p>
+            <p className="ft-col-title">{t('footer.resources')}</p>
             <div className="ft-qr-wrap">
-              <p className="ft-qr-label">Business Card</p>
+              <p className="ft-qr-label">{t('footer.businessCard')}</p>
               <img
                 src="/images/Capture d’écran 2026-06-27 193815.png"
                 alt="QR Business Card"
@@ -363,7 +363,7 @@ const Footer: React.FC = () => {
 
           {/* ── Column 4: Social Media ── */}
           <div>
-            <p className="ft-col-title">Follow Us</p>
+            <p className="ft-col-title">{t('footer.followUs')}</p>
             <div className="ft-social-row">
               {SOCIAL.map(({ label, href, bg, icon }) => (
                 <a
@@ -389,12 +389,16 @@ const Footer: React.FC = () => {
             <p className="ft-copy">
               © 2026{' '}
               <span style={{ fontWeight: 600, color: '#0B3D78' }}>FasLift Solutions</span>
-              {' '}· All Rights Reserved
+              {' '}· {t('footer.rightsReserved')}
             </p>
             <div className="ft-legal">
-              {['Privacy Policy', 'Legal Notices', 'Cookie Policy'].map((item, i, arr) => (
-                <React.Fragment key={item}>
-                  <a href="#">{item}</a>
+              {[
+                { label: t('footer.privacyPolicy'), key: 'privacy' },
+                { label: t('footer.legalNotices'), key: 'legal' },
+                { label: t('footer.cookiePolicy'), key: 'cookie' },
+              ].map((item, i, arr) => (
+                <React.Fragment key={item.key}>
+                  <a href="#">{item.label}</a>
                   {i < arr.length - 1 && <span className="ft-legal-sep">|</span>}
                 </React.Fragment>
               ))}
