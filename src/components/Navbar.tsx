@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, ChevronDown, Globe } from 'lucide-react'
+import { Menu, X, ChevronDown, Check } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import { useLocation, Link } from 'react-router-dom'
+import { useLocation, Link, useNavigate } from 'react-router-dom'
 
 interface NavbarProps {
   forceDark?: boolean
@@ -49,15 +49,41 @@ function useNavItems(): NavItem[] {
 }
 
 const LANGUAGES = [
-  { code: 'en', labelKey: 'nav.langEn' },
-  { code: 'fr', labelKey: 'nav.langFr' },
-  { code: 'tr', labelKey: 'nav.langTr' },
+  { code: 'en', label: 'English', nativeName: 'English', labelKey: 'nav.langEn' },
+  { code: 'fr', label: 'Français', nativeName: 'Français', labelKey: 'nav.langFr' },
+  { code: 'tr', label: 'Türkçe', nativeName: 'Türkçe', labelKey: 'nav.langTr' },
 ]
 
-const flagMap: Record<string, string> = {
-  en: '🇬🇧',
-  fr: '🇫🇷',
-  tr: '🇹🇷',
+function FlagIcon({ code, className = '' }: { code: string; className?: string }) {
+  return (
+    <span
+      className={`inline-flex h-5 w-5 shrink-0 overflow-hidden rounded-[4px] shadow-sm ring-1 ring-black/5 transition-transform duration-200 group-hover:scale-[1.05] md:h-[22px] md:w-[22px] lg:h-6 lg:w-6 ${className}`}
+      aria-hidden="true"
+    >
+      {code === 'fr' ? (
+        <svg viewBox="0 0 3 2" className="h-full w-full object-cover" preserveAspectRatio="xMidYMid slice">
+          <path fill="#0055A4" d="M0 0h1v2H0z" />
+          <path fill="#fff" d="M1 0h1v2H1z" />
+          <path fill="#EF4135" d="M2 0h1v2H2z" />
+        </svg>
+      ) : code === 'tr' ? (
+        <svg viewBox="0 0 30 20" className="h-full w-full object-cover" preserveAspectRatio="xMidYMid slice">
+          <path fill="#E30A17" d="M0 0h30v20H0z" />
+          <circle cx="12" cy="10" r="5" fill="#fff" />
+          <circle cx="13.4" cy="10" r="4" fill="#E30A17" />
+          <path fill="#fff" d="m18.7 10 4.15-1.35-2.56 3.53V7.82l2.56 3.53z" />
+        </svg>
+      ) : (
+        <svg viewBox="0 0 60 40" className="h-full w-full object-cover" preserveAspectRatio="xMidYMid slice">
+          <path fill="#012169" d="M0 0h60v40H0z" />
+          <path stroke="#fff" strokeWidth="8" d="m0 0 60 40M60 0 0 40" />
+          <path stroke="#C8102E" strokeWidth="4" d="m0 0 60 40M60 0 0 40" />
+          <path stroke="#fff" strokeWidth="13" d="M30 0v40M0 20h60" />
+          <path stroke="#C8102E" strokeWidth="8" d="M30 0v40M0 20h60" />
+        </svg>
+      )}
+    </span>
+  )
 }
 
 /* ------------------------------------------------------------------ */
@@ -69,6 +95,7 @@ function LanguageSelector() {
   const [isOpen, setIsOpen] = useState(false)
 
   const currentLang = i18n.language?.startsWith('tr') ? 'tr' : (i18n.language?.startsWith('fr') ? 'fr' : 'en')
+  const currentLanguage = LANGUAGES.find((lang) => lang.code === currentLang) ?? LANGUAGES[0]
 
   const switchLang = (code: string) => {
     i18n.changeLanguage(code)
@@ -87,12 +114,12 @@ function LanguageSelector() {
     <div className="relative" onClick={(e) => e.stopPropagation()}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-1.5 px-3 py-2 text-[13px] font-semibold tracking-wide
-                   text-gray-700 hover:text-[#0B3D78] transition-colors duration-200 cursor-pointer font-['JetBrains_Mono',monospace]"
+        aria-label={t('nav.language')}
+        className="group flex items-center gap-3 rounded-lg px-3 py-2 text-[13px] font-semibold tracking-wide
+                   text-gray-700 hover:bg-gray-50 hover:text-[#123F73] transition-colors duration-200 cursor-pointer font-['Inter',sans-serif]"
       >
-        <Globe size={15} className="opacity-70 text-[#0B3D78]" />
-        <span className="text-[15px]">{flagMap[currentLang]}</span>
-        <span>{currentLang.toUpperCase()}</span>
+        <FlagIcon code={currentLang} />
+        <span>{currentLanguage.label}</span>
         <ChevronDown
           size={12}
           className={`transition-transform duration-200 text-gray-500 ${isOpen ? 'rotate-180' : ''}`}
@@ -109,28 +136,30 @@ function LanguageSelector() {
             className="absolute right-0 top-full pt-2 z-50"
           >
             <div
-              className="min-w-[140px] rounded-xl border border-gray-100
+              className="min-w-[240px] rounded-xl border border-gray-100
                           bg-white shadow-lg overflow-hidden py-1"
             >
-              {LANGUAGES.map((lang) => (
-                <button
-                  key={lang.code}
-                  onClick={() => switchLang(lang.code)}
-                  className={`flex w-full items-center gap-2 px-4 py-2.5 text-[13px] font-medium
-                             transition-colors duration-150 cursor-pointer font-['JetBrains_Mono',monospace]
-                             ${
-                               currentLang === lang.code
-                                 ? 'bg-gray-50 text-[#0B3D78] font-bold'
-                                 : 'text-gray-600 hover:bg-gray-50 hover:text-[#0B3D78]'
-                             }`}
-                >
-                  <span className="text-[16px]">{flagMap[lang.code]}</span>
-                  <span>{lang.code.toUpperCase()}</span>
-                  <span className="text-[11px] text-gray-400 font-['Inter',sans-serif] ml-auto">
-                    {t(lang.labelKey)}
-                  </span>
-                </button>
-              ))}
+              {LANGUAGES.map((lang) => {
+                const active = currentLang === lang.code
+                return (
+                  <button
+                    key={lang.code}
+                    onClick={() => switchLang(lang.code)}
+                    className={`group flex w-full cursor-pointer items-center gap-3 px-4 py-3 text-[13px]
+                               transition-colors duration-200 font-['Inter',sans-serif]
+                               ${
+                                 active
+                                   ? 'bg-[#EAF2FB] text-[#123F73] font-medium'
+                                   : 'text-gray-600 hover:bg-gray-50 hover:text-[#123F73]'
+                               }`}
+                  >
+                    <FlagIcon code={lang.code} />
+                    <span className="min-w-[78px] text-left font-medium">{lang.label}</span>
+                    <span className="text-left text-[12px] text-gray-400">{lang.nativeName}</span>
+                    {active && <Check size={14} className="ml-auto text-[#123F73]" />}
+                  </button>
+                )
+              })}
             </div>
           </motion.div>
         )}
@@ -147,8 +176,17 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
   const { t, i18n } = useTranslation()
   const currentLang = i18n.language?.startsWith('tr') ? 'tr' : (i18n.language?.startsWith('fr') ? 'fr' : 'en')
   const location = useLocation()
+  const navigate = useNavigate()
   const pathname = location.pathname
   const NAV_ITEMS = useNavItems()
+
+  const handleLogoClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault()
+    onClose()
+    window.setTimeout(() => {
+      navigate('/')
+    }, 300)
+  }
 
   return (
     <motion.div
@@ -160,11 +198,19 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
     >
       {/* Header row */}
       <div className="flex h-[76px] items-center justify-between px-6 border-b border-gray-100">
-        <img
-          src="/images/governor-4-removebg-preview.png"
-          alt="FasLift Solutions"
-          className="h-auto max-h-[56px] w-auto"
-        />
+        <Link
+          to="/"
+          onClick={handleLogoClick}
+          aria-label="Go to Home"
+          className="flex cursor-pointer touch-manipulation select-none items-center"
+        >
+          <img
+            src="/images/governor-4-removebg-preview.png"
+            alt="FasLift Solutions"
+            className="h-auto max-h-[56px] w-auto"
+            draggable={false}
+          />
+        </Link>
         <button
           onClick={onClose}
           aria-label="Close menu"
@@ -204,26 +250,28 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
             {t('nav.language')}
           </p>
           <div className="flex gap-3">
-            {LANGUAGES.map((lang) => (
-              <button
-                key={lang.code}
-                onClick={() => {
-                  i18n.changeLanguage(lang.code)
-                  onClose()
-                }}
-                className={`rounded-lg border px-4 py-2.5 text-[13px]
-                           font-semibold transition-colors duration-150 cursor-pointer
-                           font-['JetBrains_Mono',monospace] flex items-center gap-1.5
-                           ${
-                             currentLang === lang.code
-                               ? 'bg-gray-100 border-[#0B3D78] text-[#0B3D78]'
-                               : 'border-gray-200 text-gray-600 hover:bg-gray-50'
-                           }`}
-              >
-                <span>{flagMap[lang.code]}</span>
-                <span>{lang.code.toUpperCase()}</span>
-              </button>
-            ))}
+            {LANGUAGES.map((lang) => {
+              const active = currentLang === lang.code
+              return (
+                <button
+                  key={lang.code}
+                  onClick={() => {
+                    i18n.changeLanguage(lang.code)
+                    onClose()
+                  }}
+                  className={`group flex cursor-pointer items-center gap-3 rounded-lg border px-4 py-2.5 text-[13px]
+                             font-medium transition-colors duration-200 font-['Inter',sans-serif]
+                             ${
+                               active
+                                 ? 'bg-[#EAF2FB] border-[#123F73]/20 text-[#123F73]'
+                                 : 'border-gray-200 text-gray-600 hover:bg-gray-50 hover:text-[#123F73]'
+                             }`}
+                >
+                  <FlagIcon code={lang.code} />
+                  <span>{lang.label}</span>
+                </button>
+              )
+            })}
           </div>
         </div>
       </nav>

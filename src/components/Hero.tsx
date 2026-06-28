@@ -237,15 +237,14 @@ const Hero: React.FC = () => {
                 <motion.button
                   variants={fadeUpVariants}
                   custom={1.2}
-                  whileHover={{ scale: 1.06 }}
+                  whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.96 }}
                   transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-                  className="cta-btn inline-flex items-center gap-2 bg-[#0B3D78] text-white font-semibold
+                  className="cta-btn inline-flex items-center gap-2 bg-[#123F73] text-white font-semibold
                              text-sm sm:text-base px-7 py-3.5 rounded-full
-                             shadow-[0_8px_0_rgba(0,0,0,0.18)]
-                             hover:shadow-[0_12px_4px_rgba(0,0,0,0.22)]
-                             active:shadow-[0_4px_0_rgba(0,0,0,0.18)]
-                             transition-shadow duration-200 cursor-pointer"
+                             shadow-none hover:bg-[#0D3562] active:shadow-none
+                             focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#123F73]/35
+                             transition-colors duration-200 cursor-pointer"
                 >
                   {t('hero.cta')}
                   <span className="text-lg leading-none">→</span>

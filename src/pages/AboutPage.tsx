@@ -176,6 +176,7 @@ function AnniversarySection() {
                     letterSpacing: '10px',
                   }}
                 >
+                  {t('about.years')}
                 </span>
               </div>
             </div>
@@ -258,10 +259,10 @@ function AboutUsSection() {
   const { t } = useTranslation();
   // 4 images for the gallery row
   const galleryImages = [
-    { src: '/images/governor-1.jpg', alt: 'Manufacturing Line' },
-    { src: '/images/fabrika-detay-1.webp', alt: 'Precision Engineering' },
-    { src: '/images/WhatsApp Image 2026-06-09 at 21.13.18 (2).jpeg', alt: 'Quality Control' },
-    { src: '/images/fabrika-detay-3.webp', alt: 'Production Facility' },
+    { src: '/images/governor-1.jpg', alt: t('aboutPage.altManufacturing') },
+    { src: '/images/fabrika-detay-1.webp', alt: t('aboutPage.altPrecision') },
+    { src: '/images/WhatsApp Image 2026-06-09 at 21.13.18 (2).jpeg', alt: t('aboutPage.altQuality') },
+    { src: '/images/fabrika-detay-3.webp', alt: t('aboutPage.altProduction') },
   ];
 
   return (
@@ -306,7 +307,7 @@ function AboutUsSection() {
             <div className="relative overflow-hidden rounded-sm">
               <img
                 src="/images/321da7c8-f094-4c2e-977c-48ed719647ae.jfif                   "
-                alt="FAS LIFT Company Building"
+                alt={t('aboutPage.altCompanyBuilding')}
                 className="w-full h-auto object-cover rounded-sm"
                 style={{ aspectRatio: '4/3' }}
                 draggable={false}
@@ -462,7 +463,7 @@ function WorldwideBrandSection() {
           <div className="relative mb-10">
             <img
               src="/images/Gemini_Generated_Image_5rcoyx5rcoyx5rco.png"
-              alt="FAS LIFT Worldwide Presence"
+              alt={t('aboutPage.altWorldwide')}
               className="w-full h-auto object-contain"
               draggable={false}
             />

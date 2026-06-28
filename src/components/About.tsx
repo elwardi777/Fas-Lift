@@ -64,7 +64,7 @@ export default function About() {
           <div className="about-image relative min-h-[420px] overflow-hidden rounded-[8px] border border-[#0B3D78]/10 bg-white shadow-[0_28px_80px_rgba(11,61,120,0.14)]">
             <img
               src="/images/f6d7fe15-bded-4906-9800-bfdc7cb6d91a.jfif"
-              alt="FasLift elevator safety manufacturing"
+              alt={t('about.altManufacturing')}
               className="h-full min-h-[420px] w-full object-cover object-center"
               draggable={false}
             />

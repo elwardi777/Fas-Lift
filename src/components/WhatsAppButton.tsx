@@ -31,19 +31,18 @@ const LANGUAGES: LanguageConfig[] = [
     prefillMessage: 'Merhaba, FAS LIFT ürünleri hakkında bilgi almak istiyorum.',
   },
   {
+    id: 'fr',
+    flag: '🇫🇷',
+    label: 'FR',
+    bubbleText: 'Bonjour, comment pouvons-nous vous aider ?',
+    prefillMessage: 'Bonjour, je souhaite obtenir plus d\'informations sur les produits FAS LIFT.',
+  },
+  {
     id: 'en',
     flag: '🇬🇧',
     label: 'EN',
     bubbleText: 'Hello, how can we help you?',
     prefillMessage: 'Hello, I would like more information about FAS LIFT products.',
-  },
-  {
-    id: 'ar',
-    flag: '🇸🇦',
-    label: 'AR',
-    bubbleText: 'مرحباً، كيف يمكننا مساعدتك؟',
-    prefillMessage: 'مرحباً، أود الحصول على مزيد من المعلومات حول منتجات FAS LIFT.',
-    dir: 'rtl',
   },
 ];
 
@@ -120,8 +119,7 @@ const WhatsAppButton: React.FC = () => {
           >
             <div className="flex flex-col items-center justify-center mt-0.5 gap-0.5">
               <WhatsAppIcon size={22} />
-              <div className="flex items-center gap-0.5 font-bold text-[9px] leading-none tracking-wide mt-[1px]">
-                <span>{lang.flag}</span>
+              <div className="flex items-center gap-0.5 font-bold text-[10px] leading-none tracking-wide mt-[1px]">
                 <span>{lang.label}</span>
               </div>
             </div>

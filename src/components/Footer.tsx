@@ -316,7 +316,7 @@ const Footer: React.FC = () => {
           <div>
             <img
               src="/images/governor-4-removebg-preview.png"
-              alt="FasLift Solutions"
+              alt={t('footer.logoAlt')}
               className="ft-logo"
             />
             <p className="ft-address-block" style={{ whiteSpace: 'pre-line' }}>
@@ -327,7 +327,7 @@ const Footer: React.FC = () => {
                 +212 653-660399
               </a>
               <br />
-              <span style={{ color: '#6b7280' }}>Email: </span>
+              <span style={{ color: '#6b7280' }}>{t('footer.emailLabel')}: </span>
               <a href="mailto:info@faslift.com" className="ft-contact-link">
                 info@faslift.com
               </a>
@@ -355,7 +355,7 @@ const Footer: React.FC = () => {
               <p className="ft-qr-label">{t('footer.businessCard')}</p>
               <img
                 src="/images/Capture d’écran 2026-06-27 193815.png"
-                alt="QR Business Card"
+                alt={t('footer.businessCardQrAlt')}
                 className="ft-qr-img"
               />
             </div>

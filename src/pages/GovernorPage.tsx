@@ -99,6 +99,7 @@ function WeightSVG() {
    Page Component
    ═══════════════════════════════════════════════════════════════════════════ */
 const ProductShowcase = () => {
+  const { t } = useTranslation();
   const [activeIndex, setActiveIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const [zoomOrigin, setZoomOrigin] = useState('50% 50%');
@@ -153,7 +154,7 @@ const ProductShowcase = () => {
       >
         <img 
           src="/images/WhatsApp_Image_2026-06-09_at_21..15-removebg-preview.png" 
-          alt="FAS LIFT Overspeed Governor" 
+          alt={t('governor.heroImageAlt')}
           className="pdp-showcase-img"
         />
         <div className="pdp-metallic-sweep" />
@@ -176,7 +177,7 @@ const ProductShowcase = () => {
       >
         <img 
           src="/images/f3396119-20be-4312-97d0-0df5729bb02a.png" 
-          alt="Overspeed Governor Technical Drawing" 
+          alt={t('governor.blueprintImageAlt')}
           className="pdp-showcase-img pdp-showcase-blueprint"
           style={{ 
             transformOrigin: zoomOrigin,
@@ -222,23 +223,23 @@ export default function GovernorPage() {
   ];
 
   const TECH_PROPERTIES = [
-    'Adjusted and sealed according to the rated speed.',
-    'Suitable for instantaneous and progressive safety gears.',
-    'Easy assembly.',
-    'Quiet operation.',
-    'Activates safety gear upward and downward in compliance with EN 81:20 and EN 81:50.',
-    'First cuts the safety contact and then locks as per EN 81:20 and EN 81:50.',
-    'Governor Rope Diameter: Ø6-6,5-8mm',
-    'Governor Rope Technical Property: TS EN 12385-5',
+    'governor.prop1',
+    'governor.prop2',
+    'governor.prop3',
+    'governor.prop4',
+    'governor.prop5',
+    'governor.prop6',
+    'governor.prop7',
+    'governor.prop8',
   ];
 
   const TECH_STANDARDS = [
-    'EN 81-20',
-    'EN 81-50',
-    'Passenger Elevators',
-    'Freight Elevators',
-    'High Reliability',
-    'Long Service Life',
+    'governor.std1',
+    'governor.std2',
+    'governor.std3',
+    'governor.std4',
+    'governor.std5',
+    'governor.std6',
   ];
 
   /*
@@ -855,7 +856,7 @@ export default function GovernorPage() {
                   border: '1px solid rgba(11,61,120,0.12)',
                   display: 'inline-block'
                 }}>
-                  Industrial Safety Sensor
+                  {t('governor.industrialSensor')}
                 </span>
               </div>
 
@@ -871,7 +872,7 @@ export default function GovernorPage() {
                     letterSpacing: '-0.025em',
                     wordBreak: 'break-word'
                   }}>
-                  FS-01 Monodirectionnel
+                  {t('governor.title1')}
                 </h1>
                 
                 <h2 className="pdp-fu pdp-fu-d2"
@@ -896,7 +897,7 @@ export default function GovernorPage() {
                     letterSpacing: '-0.01em'
                   }}>
                   <span style={{ position: 'relative', display: 'inline-block', paddingBottom: '4px' }}>
-                    Bidirectionnel
+                    {t('orderForm.bidirectional')}
                     <span style={{
                       position: 'absolute',
                       bottom: '0px',
@@ -921,7 +922,7 @@ export default function GovernorPage() {
                   paddingLeft: 'clamp(16px, 3vw, 32px)',
                   maxWidth: '480px'
                 }}>
-                Le plus simple, le plus répandu.
+                {t('governor.subtitle')}
               </p>
 
               {/* Horizontal Divider */}
@@ -959,7 +960,7 @@ export default function GovernorPage() {
         {/* ══ S3 — Visual 360° Gallery ═════════════════════════════════ */}
         <section ref={visualRef} id="visual" style={{ padding: '60px 0 52px', background: '#fafbfd' }}>
           <div style={{ position: 'relative' }}>
-            <button className="pdp-arr" style={{ left: 'max(6px,0.5%)' }} onClick={() => scrollC(galleryRef, -1)} aria-label="prev">
+            <button className="pdp-arr" style={{ left: 'max(6px,0.5%)' }} onClick={() => scrollC(galleryRef, -1)} aria-label={t('governor.prevImage')}>
               <ChevronLeft size={18} />
             </button>
 
@@ -993,14 +994,14 @@ export default function GovernorPage() {
               })}
             </div>
 
-            <button className="pdp-arr" style={{ right: 'max(6px,0.5%)' }} onClick={() => scrollC(galleryRef, 1)} aria-label="next">
+            <button className="pdp-arr" style={{ right: 'max(6px,0.5%)' }} onClick={() => scrollC(galleryRef, 1)} aria-label={t('governor.nextImage')}>
               <ChevronRight size={18} />
             </button>
           </div>
 
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 6, marginTop: 28 }}>
             {GALLERY_ANGLES.map((_, i) => (
-              <button key={i} className={`pdp-dot${i === galleryDot ? ' pdp-dot--on' : ''}`} onClick={() => jumpDot(galleryRef, i)} aria-label={`img ${i + 1}`} />
+              <button key={i} className={`pdp-dot${i === galleryDot ? ' pdp-dot--on' : ''}`} onClick={() => jumpDot(galleryRef, i)} aria-label={t('governor.imageDot', { number: i + 1 })} />
             ))}
           </div>
         </section>
@@ -1012,40 +1013,40 @@ export default function GovernorPage() {
         >
           <div className="pdp-tech__inner">
             <div>
-              <h2 className="pdp-tech__title">⚙ Properties</h2>
+              <h2 className="pdp-tech__title">{t('governor.propertiesTitle')}</h2>
               <ul className="pdp-tech__list">
                 {TECH_PROPERTIES.map(item => (
-                  <li key={item}>{item}</li>
+                  <li key={item}>{t(item)}</li>
                 ))}
               </ul>
             </div>
 
             <div>
-              <h3 className="pdp-tech__panel-title">Technical Specifications</h3>
+              <h3 className="pdp-tech__panel-title">{t('governor.techSpecsTitle')}</h3>
               <div className="pdp-tech-table-wrap">
                 <table className="pdp-tech-table">
                   <thead>
                     <tr>
-                      <th>Diameter</th>
-                      <th>Min–Max Nominal Speed</th>
+                      <th>{t('governor.diaCol')}</th>
+                      <th>{t('governor.speedCol')}</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td>Ø200 mm</td>
-                      <td>0.50 – 1.60 m/s</td>
+                      <td>{t('governor.diaValue')}</td>
+                      <td>{t('governor.speedValue')}</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
 
               <div className="pdp-standards">
-                <h3 className="pdp-tech__panel-title">International Standards</h3>
+                <h3 className="pdp-tech__panel-title">{t('governor.standardsTitle')}</h3>
                 <ul className="pdp-standards__list">
                   {TECH_STANDARDS.map(item => (
                     <li key={item}>
                       <span className="pdp-standards__check" aria-hidden="true">✓</span>
-                      <span>{item}</span>
+                      <span>{t(item)}</span>
                     </li>
                   ))}
                 </ul>
@@ -1216,6 +1217,26 @@ export default function GovernorPage() {
               color: #0B3D78;
               text-decoration-color: #0B3D78;
             }
+            .order-download-button {
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              margin-top: 18px;
+              min-height: 42px;
+              padding: 0 20px;
+              border-radius: 8px;
+              background: #0B3D78;
+              color: #fff;
+              font-size: 13px;
+              font-weight: 700;
+              letter-spacing: 0.02em;
+              text-decoration: none;
+              transition: background 0.2s ease, transform 0.2s ease;
+            }
+            .order-download-button:hover {
+              background: #145DA0;
+              transform: translateY(-1px);
+            }
           `}</style>
 
           {/* Title */}
@@ -1229,7 +1250,7 @@ export default function GovernorPage() {
               fontFamily: "'Georgia', 'Times New Roman', serif",
               letterSpacing: '0.01em',
             }}>
-              FAS LIFT Overspeed Governor Order Form
+              {t('governor.orderFormTitle')}
             </h2>
           </div>
 
@@ -1262,8 +1283,21 @@ export default function GovernorPage() {
               target="_blank"
               rel="noopener noreferrer"
               className="order-pdf-link"
+              title={t('governor.orderFormTooltip')}
+              aria-label={t('governor.orderFormDownload')}
             >
-              Overspeed_Governor_Order_Form.pdf
+              {t('governor.orderFormFileLabel')}
+            </a>
+          </div>
+          <div className="order-anim order-anim-d2">
+            <a
+              href="/documents/FAS_LIFT_Overspeed_Governor_Order_Form.pdf"
+              download
+              className="order-download-button"
+              title={t('governor.orderFormTooltip')}
+              aria-label={t('governor.orderFormDownload')}
+            >
+              {t('governor.orderFormButton')}
             </a>
           </div>
         </section>
@@ -1280,7 +1314,7 @@ export default function GovernorPage() {
 
       <Lightbox
         src={modalIndex !== null ? GALLERY_ANGLES[modalIndex].img : ''}
-        alt="Product Visual 360"
+        alt={modalIndex !== null ? t(GALLERY_ANGLES[modalIndex].key) : t('governor.lightboxAlt')}
         isOpen={modalIndex !== null}
         onClose={() => setModalIndex(null)}
         background="rgba(11, 61, 120, 0.95)"
