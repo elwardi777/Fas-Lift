@@ -674,11 +674,10 @@ export default function GovernorPage() {
           filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.24));
         }
 
-        /* Product Showcase Styles */
         .pdp-showcase-container {
           width: 100%;
-          max-width: 480px;
-          height: 480px;
+          max-width: 600px;
+          height: 600px;
           background: #ffffff;
           position: relative;
           overflow: hidden;
@@ -697,8 +696,8 @@ export default function GovernorPage() {
 
         .pdp-showcase-glow {
           position: absolute;
-          width: 320px;
-          height: 320px;
+          width: 440px;
+          height: 440px;
           border-radius: 50%;
           background: radial-gradient(circle, rgba(11, 61, 120, 0.08) 0%, rgba(255, 255, 255, 0) 70%);
           z-index: 1;
@@ -708,7 +707,7 @@ export default function GovernorPage() {
         .pdp-showcase-shadow {
           position: absolute;
           bottom: 30px;
-          width: 260px;
+          width: 360px;
           height: 16px;
           background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.08) 0%, rgba(0, 0, 0, 0) 70%);
           z-index: 1;
@@ -736,9 +735,9 @@ export default function GovernorPage() {
 
         .pdp-showcase-img {
           width: 100%;
-          max-width: 420px;
+          max-width: 560px;
           height: auto;
-          max-height: 420px;
+          max-height: 560px;
           object-fit: contain;
           transition: transform 350ms ease-out, filter 350ms ease-out, box-shadow 350ms ease-out;
           will-change: transform, transform-origin;
@@ -936,7 +935,7 @@ export default function GovernorPage() {
               </div>
             </div>
             {/* Right */}
-            <div className="pdp-fu pdp-fu-d2" style={{ flex: '0 1 480px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <div className="pdp-fu pdp-fu-d2" style={{ flex: '0 1 600px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
               <ProductShowcase />
             </div>
           </div>
