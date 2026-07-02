@@ -51,7 +51,7 @@ const Contact: React.FC = () => {
     e.preventDefault();
     
     const messageText = `Hello, my name is ${formData.name}.\nEmail: ${formData.email}\nMessage: ${formData.message}`;
-    const whatsappUrl = `https://wa.me/212653660399?text=${encodeURIComponent(messageText)}`;
+    const whatsappUrl = `https://wa.me/905316139223?text=${encodeURIComponent(messageText)}`;
     
     window.open(whatsappUrl, '_blank');
     
@@ -175,30 +175,30 @@ const Contact: React.FC = () => {
                   <li className="flex items-center gap-3">
                     <Phone size={15} className="text-white/60 shrink-0" />
                     <a
-                      href="tel:+212653660399"
+                      href="tel:+905316139223"
                       className="text-white/80 text-[14px] hover:text-white transition-colors"
                     >
-                      +212 653-660399
+                      +90 531 613 9223
                     </a>
                   </li>
                   <li className="flex items-center gap-3">
                     <Mail size={15} className="text-white/60 shrink-0" />
                     <a
-                      href="mailto:faslift@outlook.com"
+                      href="mailto:info@faslift.com"
                       className="text-white/80 text-[14px] hover:text-white transition-colors"
                     >
-                      faslift@outlook.com
+                      info@faslift.com
                     </a>
                   </li>
                   <li className="flex items-center gap-3">
                     <MessageCircle size={15} className="text-white/60 shrink-0" />
                     <a
-                      href="https://wa.me/212653660399"
+                      href="https://wa.me/905316139223"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-white/80 text-[14px] hover:text-white transition-colors"
                     >
-                      +212 653-660399
+                      +90 531 613 9223
                     </a>
                   </li>
                 </ul>

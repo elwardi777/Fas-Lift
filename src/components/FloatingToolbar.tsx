@@ -24,7 +24,7 @@ const FloatingToolbar: React.FC = () => {
       </Link>
 
       <a
-        href="tel:+212653660399"
+        href="tel:+905316139223"
         className="w-10 h-10 rounded-xl flex items-center justify-center text-[#0B3D78] hover:text-white hover:bg-[#0B3D78] transition-colors duration-200"
         aria-label={t('toolbar.call')}
         title={t('toolbar.call')}

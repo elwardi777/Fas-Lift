@@ -80,7 +80,7 @@ export default function SupportPage() {
     // Open mailto link pre-filled
     const subject = `FAS LIFT Support Request - ${selectedType}`;
     const body = `Name: ${formData.name}\nEmail: ${formData.email}\nCompany: ${formData.company}\nRequested Information: ${formData.requestedInfo}\n\nMessage:\n${formData.text}`;
-    window.location.href = `mailto:faslift@outlook.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:info@faslift.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
     setFormSubmitted(true);
   };
@@ -105,7 +105,7 @@ export default function SupportPage() {
     // Open mailto link pre-filled
     const subject = `FAS LIFT Newsletter Subscription`;
     const body = `I would like to subscribe to the FasLift newsletter.\n\nEmail: ${newsEmail}`;
-    window.location.href = `mailto:faslift@outlook.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:info@faslift.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
     setNewsSuccess(true);
     setNewsEmail('');
@@ -203,16 +203,16 @@ export default function SupportPage() {
           </p>
 
           <a
-            href="tel:+212653660399"
+            href="tel:+905316139223"
             className="text-[24px] md:text-[28px] font-extrabold text-[#1a4a8a] hover:text-[#0d2b5e] transition-colors mb-6 block cursor-pointer"
           >
-            +212 653-660399
+            +90 531 613 9223
           </a>
 
           {/* WhatsApp Pill */}
           <div className="flex justify-center">
             <a
-              href="https://wa.me/212653660399"
+              href="https://wa.me/905316139223"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-8 py-3.5 bg-[#25d366] text-white rounded-full font-semibold text-[14px] transition-all duration-300 hover:bg-[#20ba5a] hover:scale-105 cursor-pointer shadow-[0_8px_20px_rgba(37,211,102,0.25)]"

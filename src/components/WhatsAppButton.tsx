@@ -93,7 +93,7 @@ const WhatsAppButton: React.FC = () => {
   };
 
   const openWhatsApp = (text: string) => {
-    const baseUrl = 'https://wa.me/212531613923';
+    const baseUrl = 'https://wa.me/905316139223';
     const encodedText = encodeURIComponent(text);
     window.open(`${baseUrl}?text=${encodedText}`, '_blank', 'noopener,noreferrer');
   };

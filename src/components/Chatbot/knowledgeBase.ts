@@ -57,7 +57,7 @@ export const KNOWLEDGE_BASE: Record<string, KnowledgeItem[]> = {
     },
     {
       keywords: ['contact', 'phone', 'email', 'whatsapp', 'how to reach', 'address', 'office'],
-      answer: 'You can reach us through multiple channels:\n- Phone: +212 653-660399\n- Email: faslift@outlook.com\n- WhatsApp: +212 653-660399\n- Address: Zone Industrielle, Bloc B, No 7, Casablanca 20250, Morocco.',
+      answer: 'You can reach us through multiple channels:\n- Phone: +90 531 613 9223\n- Email: info@faslift.com\n- WhatsApp: +90 531 613 9223\n- Address: Zone Industrielle, Bloc B, No 7, Casablanca 20250, Morocco.',
       action: {
         label: 'Contact Details',
         url: '/corporate/contact',
@@ -140,7 +140,7 @@ export const KNOWLEDGE_BASE: Record<string, KnowledgeItem[]> = {
     },
     {
       keywords: ['contact', 'telephone', 'email', 'whatsapp', 'adresse', 'bureau', 'joindre'],
-      answer: 'Vous pouvez nous contacter via:\n- Téléphone: +212 653-660399\n- E-mail: faslift@outlook.com\n- WhatsApp: +212 653-660399\n- Adresse: Zone Industrielle, Bloc B, No 7, Casablanca 20250, Maroc.',
+      answer: 'Vous pouvez nous contacter via:\n- Téléphone: +90 531 613 9223\n- E-mail: info@faslift.com\n- WhatsApp: +90 531 613 9223\n- Adresse: Zone Industrielle, Bloc B, No 7, Casablanca 20250, Maroc.',
       action: {
         label: 'Coordonnées de contact',
         url: '/corporate/contact',
@@ -214,7 +214,7 @@ export const KNOWLEDGE_BASE: Record<string, KnowledgeItem[]> = {
     },
     {
       keywords: ['iletisim', 'telefon', 'e-posta', 'eposta', 'whatsapp', 'adres', 'ofis', 'ulasim'],
-      answer: 'Bizimle iletişime geçebileceğiniz kanallar:\n- Telefon: +212 653-660399\n- E-posta: faslift@outlook.com\n- WhatsApp: +212 653-660399\n- Adres: Zone Industrielle, Bloc B, No 7, Kazablanka 20250, Fas.',
+      answer: 'Bizimle iletişime geçebileceğiniz kanallar:\n- Telefon: +90 531 613 9223\n- E-posta: info@faslift.com\n- WhatsApp: +90 531 613 9223\n- Adres: Zone Industrielle, Bloc B, No 7, Kazablanka 20250, Fas.',
       action: {
         label: 'İletişim Bilgileri',
         url: '/corporate/contact',

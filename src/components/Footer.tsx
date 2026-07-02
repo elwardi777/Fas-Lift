@@ -52,7 +52,7 @@ const Footer: React.FC = () => {
     },
     {
       label: 'WhatsApp',
-      href: 'https://wa.me/212653660399',
+      href: 'https://wa.me/905316139223',
       bg: '#25d366',
       icon: <WhatsAppIcon />,
     },
@@ -374,14 +374,14 @@ const Footer: React.FC = () => {
             <div className="ft-contact-group">
               <div className="ft-contact-item">
                 <span style={{ color: '#6b7280' }}>{t('footer.phoneLabel')}: </span>
-                <a href="tel:+212653660399" className="ft-contact-link">
-                  +212 653-660399
+                <a href="tel:+905316139223" className="ft-contact-link">
+                  +90 531 613 9223
                 </a>
               </div>
               <div className="ft-contact-item">
                 <span style={{ color: '#6b7280' }}>{t('footer.emailLabel')}: </span>
-                <a href="mailto:faslift@outlook.com" className="ft-contact-link">
-                  faslift@outlook.com
+                <a href="mailto:info@faslift.com" className="ft-contact-link">
+                  info@faslift.com
                 </a>
               </div>
             </div>
@@ -444,18 +444,6 @@ const Footer: React.FC = () => {
               <span style={{ fontWeight: 600, color: '#0B3D78' }}>FasLift Solutions</span>
               {' '}· {t('footer.rightsReserved')}
             </p>
-            <div className="ft-legal">
-              {[
-                { label: t('footer.privacyPolicy'), key: 'privacy' },
-                { label: t('footer.legalNotices'), key: 'legal' },
-                { label: t('footer.cookiePolicy'), key: 'cookie' },
-              ].map((item, i, arr) => (
-                <React.Fragment key={item.key}>
-                  <a href="#">{item.label}</a>
-                  {i < arr.length - 1 && <span className="ft-legal-sep">|</span>}
-                </React.Fragment>
-              ))}
-            </div>
           </div>
         </div>
 

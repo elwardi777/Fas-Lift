@@ -565,7 +565,7 @@ export default function OrderFormPage() {
             <span>
               <strong>FAS LIFT SOLUTIONS</strong> · Zone Industrielle, Bloc B, N°7 Casablanca 20250 / MOROCCO
             </span>
-            <span>Tel: +212 531 613 923 · faslift@outlook.com</span>
+            <span>Tel: +212 531 613 923 · info@faslift.com</span>
           </div>
 
         </div>{/* end doc-page */}

@@ -541,7 +541,7 @@ function ContactInformationSection() {
             </p>
 
             <p className="mt-6">
-              e-mail: <span onClick={() => window.location.href = 'mailto:faslift@outlook.com'} className="hover-group"><span className="anim-text-shift font-normal transition-colors duration-300">faslift@outlook.com</span></span>
+              e-mail: <span onClick={() => window.location.href = 'mailto:info@faslift.com'} className="hover-group"><span className="anim-text-shift font-normal transition-colors duration-300">info@faslift.com</span></span>
             </p>
           </div>
         </FadeIn>

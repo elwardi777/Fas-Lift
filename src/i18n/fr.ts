@@ -84,7 +84,7 @@ const fr = {
     hoursTitle: "Heures d'ouverture",
     hoursText: "Lun - Ven: 08:00 - 18:00",
     namePlaceholder: 'Votre nom complet',
-    emailPlaceholder: 'faslift@outlook.com',
+    emailPlaceholder: 'info@faslift.com',
     messagePlaceholder: 'Parlez-nous de votre projet...',
     nameLabel: 'Nom',
     emailLabel: 'E-mail',

@@ -255,7 +255,7 @@ const Chatbot: React.FC = () => {
                     {msg.showContactFallback && (
                       <div className="grid grid-cols-2 gap-2 mt-4 pt-4 border-t border-gray-100">
                         <a
-                          href="https://wa.me/212653660399"
+                          href="https://wa.me/905316139223"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="flex items-center justify-center gap-1.5 py-2 px-2 bg-[#25D366] text-white hover:bg-[#20ba5a] rounded-xl text-[12px] font-bold transition-colors cursor-pointer text-center no-underline shadow-sm"
@@ -264,14 +264,14 @@ const Chatbot: React.FC = () => {
                           {tUi.whatsapp}
                         </a>
                         <a
-                          href="mailto:faslift@outlook.com"
+                          href="mailto:info@faslift.com"
                           className="flex items-center justify-center gap-1.5 py-2 px-2 bg-[#0d2b5e] text-white hover:bg-[#1a4a8a] rounded-xl text-[12px] font-bold transition-colors cursor-pointer text-center no-underline shadow-sm"
                         >
                           <Mail size={14} />
                           {tUi.emailUs}
                         </a>
                         <a
-                          href="tel:+212653660399"
+                          href="tel:+905316139223"
                           className="flex items-center justify-center gap-1.5 py-2 px-2 bg-[#E2E8F0] text-[#1E293B] hover:bg-[#CBD5E1] rounded-xl text-[12px] font-bold transition-colors cursor-pointer text-center no-underline shadow-sm"
                         >
                           <Phone size={14} />
@@ -339,20 +339,35 @@ const Chatbot: React.FC = () => {
       {/* Floating Chat Trigger Button */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-14 h-14 rounded-full bg-[#0B3D78] flex items-center justify-center shadow-[0_6px_20px_rgba(11,61,120,0.3)] hover:shadow-[0_8px_25px_rgba(11,61,120,0.4)] cursor-pointer outline-none border-none overflow-hidden relative"
+        className="w-14 h-14 rounded-full bg-[#0B3D78] flex items-center justify-center shadow-[0_6px_20px_rgba(11,61,120,0.3)] hover:shadow-[0_8px_25px_rgba(11,61,120,0.4)] cursor-pointer outline-none border-none relative"
         whileHover={{ scale: 1.1, y: -3 }}
         whileTap={{ scale: 0.9 }}
         transition={{ type: 'spring', stiffness: 400, damping: 17 }}
         aria-label="Open Chatbot"
       >
-        <img
-          src="/images/chatbot_icon.jpg"
-          alt="Chatbot icon"
-          className="w-full h-full object-cover"
-        />
+        <div className="w-full h-full rounded-full overflow-hidden flex items-center justify-center">
+          <img
+            src="/images/chatbot_icon.jpg"
+            alt="Chatbot icon"
+            className="w-full h-full object-cover"
+          />
+        </div>
         {/* Glow indicator if closed */}
         {!isOpen && (
-          <div className="absolute top-1 right-1 w-3.5 h-3.5 bg-green-500 border-2 border-[#0B3D78] rounded-full animate-pulse" />
+          <span 
+            className="absolute top-[2px] right-[2px] w-[11px] h-[11px] rounded-full z-10 pointer-events-none"
+            style={{
+              transform: 'translate(40%, -40%)',
+              background: 'linear-gradient(135deg, #22C55E 0%, #16A34A 100%)',
+              boxShadow: '0 0 0 3px #ffffff, 0 0 8px #22C55E, 0 2px 4px rgba(0, 0, 0, 0.15)',
+              display: 'block',
+            }}
+          >
+            {/* Glossy glass reflection highlight dot */}
+            <span 
+              className="absolute top-[1.5px] left-[1.5px] w-[2.5px] h-[2.5px] rounded-full bg-white opacity-95"
+            />
+          </span>
         )}
       </motion.button>
     </div>

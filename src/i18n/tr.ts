@@ -84,7 +84,7 @@ const tr = {
     hoursTitle: 'Çalışma Saatleri',
     hoursText: 'Pzt - Cum: 08:00 - 18:00',
     namePlaceholder: 'Adınız ve soyadınız',
-    emailPlaceholder: 'faslift@outlook.com',
+    emailPlaceholder: 'info@faslift.com',
     messagePlaceholder: 'Projeniz hakkında bize bilgi verin...',
     nameLabel: 'Ad Soyad',
     emailLabel: 'E-posta',
