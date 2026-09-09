@@ -277,17 +277,25 @@ const Hero: React.FC = () => {
 
 
               {/* Monospaced Engineering Product Tag */}
-              <div className="absolute top-4 left-4 z-20 bg-white/90 backdrop-blur-md p-2.5 rounded-xl border border-gray-200 shadow-xs font-mono">
+              <motion.div
+                className="absolute top-4 left-4 z-20 bg-white/90 backdrop-blur-md p-2.5 rounded-xl border border-gray-200 shadow-xs font-mono"
+                animate={{ y: [0, -5, 0, 5, 0] }}
+                transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
+              >
                 <span className="text-[9px] font-bold text-[#64748B] block uppercase tracking-wider">
                   ELEVATOR SPEED GOVERNOR
                 </span>
                 <span className="text-xs font-black text-[#0B3D78]">
                   FASLIFT SOLUTIONS
                 </span>
-              </div>
+              </motion.div>
 
               {/* Technical Callout 1: Safety Switch (Top Left) */}
-              <div className="hidden sm:flex absolute top-24 -left-4 lg:-left-8 z-20 items-center gap-2 font-mono group">
+              <motion.div
+                className="hidden sm:flex absolute top-24 -left-4 lg:-left-8 z-20 items-center gap-2 font-mono group"
+                animate={{ y: [0, -8, 0, 8, 0] }}
+                transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 0.2 }}
+              >
                 <div className="bg-white/95 backdrop-blur-md p-2.5 rounded-xl border border-[#0B3D78]/20 shadow-md max-w-[160px] text-left">
                   <span className="text-[10px] font-bold text-[#0B3D78] block">
                     {t('hero.calloutSafety', 'SAFETY SWITCH')}
@@ -299,10 +307,14 @@ const Hero: React.FC = () => {
                 <div className="w-8 h-px bg-[#0B3D78]/40 relative">
                   <div className="w-2 h-2 rounded-full bg-[#0B3D78] absolute -right-1 -top-0.5" />
                 </div>
-              </div>
+              </motion.div>
 
               {/* Technical Callout 2: Precision Wheel (Top Right) */}
-              <div className="hidden sm:flex absolute top-24 -right-4 lg:-right-8 z-20 items-center gap-2 font-mono group">
+              <motion.div
+                className="hidden sm:flex absolute top-24 -right-4 lg:-right-8 z-20 items-center gap-2 font-mono group"
+                animate={{ y: [0, 8, 0, -8, 0] }}
+                transition={{ duration: 5.2, repeat: Infinity, ease: 'easeInOut', delay: 0.6 }}
+              >
                 <div className="w-8 h-px bg-[#0B3D78]/40 relative">
                   <div className="w-2 h-2 rounded-full bg-[#0B3D78] absolute -left-1 -top-0.5" />
                 </div>
@@ -314,10 +326,14 @@ const Hero: React.FC = () => {
                     {t('hero.calloutWheelSub', 'CNC turned cast iron V-groove')}
                   </span>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Technical Callout 3: Tripping System (Bottom Left) */}
-              <div className="hidden sm:flex absolute bottom-28 -left-4 lg:-left-8 z-20 items-center gap-2 font-mono group">
+              <motion.div
+                className="hidden sm:flex absolute bottom-28 -left-4 lg:-left-8 z-20 items-center gap-2 font-mono group"
+                animate={{ y: [0, 6, 0, -6, 0] }}
+                transition={{ duration: 4.8, repeat: Infinity, ease: 'easeInOut', delay: 1.0 }}
+              >
                 <div className="bg-white/95 backdrop-blur-md p-2.5 rounded-xl border border-[#0B3D78]/20 shadow-md max-w-[160px] text-left">
                   <span className="text-[10px] font-bold text-[#0B3D78] block">
                     {t('hero.calloutTripping', 'TRIPPING SYSTEM')}
@@ -329,10 +345,14 @@ const Hero: React.FC = () => {
                 <div className="w-8 h-px bg-[#0B3D78]/40 relative">
                   <div className="w-2 h-2 rounded-full bg-[#0B3D78] absolute -right-1 -top-0.5" />
                 </div>
-              </div>
+              </motion.div>
 
               {/* Technical Callout 4: Steel Chassis (Bottom Right) */}
-              <div className="hidden sm:flex absolute bottom-28 -right-4 lg:-right-8 z-20 items-center gap-2 font-mono group">
+              <motion.div
+                className="hidden sm:flex absolute bottom-28 -right-4 lg:-right-8 z-20 items-center gap-2 font-mono group"
+                animate={{ y: [0, -7, 0, 7, 0] }}
+                transition={{ duration: 5.4, repeat: Infinity, ease: 'easeInOut', delay: 1.4 }}
+              >
                 <div className="w-8 h-px bg-[#0B3D78]/40 relative">
                   <div className="w-2 h-2 rounded-full bg-[#0B3D78] absolute -left-1 -top-0.5" />
                 </div>
@@ -344,7 +364,7 @@ const Hero: React.FC = () => {
                     {t('hero.calloutChassisSub', 'Heavy-duty zinc plated steel base')}
                   </span>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Grounded Reflection & Shadow Platform */}
               <div className="absolute bottom-6 w-72 sm:w-96 h-8 bg-radial from-black/20 via-black/5 to-transparent rounded-full filter blur-md z-0 pointer-events-none" />
