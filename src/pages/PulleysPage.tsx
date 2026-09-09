@@ -355,32 +355,6 @@ export default function PulleysPage() {
   const products = getPulleyProducts(t);
   const [selectedProduct, setSelectedProduct] = useState<PulleyProduct | null>(null);
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
-  const [activeSection, setActiveSection] = useState<string>('section-01');
-  const [showSidebar, setShowSidebar] = useState<boolean>(false);
-
-  // Active section scroll tracking
-  useEffect(() => {
-    const handleScroll = () => {
-      // Only show sidebar when scrolled down past Hero section
-      setShowSidebar(window.scrollY > 480);
-
-      const sections = products.map((_, idx) => `section-0${idx + 1}`);
-      for (const sectionId of sections) {
-        const el = document.getElementById(sectionId);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= 280 && rect.bottom >= 280) {
-            setActiveSection(sectionId);
-            break;
-          }
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [products]);
 
   return (
     <>
