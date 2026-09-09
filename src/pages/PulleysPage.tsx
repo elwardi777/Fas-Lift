@@ -208,15 +208,15 @@ const ProductDetailModal = ({
 
   return (
     <div
-      className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+      className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-sm overflow-y-auto"
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-3xl max-w-4xl w-full overflow-hidden shadow-2xl relative border border-gray-100 animate-in fade-in zoom-in-95 duration-200 max-h-[90vh] flex flex-col"
+        className="bg-white rounded-2xl sm:rounded-3xl max-w-4xl w-full overflow-hidden shadow-2xl relative border border-gray-100 animate-in fade-in zoom-in-95 duration-200 max-h-[92vh] flex flex-col min-h-0 my-auto"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-100 bg-[#F8FAFC]">
+        <div className="flex items-center justify-between p-4 sm:p-6 border-b border-gray-100 bg-[#F8FAFC] flex-shrink-0">
           <div className="flex items-center gap-3 font-mono">
             <span className="bg-[#0B3D78] text-white text-xs font-bold px-3 py-1.5 rounded-md">
               {product.code}
@@ -235,12 +235,12 @@ const ProductDetailModal = ({
         </div>
 
         {/* Modal Content */}
-        <div className="p-6 sm:p-8 overflow-y-auto flex-1">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+        <div className="p-4 sm:p-6 md:p-8 overflow-y-auto flex-1 min-h-0">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-start">
             {/* LEFT COLUMN: Gallery */}
             <div>
               <div
-                className="bg-[#F8FAFC] rounded-2xl p-6 flex items-center justify-center h-72 sm:h-80 border border-gray-200 cursor-pointer overflow-hidden group relative"
+                className="bg-[#F8FAFC] rounded-2xl p-4 sm:p-6 flex items-center justify-center h-52 sm:h-72 border border-gray-200 cursor-pointer overflow-hidden group relative"
                 onClick={() => onOpenLightbox(activeImage)}
                 title={t('pulleys.enlargeView', 'ENLARGE VIEW')}
               >
@@ -256,12 +256,12 @@ const ProductDetailModal = ({
 
               {/* Thumbnails */}
               {product.galleryImages && product.galleryImages.length > 1 && (
-                <div className="flex gap-3 mt-4 overflow-x-auto pb-2">
+                <div className="flex gap-3 mt-3 overflow-x-auto pb-1">
                   {product.galleryImages.map((imgSrc, idx) => (
                     <button
                       key={idx}
                       onClick={() => setActiveImage(imgSrc)}
-                      className={`w-16 h-16 rounded-xl border-2 overflow-hidden bg-white p-1.5 transition-all cursor-pointer flex-shrink-0 ${
+                      className={`w-14 h-14 sm:w-16 sm:h-16 rounded-xl border-2 overflow-hidden bg-white p-1.5 transition-all cursor-pointer flex-shrink-0 ${
                         activeImage === imgSrc
                           ? 'border-[#0B3D78] ring-2 ring-[#0B3D78]/20 scale-105 shadow-sm'
                           : 'border-gray-200 opacity-60 hover:opacity-100 hover:border-gray-400'
@@ -277,65 +277,64 @@ const ProductDetailModal = ({
             {/* RIGHT COLUMN: Technical Specs & Information */}
             <div className="flex flex-col justify-between h-full">
               <div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0F172A] mb-1 tracking-tight">
+                <h2 className="text-xl sm:text-2xl font-extrabold text-[#0F172A] mb-1 tracking-tight">
                   {product.name.toUpperCase()}
                 </h2>
-                <div className="flex items-center gap-2 mb-6 font-mono text-xs">
+                <div className="flex items-center gap-2 mb-4 font-mono text-xs">
                   <span className="text-[#64748B]">{t('pulleys.catalogCode', 'CATALOG CODE:')}</span>
                   <span className="font-bold text-[#0B3D78]">{product.code}</span>
                 </div>
 
                 {/* Technical Specifications Block */}
-                <div className="mb-6">
-                  <h3 className="text-xs uppercase font-mono font-extrabold tracking-wider text-[#0B3D78] mb-3">
+                <div className="mb-4 sm:mb-6">
+                  <h3 className="text-xs uppercase font-mono font-extrabold tracking-wider text-[#0B3D78] mb-2.5">
                     {t('pulleys.techSpecsTitleModal', 'TECHNICAL DATASHEET SPECIFICATIONS')}
                   </h3>
                   <div className="bg-[#F8FAFC] rounded-2xl border border-gray-200 overflow-hidden font-mono">
                     <table className="w-full text-left text-sm border-collapse">
                       <tbody>
                         <tr className="border-b border-gray-200/80">
-                          <td className="py-3 px-4 text-[#64748B] w-1/2">{t('pulleys.pulleyDiameter', 'Pulley Diameter')}</td>
-                          <td className="py-3 px-4 font-extrabold text-[#0B3D78] text-right">{product.diameter}</td>
+                          <td className="py-2 px-3 sm:py-2.5 sm:px-4 text-[#64748B] w-1/2">{t('pulleys.pulleyDiameter', 'Pulley Diameter')}</td>
+                          <td className="py-2 px-3 sm:py-2.5 sm:px-4 font-extrabold text-[#0B3D78] text-right">{product.diameter}</td>
                         </tr>
                         <tr className="border-b border-gray-200/80">
-                          <td className="py-3 px-4 text-[#64748B]">{t('pulleys.shaftDiameter', 'Shaft Diameter')}</td>
-                          <td className="py-3 px-4 font-extrabold text-[#0F172A] text-right">{product.shaftDiameter}</td>
+                          <td className="py-2 px-3 sm:py-2.5 sm:px-4 text-[#64748B]">{t('pulleys.shaftDiameter', 'Shaft Diameter')}</td>
+                          <td className="py-2 px-3 sm:py-2.5 sm:px-4 font-extrabold text-[#0F172A] text-right">{product.shaftDiameter}</td>
                         </tr>
                         <tr className="border-b border-gray-200/80">
-                          <td className="py-3 px-4 text-[#64748B]">{t('pulleys.bearingSpec', 'Bearing Spec')}</td>
-                          <td className="py-3 px-4 font-extrabold text-[#0F172A] text-right">{product.bearing}</td>
+                          <td className="py-2 px-3 sm:py-2.5 sm:px-4 text-[#64748B]">{t('pulleys.bearingSpec', 'Bearing Spec')}</td>
+                          <td className="py-2 px-3 sm:py-2.5 sm:px-4 font-extrabold text-[#0F172A] text-right">{product.bearing}</td>
                         </tr>
                         <tr className="border-b border-gray-200/80">
-                          <td className="py-3 px-4 text-[#64748B]">{t('pulleys.materialGrade', 'Material Grade')}</td>
-                          <td className="py-3 px-4 font-extrabold text-[#0B3D78] text-right">{product.material}</td>
+                          <td className="py-2 px-3 sm:py-2.5 sm:px-4 text-[#64748B]">{t('pulleys.materialGrade', 'Material Grade')}</td>
+                          <td className="py-2 px-3 sm:py-2.5 sm:px-4 font-extrabold text-[#0B3D78] text-right">{product.material}</td>
                         </tr>
                         <tr>
-                          <td className="py-3 px-4 text-[#64748B]">{t('pulleys.productType', 'Product Type')}</td>
-                          <td className="py-3 px-4 font-extrabold text-[#0F172A] text-right">{product.productType}</td>
+                          <td className="py-2 px-3 sm:py-2.5 sm:px-4 text-[#64748B]">{t('pulleys.productType', 'Product Type')}</td>
+                          <td className="py-2 px-3 sm:py-2.5 sm:px-4 font-extrabold text-[#0F172A] text-right">{product.productType}</td>
                         </tr>
                       </tbody>
                     </table>
                   </div>
                 </div>
-
               </div>
 
               {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-gray-200">
+              <div className="flex flex-col sm:flex-row gap-3 pt-3 border-t border-gray-200 mt-2">
                 <a
                   href={`https://wa.me/905316139223?text=${encodeURIComponent(
                     `Bonjour, je souhaite commander ce produit: ${product.name} (${product.code}) - Diamètre: ${product.diameter}`
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 py-3.5 px-6 rounded-xl bg-[#0B3D78] text-white font-mono font-bold text-xs uppercase tracking-wider text-center shadow-lg hover:bg-[#082a54] transition-all flex items-center justify-center gap-2"
+                  className="flex-1 py-3 px-5 rounded-xl bg-[#0B3D78] text-white font-mono font-bold text-xs uppercase tracking-wider text-center shadow-lg hover:bg-[#082a54] transition-all flex items-center justify-center gap-2"
                 >
                   <span>{t('pulleys.commanderNow', 'COMMANDER NOW')}</span>
                   <ArrowRight size={14} />
                 </a>
                 <button
                   onClick={onClose}
-                  className="py-3.5 px-6 rounded-xl bg-gray-100 text-gray-700 font-mono font-bold text-xs uppercase tracking-wider hover:bg-gray-200 transition-colors cursor-pointer"
+                  className="py-3 px-5 rounded-xl bg-gray-100 text-gray-700 font-mono font-bold text-xs uppercase tracking-wider hover:bg-gray-200 transition-colors cursor-pointer"
                 >
                   {t('common.close', 'Close')}
                 </button>
@@ -619,65 +618,7 @@ export default function PulleysPage() {
       <div className="pulleys-page relative">
         <Navbar />
 
-        {/* ═════════════════════════════════════════════════════════════
-           STICKY DESKTOP EDITORIAL SERIES NAVIGATION (FLOATING SIDEBAR)
-           ═════════════════════════════════════════════════════════════ */}
-        {showSidebar && (
-          <div className="hidden xl:flex fixed right-8 top-1/2 -translate-y-1/2 z-40 bg-white/95 backdrop-blur-md border border-gray-200 p-4 shadow-xl flex-col gap-1 font-mono transition-all duration-300">
-            <div className="text-[9px] font-mono font-bold text-[#0B3D78] tracking-widest uppercase pb-3 border-b border-gray-200 text-left">
-              {t('pulleys.seriesIndex', 'PULLEY SERIES')}
-            </div>
-            <div className="flex flex-col pt-2 gap-2">
-              {products.map((p, idx) => {
-                const sectionId = `section-0${idx + 1}`;
-                const isActive = activeSection === sectionId;
-                return (
-                  <button
-                    key={p.id}
-                    onClick={() => {
-                      const el = document.getElementById(sectionId);
-                      if (el) el.scrollIntoView({ behavior: 'smooth' });
-                    }}
-                    className={`flex flex-col items-start px-3 py-2 text-left font-mono transition-all border-l-2 cursor-pointer ${
-                      isActive
-                        ? 'border-[#0B3D78] bg-[#F8FAFC] text-[#0B3D78]'
-                        : 'border-transparent text-[#64748B] hover:text-[#0F172A] hover:border-gray-300'
-                    }`}
-                  >
-                    <span className="text-[10px] font-bold opacity-50">0{idx + 1}</span>
-                    <span className="text-xs font-extrabold uppercase tracking-tight">{p.diameter}</span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        )}
 
-        {/* MOBILE STICKY TOP SERIES SELECTOR BAR */}
-        {showSidebar && (
-          <div className="xl:hidden sticky top-[72px] z-30 bg-white/95 backdrop-blur-md border-b border-gray-200 px-4 py-3 flex gap-2 overflow-x-auto font-mono transition-all duration-300 animate-in fade-in">
-            {products.map((p, idx) => {
-              const sectionId = `section-0${idx + 1}`;
-              const isActive = activeSection === sectionId;
-              return (
-                <button
-                  key={p.id}
-                  onClick={() => {
-                    const el = document.getElementById(sectionId);
-                    if (el) el.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                  className={`flex-shrink-0 px-4 py-2 text-xs font-bold transition-all border-b-2 cursor-pointer ${
-                    isActive
-                      ? 'border-[#0B3D78] text-[#0B3D78] bg-[#F8FAFC]'
-                      : 'border-transparent text-[#64748B] hover:text-[#0F172A]'
-                  }`}
-                >
-                  0{idx + 1} • {p.diameter}
-                </button>
-              );
-            })}
-          </div>
-        )}
 
         {/* ═════════════════════════════════════════════════════════════
            1. ORIGINAL HERO SECTION RESTORED (Governor Page Design System)
