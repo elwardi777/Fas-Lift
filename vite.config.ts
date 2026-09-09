@@ -7,4 +7,15 @@ export default defineConfig({
     tailwindcss(),
     react(),
   ],
+  build: {
+    chunkSizeWarningLimit: 1500,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'react-router-dom', 'framer-motion', 'react-i18next', 'i18next'],
+          icons: ['lucide-react'],
+        },
+      },
+    },
+  },
 })
