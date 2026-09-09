@@ -32,7 +32,7 @@ const Footer: React.FC = () => {
   const NAV_LINKS = [
     { label: t('nav.home'), href: '/' },
     { label: t('nav.aboutUs'), href: '/about' },
-    { label: t('nav.products'), href: '/products/speed-governors' },
+    { label: t('nav.products'), href: '/products/overspeed-governors' },
     { label: t('nav.documents'), href: '/corporate/media' },
     { label: t('nav.contact'), href: '/corporate/contact' },
   ];

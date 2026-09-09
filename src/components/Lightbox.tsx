@@ -97,11 +97,11 @@ const Lightbox: React.FC<LightboxProps> = ({ src, alt, onClose, isOpen, backgrou
             </motion.button>
           )}
 
-          {/* Image */}
+          {/* Clean Normal Image */}
           <motion.img
             src={src}
             alt={alt}
-            className="max-w-[90vw] max-h-[85vh] object-contain rounded-lg"
+            className="max-w-[90vw] max-h-[85vh] object-contain rounded-xl shadow-2xl"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}

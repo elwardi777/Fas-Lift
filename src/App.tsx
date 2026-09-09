@@ -9,6 +9,8 @@ import SupportPage from './pages/SupportPage'
 import ProductionPage from './pages/ProductionPage'
 import GalleryPage from './pages/GalleryPage'
 import GovernorPage from './pages/GovernorPage'
+import TensionerPulleyPage from './pages/TensionerPulleyPage'
+import PulleysPage from './pages/PulleysPage'
 import OrderFormPage from './pages/OrderFormPage'
 import Chatbot from './components/Chatbot/Chatbot'
 
@@ -21,9 +23,12 @@ const ROUTE_MAP: Record<string, React.ComponentType> = {
   '/support': SupportPage,
   '/corporate/production': ProductionPage,
   '/media/gallery': GalleryPage,
+  '/products/overspeed-governors': GovernorPage,
   '/products/overspeed-governor': GovernorPage,
   '/products/speed-governors': GovernorPage,
   '/products/safety-gears': GovernorPage,
+  '/products/tensioner-pulley': TensionerPulleyPage,
+  '/products/pulleys': PulleysPage,
   '/order-form': OrderFormPage,
 };
 
@@ -51,6 +56,8 @@ function App() {
     else if (path === '/support') seoKey = 'support';
     else if (path === '/corporate/production') seoKey = 'production';
     else if (path === '/media/gallery') seoKey = 'gallery';
+    else if (path === '/products/tensioner-pulley') seoKey = 'tensionerPulley';
+    else if (path === '/products/pulleys') seoKey = 'pulleys';
     else if (path.startsWith('/products/')) seoKey = 'governor';
     else if (path === '/order-form') seoKey = 'orderForm';
     else if (!ROUTE_MAP[path]) seoKey = 'pageNotFound';

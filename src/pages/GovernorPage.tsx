@@ -106,7 +106,7 @@ const ProductShowcase = () => {
 
   useEffect(() => {
     if (isHovered) return;
-    
+
     const interval = setInterval(() => {
       setActiveIndex((prev) => (prev === 0 ? 1 : 0));
     }, 4000); // Toggle between images every 4 seconds
@@ -123,7 +123,7 @@ const ProductShowcase = () => {
   };
 
   return (
-    <div 
+    <div
       className="pdp-showcase-container"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => {
@@ -138,7 +138,7 @@ const ProductShowcase = () => {
       <div className="pdp-showcase-shadow" />
 
       {/* Slide 1: Real Product Photo */}
-      <div 
+      <div
         className="pdp-showcase-slide"
         style={{
           position: 'absolute',
@@ -152,8 +152,8 @@ const ProductShowcase = () => {
           zIndex: activeIndex === 0 ? 3 : 2
         }}
       >
-        <img 
-          src="/images/WhatsApp_Image_2026-06-09_at_21..15-removebg-preview.png" 
+        <img
+          src="/images/governor_3d_transparent.png"
           alt={t('governor.heroImageAlt')}
           className="pdp-showcase-img"
         />
@@ -161,7 +161,7 @@ const ProductShowcase = () => {
       </div>
 
       {/* Slide 2: Technical Drawing Blueprint */}
-      <div 
+      <div
         className="pdp-showcase-slide"
         style={{
           position: 'absolute',
@@ -175,11 +175,11 @@ const ProductShowcase = () => {
           zIndex: activeIndex === 1 ? 3 : 2
         }}
       >
-        <img 
-          src="/images/f3396119-20be-4312-97d0-0df5729bb02a.png" 
+        <img
+          src="/images/f3396119-20be-4312-97d0-0df5729bb02a.png"
           alt={t('governor.blueprintImageAlt')}
           className="pdp-showcase-img pdp-showcase-blueprint"
-          style={{ 
+          style={{
             transformOrigin: zoomOrigin,
             transition: 'transform 350ms ease-out, filter 350ms ease-out'
           }}
@@ -819,9 +819,9 @@ export default function GovernorPage() {
 
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 48, flexWrap: 'wrap', paddingBottom: 56 }}>
             {/* Left */}
-            <div 
-              style={{ 
-                flex: '1 1 340px', 
+            <div
+              style={{
+                flex: '1 1 340px',
                 maxWidth: 620,
                 position: 'relative',
                 zIndex: 1,
@@ -829,7 +829,7 @@ export default function GovernorPage() {
               }}
             >
               {/* Subtle geometric pattern background */}
-              <div 
+              <div
                 style={{
                   position: 'absolute',
                   top: '-10px', left: '-20px', right: '-40px', bottom: '-10px',
@@ -843,10 +843,10 @@ export default function GovernorPage() {
 
               {/* Premium Badge Above Title */}
               <div className="pdp-fu" style={{ marginBottom: '24px', paddingLeft: 'clamp(16px, 3vw, 32px)' }}>
-                <span style={{ 
-                  background: '#E8F2FC', 
-                  color: '#0B3D78', 
-                  padding: '6px 14px', 
+                <span style={{
+                  background: '#E8F2FC',
+                  color: '#0B3D78',
+                  padding: '6px 14px',
                   borderRadius: '30px',
                   fontSize: '12px',
                   fontWeight: 700,
@@ -862,24 +862,24 @@ export default function GovernorPage() {
               {/* Title Container with Left Accent Line */}
               <div style={{ borderLeft: '3px solid #0B3D78', paddingLeft: 'clamp(16px, 3vw, 32px)', marginBottom: '32px' }}>
                 <h1 className="pdp-fu pdp-fu-d1"
-                  style={{ 
-                    fontSize: 'clamp(28px, 5.5vw, 72px)', 
-                    fontWeight: 800, 
-                    lineHeight: 1.05, 
-                    color: '#090d16', 
+                  style={{
+                    fontSize: 'clamp(28px, 5.5vw, 72px)',
+                    fontWeight: 800,
+                    lineHeight: 1.05,
+                    color: '#090d16',
                     margin: '0 0 16px 0',
                     letterSpacing: '-0.025em',
                     wordBreak: 'break-word'
                   }}>
                   {t('governor.title1')}
                 </h1>
-                
+
                 <h2 className="pdp-fu pdp-fu-d2"
-                  style={{ 
-                    fontSize: 'clamp(18px, 2.5vw, 28px)', 
-                    fontWeight: 600, 
-                    lineHeight: 1.3, 
-                    color: '#0F172A', 
+                  style={{
+                    fontSize: 'clamp(18px, 2.5vw, 28px)',
+                    fontWeight: 600,
+                    lineHeight: 1.3,
+                    color: '#0F172A',
                     margin: '0 0 12px 0',
                     letterSpacing: '-0.01em'
                   }}>
@@ -887,11 +887,11 @@ export default function GovernorPage() {
                 </h2>
 
                 <h2 className="pdp-fu pdp-fu-d2"
-                  style={{ 
-                    fontSize: 'clamp(18px, 2.5vw, 28px)', 
-                    fontWeight: 600, 
-                    lineHeight: 1.3, 
-                    color: '#0F172A', 
+                  style={{
+                    fontSize: 'clamp(18px, 2.5vw, 28px)',
+                    fontWeight: 600,
+                    lineHeight: 1.3,
+                    color: '#0F172A',
                     margin: 0,
                     letterSpacing: '-0.01em'
                   }}>
@@ -912,11 +912,11 @@ export default function GovernorPage() {
 
               {/* Subtitle */}
               <p className="pdp-fu pdp-fu-d3"
-                style={{ 
-                  fontSize: '18px', 
-                  color: '#4B5563', 
-                  fontWeight: 400, 
-                  lineHeight: 1.6, 
+                style={{
+                  fontSize: '18px',
+                  color: '#4B5563',
+                  fontWeight: 400,
+                  lineHeight: 1.6,
                   margin: '0 0 28px 0',
                   paddingLeft: 'clamp(16px, 3vw, 32px)',
                   maxWidth: '480px'

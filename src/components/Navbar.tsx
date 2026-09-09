@@ -18,6 +18,12 @@ interface NavItem {
   isActive: (pathname: string) => boolean
 }
 
+const PRODUCT_SUBITEMS = [
+  { labelKey: 'nav.overspeedGovernors', href: '/products/overspeed-governors' },
+  { labelKey: 'nav.tensionerPulley', href: '/products/tensioner-pulley' },
+  { labelKey: 'nav.pulleys', href: '/products/pulleys' },
+]
+
 function useNavItems(): NavItem[] {
   return [
     {
@@ -32,7 +38,7 @@ function useNavItems(): NavItem[] {
     },
     {
       labelKey: 'nav.products',
-      href: '/products/speed-governors',
+      href: '/products/overspeed-governors',
       isActive: (pathname) => pathname.startsWith('/products'),
     },
     {
@@ -226,6 +232,34 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
         <div className="flex flex-col gap-2">
           {NAV_ITEMS.map((item) => {
             const active = item.isActive(pathname)
+            if (item.labelKey === 'nav.products') {
+              return (
+                <div key={item.href} className="flex flex-col">
+                  <div className={`py-2 text-[18px] font-semibold tracking-wide font-['Inter',sans-serif] pl-3 ${active ? 'text-[#0B3D78]' : 'text-gray-800'}`}>
+                    {t(item.labelKey)}
+                  </div>
+                  <div className="flex flex-col gap-1 pl-4 border-l-2 border-[#123F73]/20 my-1 ml-3">
+                    {PRODUCT_SUBITEMS.map((sub) => {
+                      const isSubActive = pathname === sub.href
+                      return (
+                        <Link
+                          key={sub.href}
+                          to={sub.href}
+                          onClick={onClose}
+                          className={`block py-2 text-[15.5px] font-medium transition-colors duration-150 font-['Inter',sans-serif] ${
+                            isSubActive
+                              ? 'text-[#0B3D78] font-semibold'
+                              : 'text-gray-600 hover:text-[#0B3D78]'
+                          }`}
+                        >
+                          {t(sub.labelKey)}
+                        </Link>
+                      )
+                    })}
+                  </div>
+                </div>
+              )
+            }
             return (
               <Link
                 key={item.href}
@@ -276,6 +310,94 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
         </div>
       </nav>
     </motion.div>
+  )
+}
+
+/* ------------------------------------------------------------------ */
+/*  Products dropdown (desktop)                                       */
+/* ------------------------------------------------------------------ */
+
+function ProductsDropdown({ forceDark, isScrolled, pathname }: { forceDark: boolean; isScrolled: boolean; pathname: string }) {
+  const { t } = useTranslation()
+  const [isOpen, setIsOpen] = useState(false)
+  const active = pathname.startsWith('/products')
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    if (!isOpen) return
+    const handleClick = () => setIsOpen(false)
+    window.addEventListener('click', handleClick)
+    return () => window.removeEventListener('click', handleClick)
+  }, [isOpen])
+
+  return (
+    <div
+      className="relative"
+      onMouseEnter={() => setIsOpen(true)}
+      onMouseLeave={() => setIsOpen(false)}
+      onClick={(e) => e.stopPropagation()}
+    >
+      <button
+        type="button"
+        onClick={() => setIsOpen((prev) => !prev)}
+        className={`relative py-2 text-[15px] font-medium tracking-wide transition-colors duration-200 font-['Inter',sans-serif] flex items-center gap-1.5 cursor-pointer ${
+          active
+            ? (forceDark && !isScrolled)
+              ? 'text-white font-semibold'
+              : 'text-[#123F73] font-semibold'
+            : (forceDark && !isScrolled)
+              ? 'text-white/80 hover:text-white'
+              : 'text-gray-600 hover:text-[#123F73]'
+        }`}
+      >
+        <span>{t('nav.products')}</span>
+        <ChevronDown
+          size={14}
+          className={`transition-transform duration-200 ${
+            (forceDark && !isScrolled) ? 'text-white/80' : 'text-gray-500'
+          } ${isOpen ? 'rotate-180' : ''}`}
+        />
+        {active && (
+          <motion.div
+            layoutId="activeNavLine"
+            className="absolute bottom-[-10px] left-0 right-0 h-0.5 bg-[#123F73] rounded-full"
+            transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+          />
+        )}
+      </button>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.15, ease: 'easeOut' }}
+            className="absolute left-0 top-full pt-2 z-50 min-w-[210px]"
+          >
+            <div className="rounded-xl border border-gray-100 bg-white shadow-lg overflow-hidden py-1.5">
+              {PRODUCT_SUBITEMS.map((sub) => {
+                const isSubActive = pathname === sub.href
+                return (
+                  <Link
+                    key={sub.href}
+                    to={sub.href}
+                    onClick={() => setIsOpen(false)}
+                    className={`group flex w-full items-center px-4 py-2.5 text-[13.5px] font-medium transition-colors duration-150 font-['Inter',sans-serif] ${
+                      isSubActive
+                        ? 'bg-[#EAF2FB] text-[#123F73] font-semibold'
+                        : 'text-gray-700 hover:bg-gray-50 hover:text-[#123F73]'
+                    }`}
+                  >
+                    {t(sub.labelKey)}
+                  </Link>
+                )
+              })}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   )
 }
 
@@ -334,6 +456,16 @@ export default function Navbar({ forceDark = false }: NavbarProps) {
         <nav className="absolute left-1/2 -translate-x-1/2 hidden lg:flex items-center gap-8">
           {NAV_ITEMS.map((item) => {
             const active = item.isActive(pathname)
+            if (item.labelKey === 'nav.products') {
+              return (
+                <ProductsDropdown
+                  key={item.href}
+                  forceDark={forceDark}
+                  isScrolled={isScrolled}
+                  pathname={pathname}
+                />
+              )
+            }
             return (
               <Link
                 key={item.href}

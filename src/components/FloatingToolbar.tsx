@@ -4,12 +4,16 @@ import { useTranslation } from 'react-i18next';
 import { FileText, Phone } from 'lucide-react';
 import { CATALOG_PAGE_PATH } from '../constants/catalog';
 
-const FloatingToolbar: React.FC = () => {
+interface FloatingToolbarProps {
+  className?: string;
+}
+
+const FloatingToolbar: React.FC<FloatingToolbarProps> = ({ className = '' }) => {
   const { t } = useTranslation();
 
   return (
     <motion.div
-      className="fixed right-4 top-1/2 -translate-y-1/2 z-[998] flex flex-col items-center gap-1 bg-white rounded-2xl p-2 border border-[#0B3D78]/20 shadow-[0_4px_20px_rgba(11,61,120,0.18)]"
+      className={`fixed right-4 top-[25%] -translate-y-1/2 z-[998] flex flex-col items-center gap-1 bg-white rounded-2xl p-2 border border-[#0B3D78]/20 shadow-[0_4px_20px_rgba(11,61,120,0.18)] ${className}`}
       initial={{ x: 80, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       transition={{ duration: 0.6, delay: 1.2, ease: [0.4, 0, 0.2, 1] }}

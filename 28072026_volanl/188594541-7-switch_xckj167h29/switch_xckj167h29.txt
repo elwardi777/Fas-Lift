@@ -1,0 +1,9 @@
+﻿"Symbol";"Value";"Unit";
+"TraceParts.PartNumber";"10-09102012-178100";"";
+"REFERENCE";"XCKJ167H29";"";
+"TraceParts.PartTitle";"Limit switches OsiSense XC, industrial metallic conforming to standard EN 50041 type XCKJ, Fixed body, steel roller plunger, 1NC + 1NO snap action, 1 entry tapped ISO M20 x 1,5";"";
+"TraceParts.InstanceId";"10-09102012-1781003C5C5PKQMZBDNDJNY3R6UAM74";"";
+"SUPPLIER";"Telemecanique Sensors";"";
+"DESIGN";"Limit switches OsiSense XC, industrial metallic conforming to standard EN 50041 type XCKJ, Fixed body, steel roller plunger, 1NC + 1NO snap action, 1 entry tapped ISO M20 x 1,5";"";
+"TraceParts.PartVersion";"1.4.4";"";
+"TraceParts.PartLanguage";"en";"";
