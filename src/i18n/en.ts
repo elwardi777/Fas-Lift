@@ -766,6 +766,7 @@ const en = {
     pieces: 'piece(s)',
     deliveryDate: 'DELIVERY DATE',
     customerInfo: 'CUSTOMER INFORMATION',
+    contactInfoTitle: 'Customer Contact Details',
     companyName: 'Company Name',
     contactPerson: 'Contact Person',
     emailAddress: 'Email Address',

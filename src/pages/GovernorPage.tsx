@@ -100,44 +100,16 @@ function WeightSVG() {
    ═══════════════════════════════════════════════════════════════════════════ */
 const ProductShowcase = () => {
   const { t } = useTranslation();
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
-  const [zoomOrigin, setZoomOrigin] = useState('50% 50%');
-
-  useEffect(() => {
-    if (isHovered) return;
-
-    const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev === 0 ? 1 : 0));
-    }, 4000); // Toggle between images every 4 seconds
-
-    return () => clearInterval(interval);
-  }, [isHovered]);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLImageElement>) => {
-    if (window.innerWidth <= 768) return; // Disable hover-tracking zoom on mobile
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    setZoomOrigin(`${x}% ${y}%`);
-  };
 
   return (
-    <div
-      className="pdp-showcase-container"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => {
-        setIsHovered(false);
-        setZoomOrigin('50% 50%');
-      }}
-    >
+    <div className="pdp-showcase-container">
       {/* Soft radial light */}
       <div className="pdp-showcase-glow" />
 
       {/* Elegant shadow */}
       <div className="pdp-showcase-shadow" />
 
-      {/* Slide 1: Real Product Photo */}
+      {/* Real Product Photo */}
       <div
         className="pdp-showcase-slide"
         style={{
@@ -146,10 +118,8 @@ const ProductShowcase = () => {
           left: 0,
           width: '100%',
           height: '100%',
-          opacity: activeIndex === 0 ? 1 : 0,
-          pointerEvents: activeIndex === 0 ? 'auto' : 'none',
-          transition: 'opacity 900ms cubic-bezier(0.22, 1, 0.36, 1)',
-          zIndex: activeIndex === 0 ? 3 : 2
+          opacity: 1,
+          zIndex: 3
         }}
       >
         <img
@@ -158,33 +128,6 @@ const ProductShowcase = () => {
           className="pdp-showcase-img"
         />
         <div className="pdp-metallic-sweep" />
-      </div>
-
-      {/* Slide 2: Technical Drawing Blueprint */}
-      <div
-        className="pdp-showcase-slide"
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          opacity: activeIndex === 1 ? 1 : 0,
-          pointerEvents: activeIndex === 1 ? 'auto' : 'none',
-          transition: 'opacity 900ms cubic-bezier(0.22, 1, 0.36, 1)',
-          zIndex: activeIndex === 1 ? 3 : 2
-        }}
-      >
-        <img
-          src="/images/f3396119-20be-4312-97d0-0df5729bb02a.png"
-          alt={t('governor.blueprintImageAlt')}
-          className="pdp-showcase-img pdp-showcase-blueprint"
-          style={{
-            transformOrigin: zoomOrigin,
-            transition: 'transform 350ms ease-out, filter 350ms ease-out'
-          }}
-          onMouseMove={handleMouseMove}
-        />
       </div>
     </div>
   );

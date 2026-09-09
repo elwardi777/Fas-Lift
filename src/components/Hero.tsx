@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ShieldCheck, Layers, CheckCircle2, RotateCw } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Layers, CheckCircle2 } from 'lucide-react';
 
 /* ═══════════════════════════════════════════════════════════════════════════
    Hero Governor Product Images Array
@@ -274,13 +274,7 @@ const Hero: React.FC = () => {
                 <div className="w-[300px] sm:w-[360px] h-[300px] sm:h-[360px] rounded-full border border-gray-200/80" />
               </div>
 
-              {/* 360° Technical Badge Callout */}
-              <div className="absolute top-4 right-4 z-20 flex items-center gap-2 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-gray-200 shadow-md font-mono">
-                <RotateCw size={14} className="text-[#0B3D78] animate-spin" style={{ animationDuration: '8s' }} />
-                <span className="text-[10px] font-bold text-[#0B3D78] tracking-widest uppercase">
-                  {currentImage.label}
-                </span>
-              </div>
+
 
               {/* Monospaced Engineering Product Tag */}
               <div className="absolute top-4 left-4 z-20 bg-white/90 backdrop-blur-md p-2.5 rounded-xl border border-gray-200 shadow-xs font-mono">

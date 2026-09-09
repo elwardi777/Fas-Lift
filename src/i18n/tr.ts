@@ -766,6 +766,7 @@ const tr = {
     pieces: 'adet',
     deliveryDate: 'TESLİMAT TARİHİ',
     customerInfo: 'MÜŞTERİ BİLGİLERİ',
+    contactInfoTitle: 'Müşteri İletişim Bilgileri',
     companyName: 'Firma Adı',
     contactPerson: 'İlgili Kişi',
     emailAddress: 'E-posta Adresi',
