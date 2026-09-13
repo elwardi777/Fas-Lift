@@ -43,7 +43,7 @@ export const ProductFamilyCard: React.FC<ProductFamilyCardProps> = ({
   const isOtherHovered = hoveredIndex !== null && !isHovered;
   const tag = product.badge || product.tag || '';
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
     setShimmerPos({
       x: ((e.clientX - rect.left) / rect.width) * 100,
