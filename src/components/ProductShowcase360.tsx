@@ -17,6 +17,7 @@ const PRODUCT_IMAGES: string[] = [
   '/images/Capture_d_écran_2026-05-21_200528-removebg-preview.png',
   '/images/Capture_d_écran_2026-05-21_200445-removebg-preview.png',
   '/images/Capture_d_écran_2026-05-21_200429-removebg-preview.png',
+  '/images/HHHHDHD.png',
 ];
 
 const DRAG_THRESHOLD = 80; // px drag distance to switch image

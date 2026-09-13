@@ -178,7 +178,7 @@ const Hero: React.FC = () => {
   const currentImage = GOVERNOR_SHOWCASE_IMAGES[currentImageIndex];
 
   return (
-    <section className="relative w-full overflow-hidden flex items-start pt-6 sm:pt-8 lg:pt-[32px] pb-8 lg:pb-12 bg-[#F8FAFC]">
+    <section className="relative w-full overflow-hidden flex items-start pt-[76px] sm:pt-[84px] lg:pt-[32px] pb-8 lg:pb-12 bg-[#F8FAFC]">
       {/* ── Background Engineering Canvas ── */}
       <EngineeringGridCanvas />
 

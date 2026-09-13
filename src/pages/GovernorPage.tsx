@@ -140,13 +140,13 @@ export default function GovernorPage() {
 
   /* ── translated data (re-derived on language change) ─────────────── */
   const GALLERY_ANGLES = [
-    { key: 'governor.angleFront', img: '/images/20260525_165930.jpg-removebg-preview.png', bg: '#EBF7FD' },
-    { key: 'governor.angleSideLeft', img: '/images/20260525_170005.jpg-removebg-preview.png', bg: '#E8F5FA' },
-    { key: 'governor.angleThreeQuarter', img: '/images/6b4f27c3-cd50-4921-bb6a-835f75c85019-removebg-preview.png', bg: '#EDF4FB' },
-    { key: 'governor.angleBack', img: '/images/20260525_165958.jpg-removebg-preview.png', bg: '#F0F8FF' },
-    { key: 'governor.angleSideRight', img: '/images/20260525_165943.jpg-removebg-preview.png', bg: '#EBF3FA' },
-    { key: 'governor.angleTop', img: '/images/20260525_170005.jpg-removebg-preview.png', bg: '#E4F0F8' },
-    { key: 'governor.angleDetail', img: '/images/20260525_170005.jpg-removebg-preview.png', bg: '#F4F8FC' },
+    { key: 'governor.angleFront', img: '/images/20260525_165930.jpg-removebg-preview.png', bg: '#EBF7FD', maxH: '100%' },
+    { key: 'governor.angleSideLeft', img: '/images/20260525_170005.jpg-removebg-preview.png', bg: '#E8F5FA', maxH: '100%' },
+    { key: 'governor.angleThreeQuarter', img: '/images/6b4f27c3-cd50-4921-bb6a-835f75c85019-removebg-preview.png', bg: '#EDF4FB', maxH: '100%' },
+    { key: 'governor.angleBack', img: '/images/20260525_165958.jpg-removebg-preview.png', bg: '#F0F8FF', maxH: '100%' },
+    { key: 'governor.angleDetail', img: '/images/HHHHDHD.png', bg: '#F4F8FC', maxH: '55%' },
+    { key: 'governor.angleSideRight', img: '/images/20260525_165943.jpg-removebg-preview.png', bg: '#EBF3FA', maxH: '100%' },
+    { key: 'governor.angleTop', img: '/images/20260525_170005.jpg-removebg-preview.png', bg: '#E4F0F8', maxH: '100%' },
   ];
 
   const SPEC_ROWS = [
@@ -919,7 +919,7 @@ export default function GovernorPage() {
                           alt={label}
                           className="pdp-gallery-img"
                           style={{
-                            maxHeight: '100%',
+                            maxHeight: a.maxH ?? '100%',
                             maxWidth: '100%',
                             objectFit: 'contain',
                             pointerEvents: 'auto',
