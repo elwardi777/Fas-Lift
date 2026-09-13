@@ -563,9 +563,9 @@ export default function OrderFormPage() {
           {/* ── DOC FOOTER ── */}
           <div className="doc-footer">
             <span>
-              <strong>FAS LIFT SOLUTIONS</strong> · Zone Industrielle, Bloc B, N°7 Casablanca 20250 / MOROCCO
+              <strong>FAS LIFT SOLUTIONS</strong> · İkitelli OSB, Aykosan Sanayi Sitesi 34490 Başakşehir/İstanbul
             </span>
-            <span>Tel: +212 531 613 923 · info@faslift.com</span>
+            <span>Tel: +90 531 613 9223 / +90 531 634 8986 · info@faslift.com</span>
           </div>
 
         </div>{/* end doc-page */}

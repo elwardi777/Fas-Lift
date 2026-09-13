@@ -141,7 +141,7 @@ export default function SupportPage() {
           />
           {/* Subtle grid pattern overlay */}
           <svg className="absolute inset-0 w-full h-full opacity-[0.03]" xmlns="http://www.w3.org/2000/svg">
-            <defs><pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse"><path d="M 60 0 L 0 0 0 60" fill="none" stroke="#0B3D78" strokeWidth="1"/></pattern></defs>
+            <defs><pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse"><path d="M 60 0 L 0 0 0 60" fill="none" stroke="#0B3D78" strokeWidth="1" /></pattern></defs>
             <rect width="100%" height="100%" fill="url(#grid)" />
           </svg>
           {/* Gradient overlay to guarantee text readability */}
@@ -177,12 +177,12 @@ export default function SupportPage() {
       <section className="py-24 px-6 md:px-12 bg-[#F5F7FA] relative z-20 flex flex-col items-center text-center">
         {/* Card Wrapper */}
         <div className="relative w-full max-w-3xl mx-auto bg-white rounded-[24px] border border-[#0d2b5e]/5 px-8 pt-28 pb-12 md:px-12 md:pt-36 md:pb-16 shadow-[0_15px_45px_rgba(0,0,0,0.08)]">
-          
+
           {/* Layered 3D Support Badge - Overlapping the top border */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 md:w-60 md:h-60 flex items-center justify-center">
             {/* White Circular Background (Smaller than the gear) */}
             <div className="absolute w-32 h-32 md:w-40 md:h-40 rounded-full bg-white shadow-[0_8px_25px_rgba(11,61,120,0.06)] border border-[#0d2b5e]/5 z-0" />
-            
+
             {/* Gear Support Image - Extending beyond the white circle with floating shadow */}
             <div className="relative z-10 w-44 h-44 md:w-56 md:h-56 drop-shadow-[0_15px_30px_rgba(11,61,120,0.22)] flex items-center justify-center">
               <img
@@ -235,7 +235,7 @@ export default function SupportPage() {
       <section className="relative py-20 px-6 md:px-12 bg-[#0B3D78] overflow-hidden">
         {/* Diagonal hatch pattern overlay */}
         <div className="absolute inset-0 hatch-pattern pointer-events-none" />
-        
+
         <div className="relative z-10 max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Card 1: Commercial Support */}
@@ -298,7 +298,7 @@ export default function SupportPage() {
         </div>
       </section>
 
-    
+
       {/* ── SECTION 3: COMMERCIAL SUPPORT FORM ── */}
       <AnimatePresence initial={false}>
         {showForm && (
@@ -313,7 +313,7 @@ export default function SupportPage() {
           >
             {/* Diagonal hatch pattern overlay */}
             <div className="absolute inset-0 hatch-pattern pointer-events-none" />
-            
+
             <div className="relative z-10 py-24 px-6 md:px-12">
               <div className="max-w-3xl mx-auto">
                 <div className="bg-white rounded-[24px] border border-[#0d2b5e]/5 p-8 md:p-12 shadow-[0_15px_45px_rgba(0,0,0,0.08)]">
@@ -349,9 +349,8 @@ export default function SupportPage() {
                                   setFormData({ ...formData, name: e.target.value });
                                   if (errors.name) setErrors({ ...errors, name: '' });
                                 }}
-                                className={`w-full border rounded-lg px-4 py-3 text-[14px] outline-none transition-colors bg-white ${
-                                  errors.name ? 'border-red-500' : 'border-[#0d2b5e]/20 focus:border-[#1a4a8a]'
-                                }`}
+                                className={`w-full border rounded-lg px-4 py-3 text-[14px] outline-none transition-colors bg-white ${errors.name ? 'border-red-500' : 'border-[#0d2b5e]/20 focus:border-[#1a4a8a]'
+                                  }`}
                               />
                               {errors.name && (
                                 <p className="text-red-500 text-xs mt-1">{errors.name}</p>
@@ -369,9 +368,8 @@ export default function SupportPage() {
                                   setFormData({ ...formData, email: e.target.value });
                                   if (errors.email) setErrors({ ...errors, email: '' });
                                 }}
-                                className={`w-full border rounded-lg px-4 py-3 text-[14px] outline-none transition-colors bg-white ${
-                                  errors.email ? 'border-red-500' : 'border-[#0d2b5e]/20 focus:border-[#1a4a8a]'
-                                }`}
+                                className={`w-full border rounded-lg px-4 py-3 text-[14px] outline-none transition-colors bg-white ${errors.email ? 'border-red-500' : 'border-[#0d2b5e]/20 focus:border-[#1a4a8a]'
+                                  }`}
                               />
                               {errors.email && (
                                 <p className="text-red-500 text-xs mt-1">{errors.email}</p>
@@ -392,9 +390,8 @@ export default function SupportPage() {
                                   setFormData({ ...formData, company: e.target.value });
                                   if (errors.company) setErrors({ ...errors, company: '' });
                                 }}
-                                className={`w-full border rounded-lg px-4 py-3 text-[14px] outline-none transition-colors bg-white ${
-                                  errors.company ? 'border-red-500' : 'border-[#0d2b5e]/20 focus:border-[#1a4a8a]'
-                                }`}
+                                className={`w-full border rounded-lg px-4 py-3 text-[14px] outline-none transition-colors bg-white ${errors.company ? 'border-red-500' : 'border-[#0d2b5e]/20 focus:border-[#1a4a8a]'
+                                  }`}
                               />
                               {errors.company && (
                                 <p className="text-red-500 text-xs mt-1">{errors.company}</p>
@@ -411,9 +408,8 @@ export default function SupportPage() {
                                   setFormData({ ...formData, requestedInfo: e.target.value });
                                   if (errors.requestedInfo) setErrors({ ...errors, requestedInfo: '' });
                                 }}
-                                className={`w-full border rounded-lg px-4 py-3 text-[14px] outline-none transition-colors bg-white appearance-none ${
-                                  errors.requestedInfo ? 'border-red-500' : 'border-[#0d2b5e]/20 focus:border-[#1a4a8a]'
-                                }`}
+                                className={`w-full border rounded-lg px-4 py-3 text-[14px] outline-none transition-colors bg-white appearance-none ${errors.requestedInfo ? 'border-red-500' : 'border-[#0d2b5e]/20 focus:border-[#1a4a8a]'
+                                  }`}
                               >
                                 <option value="">-- Choose option --</option>
                                 <option value="Price">{t('supportNew.optPrice')}</option>
@@ -438,12 +434,11 @@ export default function SupportPage() {
                               placeholder={t('supportNew.formTextPlaceholder')}
                               value={formData.text}
                               onChange={(e) => {
-                                  setFormData({ ...formData, text: e.target.value });
-                                  if (errors.text) setErrors({ ...errors, text: '' });
+                                setFormData({ ...formData, text: e.target.value });
+                                if (errors.text) setErrors({ ...errors, text: '' });
                               }}
-                              className={`w-full border rounded-lg px-4 py-3 text-[14px] outline-none transition-colors resize-none bg-white ${
-                                errors.text ? 'border-red-500' : 'border-[#0d2b5e]/20 focus:border-[#1a4a8a]'
-                              }`}
+                              className={`w-full border rounded-lg px-4 py-3 text-[14px] outline-none transition-colors resize-none bg-white ${errors.text ? 'border-red-500' : 'border-[#0d2b5e]/20 focus:border-[#1a4a8a]'
+                                }`}
                             />
                             {errors.text && (
                               <p className="text-red-500 text-xs mt-1">{errors.text}</p>

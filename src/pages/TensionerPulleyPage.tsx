@@ -65,7 +65,7 @@ const ProductShowcase = () => {
         }}
       >
         <img
-          src="/images/tensioner_pulley_real.png"
+          src="/images/image-removebg-preview.png"
           alt={t('tensionerPulley.heroImageAlt', 'Tensioner Pulley industrial elevator component')}
           className="pdp-showcase-img"
         />
@@ -165,7 +165,7 @@ export default function TensionerPulleyPage() {
     {
       title: t('tensionerPulley.realProductView', 'Real Product View'),
       subtitle: t('tensionerPulley.realProductSub', 'Complete assembly with tensioning wheel, spring mechanism & safety switch'),
-      src: '/images/tensioner_pulley_real.png',
+      src: '/images/image-removebg-preview.png',
       bg: '#F8FAFC',
     },
     {
@@ -505,23 +505,11 @@ export default function TensionerPulleyPage() {
                     fontWeight: 600,
                     lineHeight: 1.3,
                     color: '#0F172A',
-                    margin: '0 0 12px 0',
-                    letterSpacing: '-0.01em'
-                  }}>
-                  FS-TP01 • Elevator Tensioning
-                </h2>
-
-                <h2 className="pdp-fu pdp-fu-d2"
-                  style={{
-                    fontSize: 'clamp(18px, 2.5vw, 28px)',
-                    fontWeight: 600,
-                    lineHeight: 1.3,
-                    color: '#0F172A',
                     margin: 0,
                     letterSpacing: '-0.01em'
                   }}>
                   <span style={{ position: 'relative', display: 'inline-block', paddingBottom: '4px' }}>
-                    {t('orderForm.bidirectional', 'Bidirectional')} & {t('governor.monodirectional', 'Monodirectional')}
+                    {t('tensionerPulley.title2', 'FS-TP01 — Tensioner Pulley')}
                     <span style={{
                       position: 'absolute',
                       bottom: '0px',

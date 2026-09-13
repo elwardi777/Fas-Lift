@@ -7,15 +7,15 @@ import ScrollToTop from '../components/ScrollToTop';
 import FloatingToolbar from '../components/FloatingToolbar';
 
 const PdfIcon = ({ size = 64, color = "#123F73", className = "" }: { size?: number, color?: string, className?: string }) => (
-  <svg 
-    width={size} 
-    height={size} 
-    viewBox="0 0 24 24" 
-    fill="none" 
-    stroke={color} 
-    strokeWidth="2" 
-    strokeLinecap="round" 
-    strokeLinejoin="round" 
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke={color}
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
     className={className}
   >
     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
@@ -39,9 +39,9 @@ export default function CatalogPage() {
       <Navbar />
 
       <main className="flex-1 w-full max-w-[1200px] mx-auto px-6 pt-[110px] pb-12 md:pt-[140px] md:pb-12">
-        
+
         {/* Top Header */}
-        <motion.h1 
+        <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
@@ -52,25 +52,25 @@ export default function CatalogPage() {
         </motion.h1>
 
         {/* Top Divider */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="w-full h-[1px] bg-[#D9D9D9]" 
+          className="w-full h-[1px] bg-[#D9D9D9]"
         />
 
         {/* Space 80px */}
         <div className="h-[60px] md:h-[80px]" />
 
         {/* Main Catalog Block */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
           className="flex flex-col items-center justify-center text-center w-full"
         >
           {/* Centered Title */}
-          <h2 
+          <h2
             className="font-light text-[#7A7A7A]"
             style={{ fontSize: 'clamp(36px, 5vw, 48px)', lineHeight: 1 }}
           >
@@ -83,10 +83,10 @@ export default function CatalogPage() {
           {/* PDF Download Row */}
           <div className="flex flex-col md:flex-row items-center gap-3 md:gap-4">
             <PdfIcon className="w-[40px] h-[40px] md:w-[50px] md:h-[50px]" color="#2c3e50" />
-            
-            <a 
-              href="/catalog.pdf" 
-              target="_blank" 
+
+            <a
+              href="/catalog.pdf"
+              target="_blank"
               rel="noopener noreferrer"
               className="text-[#7B8794] font-medium transition-colors duration-300 hover:text-[#123F73] text-[14px] md:text-[16px] no-underline"
             >
@@ -99,11 +99,11 @@ export default function CatalogPage() {
         <div className="h-[70px] md:h-[90px]" />
 
         {/* First Divider */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="w-full h-[1px] bg-[#D9D9D9] mb-16 md:mb-20" 
+          className="w-full h-[1px] bg-[#D9D9D9] mb-16 md:mb-20"
         />
 
         {/* Certificate Lists */}

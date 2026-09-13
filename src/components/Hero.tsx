@@ -12,25 +12,25 @@ const GOVERNOR_SHOWCASE_IMAGES = [
     src: '/images/governor_3d_transparent.png',
     alt: 'FasLift Elevator Speed Governor - 3D Render View',
     label: '3D CAD PROJECTION',
-    scale: 'scale-100',
+    scale: 'scale-[1.35]',
   },
   {
     src: '/images/20260525_170005.jpg-removebg-preview.png',
     alt: 'FasLift Elevator Speed Governor - Front Assembly View',
     label: 'FRONT ASSEMBLY VIEW',
-    scale: 'scale-[1.38]',
+    scale: 'scale-[1.65]',
   },
   {
     src: '/images/20260525_165958.jpg-removebg-preview.png',
     alt: 'FasLift Elevator Speed Governor - Side Angle View',
     label: 'SIDE ANGLE VIEW',
-    scale: 'scale-[1.38]',
+    scale: 'scale-[1.65]',
   },
   {
     src: '/images/20260525_165930.jpg-removebg-preview.png',
     alt: 'FasLift Elevator Speed Governor - Chassis View',
     label: 'STEEL CHASSIS VIEW',
-    scale: 'scale-[1.38]',
+    scale: 'scale-[1.65]',
   },
 ];
 
@@ -178,12 +178,12 @@ const Hero: React.FC = () => {
   const currentImage = GOVERNOR_SHOWCASE_IMAGES[currentImageIndex];
 
   return (
-    <section className="relative min-h-[92vh] lg:min-h-screen w-full overflow-hidden flex items-center bg-[#F8FAFC]">
+    <section className="relative w-full overflow-hidden flex items-start pt-6 sm:pt-8 lg:pt-[32px] pb-8 lg:pb-12 bg-[#F8FAFC]">
       {/* ── Background Engineering Canvas ── */}
       <EngineeringGridCanvas />
 
       {/* ── Main Container ── */}
-      <div className="relative z-10 mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-12 pt-28 sm:pt-36 lg:pt-24 pb-16">
+      <div className="relative z-10 mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-12 pt-0 pb-4">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-6 items-center">
 
           {/* ═════════════════════════════════════════════════════════
@@ -266,111 +266,19 @@ const Hero: React.FC = () => {
             onMouseLeave={() => setIsPaused(false)}
           >
             {/* Showcase Stage Container */}
-            <div className="relative w-full max-w-[580px] h-[440px] sm:h-[500px] lg:h-[540px] flex items-center justify-center">
+            <div className="relative w-full max-w-[650px] h-[480px] sm:h-[560px] lg:h-[600px] flex items-center justify-center">
 
               {/* 360° Ring Technical Indicator */}
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
-                <div className="w-[360px] sm:w-[440px] h-[360px] sm:h-[440px] rounded-full border border-dashed border-[#0B3D78]/25 animate-[spin_40s_linear_infinite]" />
-                <div className="w-[300px] sm:w-[360px] h-[300px] sm:h-[360px] rounded-full border border-gray-200/80" />
+                <div className="w-[400px] sm:w-[480px] h-[400px] sm:h-[480px] rounded-full border border-dashed border-[#0B3D78]/25 animate-[spin_40s_linear_infinite]" />
+                <div className="w-[340px] sm:w-[400px] h-[340px] sm:h-[400px] rounded-full border border-gray-200/80" />
               </div>
 
-
-
-              {/* Monospaced Engineering Product Tag */}
-              <motion.div
-                className="absolute top-4 left-4 z-20 bg-white/90 backdrop-blur-md p-2.5 rounded-xl border border-gray-200 shadow-xs font-mono"
-                animate={{ y: [0, -5, 0, 5, 0] }}
-                transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
-              >
-                <span className="text-[9px] font-bold text-[#64748B] block uppercase tracking-wider">
-                  ELEVATOR SPEED GOVERNOR
-                </span>
-                <span className="text-xs font-black text-[#0B3D78]">
-                  FASLIFT SOLUTIONS
-                </span>
-              </motion.div>
-
-              {/* Technical Callout 1: Safety Switch (Top Left) */}
-              <motion.div
-                className="hidden sm:flex absolute top-24 -left-4 lg:-left-8 z-20 items-center gap-2 font-mono group"
-                animate={{ y: [0, -8, 0, 8, 0] }}
-                transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 0.2 }}
-              >
-                <div className="bg-white/95 backdrop-blur-md p-2.5 rounded-xl border border-[#0B3D78]/20 shadow-md max-w-[160px] text-left">
-                  <span className="text-[10px] font-bold text-[#0B3D78] block">
-                    {t('hero.calloutSafety', 'SAFETY SWITCH')}
-                  </span>
-                  <span className="text-[9px] text-[#64748B] block leading-tight">
-                    {t('hero.calloutSafetySub', 'Instantaneous electrical cutoff contact')}
-                  </span>
-                </div>
-                <div className="w-8 h-px bg-[#0B3D78]/40 relative">
-                  <div className="w-2 h-2 rounded-full bg-[#0B3D78] absolute -right-1 -top-0.5" />
-                </div>
-              </motion.div>
-
-              {/* Technical Callout 2: Precision Wheel (Top Right) */}
-              <motion.div
-                className="hidden sm:flex absolute top-24 -right-4 lg:-right-8 z-20 items-center gap-2 font-mono group"
-                animate={{ y: [0, 8, 0, -8, 0] }}
-                transition={{ duration: 5.2, repeat: Infinity, ease: 'easeInOut', delay: 0.6 }}
-              >
-                <div className="w-8 h-px bg-[#0B3D78]/40 relative">
-                  <div className="w-2 h-2 rounded-full bg-[#0B3D78] absolute -left-1 -top-0.5" />
-                </div>
-                <div className="bg-white/95 backdrop-blur-md p-2.5 rounded-xl border border-[#0B3D78]/20 shadow-md max-w-[160px] text-left">
-                  <span className="text-[10px] font-bold text-[#0B3D78] block">
-                    {t('hero.calloutWheel', 'PRECISION WHEEL')}
-                  </span>
-                  <span className="text-[9px] text-[#64748B] block leading-tight">
-                    {t('hero.calloutWheelSub', 'CNC turned cast iron V-groove')}
-                  </span>
-                </div>
-              </motion.div>
-
-              {/* Technical Callout 3: Tripping System (Bottom Left) */}
-              <motion.div
-                className="hidden sm:flex absolute bottom-28 -left-4 lg:-left-8 z-20 items-center gap-2 font-mono group"
-                animate={{ y: [0, 6, 0, -6, 0] }}
-                transition={{ duration: 4.8, repeat: Infinity, ease: 'easeInOut', delay: 1.0 }}
-              >
-                <div className="bg-white/95 backdrop-blur-md p-2.5 rounded-xl border border-[#0B3D78]/20 shadow-md max-w-[160px] text-left">
-                  <span className="text-[10px] font-bold text-[#0B3D78] block">
-                    {t('hero.calloutTripping', 'TRIPPING SYSTEM')}
-                  </span>
-                  <span className="text-[9px] text-[#64748B] block leading-tight">
-                    {t('hero.calloutTrippingSub', 'Centrifugal flyweight overspeed lock')}
-                  </span>
-                </div>
-                <div className="w-8 h-px bg-[#0B3D78]/40 relative">
-                  <div className="w-2 h-2 rounded-full bg-[#0B3D78] absolute -right-1 -top-0.5" />
-                </div>
-              </motion.div>
-
-              {/* Technical Callout 4: Steel Chassis (Bottom Right) */}
-              <motion.div
-                className="hidden sm:flex absolute bottom-28 -right-4 lg:-right-8 z-20 items-center gap-2 font-mono group"
-                animate={{ y: [0, -7, 0, 7, 0] }}
-                transition={{ duration: 5.4, repeat: Infinity, ease: 'easeInOut', delay: 1.4 }}
-              >
-                <div className="w-8 h-px bg-[#0B3D78]/40 relative">
-                  <div className="w-2 h-2 rounded-full bg-[#0B3D78] absolute -left-1 -top-0.5" />
-                </div>
-                <div className="bg-white/95 backdrop-blur-md p-2.5 rounded-xl border border-[#0B3D78]/20 shadow-md max-w-[160px] text-left">
-                  <span className="text-[10px] font-bold text-[#0B3D78] block">
-                    {t('hero.calloutChassis', 'STEEL CHASSIS')}
-                  </span>
-                  <span className="text-[9px] text-[#64748B] block leading-tight">
-                    {t('hero.calloutChassisSub', 'Heavy-duty zinc plated steel base')}
-                  </span>
-                </div>
-              </motion.div>
-
               {/* Grounded Reflection & Shadow Platform */}
-              <div className="absolute bottom-6 w-72 sm:w-96 h-8 bg-radial from-black/20 via-black/5 to-transparent rounded-full filter blur-md z-0 pointer-events-none" />
+              <div className="absolute bottom-6 w-80 sm:w-[420px] h-10 bg-radial from-black/20 via-black/5 to-transparent rounded-full filter blur-md z-0 pointer-events-none" />
 
               {/* Main Visual Display (Automatic Slideshow with Smooth AnimatePresence Transition) */}
-              <div className="relative z-10 w-full h-[360px] sm:h-[440px] flex items-center justify-center p-4">
+              <div className="relative z-10 w-full h-[400px] sm:h-[500px] flex items-center justify-center p-4">
                 <AnimatePresence mode="wait">
                   <motion.img
                     key={currentImageIndex}
@@ -380,7 +288,7 @@ const Hero: React.FC = () => {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: -15, scale: 1.02 }}
                     transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
-                    className={`max-h-[340px] sm:max-h-[420px] max-w-full object-contain filter drop-shadow-2xl transition-transform duration-300 ${currentImage.scale}`}
+                    className={`max-h-[380px] sm:max-h-[480px] max-w-full object-contain filter drop-shadow-2xl transition-transform duration-300 ${currentImage.scale}`}
                   />
                 </AnimatePresence>
               </div>
@@ -392,11 +300,10 @@ const Hero: React.FC = () => {
                     key={idx}
                     onClick={() => setCurrentImageIndex(idx)}
                     aria-label={`View ${img.label}`}
-                    className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
-                      currentImageIndex === idx
-                        ? 'w-6 bg-[#0B3D78]'
-                        : 'w-2 bg-gray-300 hover:bg-gray-400'
-                    }`}
+                    className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${currentImageIndex === idx
+                      ? 'w-6 bg-[#0B3D78]'
+                      : 'w-2 bg-gray-300 hover:bg-gray-400'
+                      }`}
                   />
                 ))}
               </div>

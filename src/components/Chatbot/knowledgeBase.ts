@@ -21,7 +21,7 @@ export const KNOWLEDGE_BASE: Record<string, KnowledgeItem[]> = {
     },
     {
       keywords: ['speed governor', 'product', 'fs-01', 'fs-200', 'fs-250', 'what do you sell', 'models'],
-      answer: 'We manufacture premium overspeed governors including: \n- FS-01 Monodirectional (pulley Ø300mm)\n- FS-01LR Bidirectional (pulley Ø300mm)\n- FS-200 Bidirectional (pulley Ø200mm)\n- FS-250 Bidirectional (pulley Ø250mm)\n\nAll models are certified by TÜV SÜD and comply with EN 81-20/50 standards.',
+      answer: 'We manufacture premium overspeed governors including: \n- FS-01 Bidirectional (pulley Ø300mm)\n- FS-01LR Bidirectional (pulley Ø300mm)\n- FS-200 Bidirectional (pulley Ø200mm)\n- FS-250 Bidirectional (pulley Ø250mm)\n\nAll models are certified by TÜV SÜD and comply with EN 81-20/50 standards.',
       action: {
         label: 'View Governors Page',
         url: '/products/speed-governors',
@@ -57,7 +57,7 @@ export const KNOWLEDGE_BASE: Record<string, KnowledgeItem[]> = {
     },
     {
       keywords: ['contact', 'phone', 'email', 'whatsapp', 'how to reach', 'address', 'office'],
-      answer: 'You can reach us through multiple channels:\n- Phone: +90 531 613 9223\n- Email: info@faslift.com\n- WhatsApp: +90 531 613 9223\n- Address: Zone Industrielle, Bloc B, No 7, Casablanca 20250, Morocco.',
+      answer: 'You can reach us through multiple channels:\n- Phone: +90 531 613 9223 / +90 531 634 8986\n- Email: info@faslift.com / faslift@outlook.com\n- WhatsApp: +90 531 613 9223\n- Address: Ikitelli OSB, Aykosan Industrial Estate 34490 Basaksehir/Istanbul, Turkey.',
       action: {
         label: 'Contact Details',
         url: '/corporate/contact',
@@ -104,7 +104,7 @@ export const KNOWLEDGE_BASE: Record<string, KnowledgeItem[]> = {
     },
     {
       keywords: ['limiteur de vitesse', 'produits', 'fs-01', 'fs-200', 'fs-250', 'modeles', 'vente'],
-      answer: 'Nous fabriquons des limiteurs de vitesse de précision, notamment:\n- FS-01 Monodirectionnel (poulie Ø300mm)\n- FS-01LR Bidirectionnel (poulie Ø300mm)\n- FS-200 Bidirectionnel (poulie Ø200mm)\n- FS-250 Bidirectionnel (poulie Ø250mm)\n\nTous nos modèles sont certifiés TÜV SÜD et conformes aux exigences EN 81-20/50.',
+      answer: 'Nous fabriquons des limiteurs de vitesse de précision, notamment:\n- FS-01 Bidirectionnel (poulie Ø300mm)\n- FS-01LR Bidirectionnel (poulie Ø300mm)\n- FS-200 Bidirectionnel (poulie Ø200mm)\n- FS-250 Bidirectionnel (poulie Ø250mm)\n\nTous nos modèles sont certifiés TÜV SÜD et conformes aux exigences EN 81-20/50.',
       action: {
         label: 'Voir la page des limiteurs',
         url: '/products/speed-governors',
@@ -140,7 +140,7 @@ export const KNOWLEDGE_BASE: Record<string, KnowledgeItem[]> = {
     },
     {
       keywords: ['contact', 'telephone', 'email', 'whatsapp', 'adresse', 'bureau', 'joindre'],
-      answer: 'Vous pouvez nous contacter via:\n- Téléphone: +90 531 613 9223\n- E-mail: info@faslift.com\n- WhatsApp: +90 531 613 9223\n- Adresse: Zone Industrielle, Bloc B, No 7, Casablanca 20250, Maroc.',
+      answer: 'Vous pouvez nous contacter via:\n- Téléphone: +90 531 613 9223 / +90 531 634 8986\n- E-mail: info@faslift.com / faslift@outlook.com\n- WhatsApp: +90 531 613 9223\n- Adresse: Ikitelli OSB, Zone Industrielle Aykosan 34490 Basaksehir/Istanbul, Turquie.',
       action: {
         label: 'Coordonnées de contact',
         url: '/corporate/contact',
@@ -178,7 +178,7 @@ export const KNOWLEDGE_BASE: Record<string, KnowledgeItem[]> = {
     },
     {
       keywords: ['hiz regulatoru', 'hız regülatörü', 'urunler', 'ürünler', 'fs-01', 'fs-200', 'fs-250', 'modeller'],
-      answer: 'Ürettiğimiz hassas hız regülatörü modelleri:\n- FS-01 Tek Yönlü (kasnak Ø300mm)\n- FS-01LR Çift Yönlü (kasnak Ø300mm)\n- FS-200 Çift Yönlü (kasnak Ø200mm)\n- FS-250 Çift Yönlü (kasnak Ø250mm)\n\nTüm modellerimiz TÜV SÜD onaylı olup EN 81-20/50 standartlarına tam uyumludur.',
+      answer: 'Ürettiğimiz hassas hız regülatörü modelleri:\n- FS-01 Çift Yönlü (kasnak Ø300mm)\n- FS-01LR Çift Yönlü (kasnak Ø300mm)\n- FS-200 Çift Yönlü (kasnak Ø200mm)\n- FS-250 Çift Yönlü (kasnak Ø250mm)\n\nTüm modellerimiz TÜV SÜD onaylı olup EN 81-20/50 standartlarına tam uyumludur.',
       action: {
         label: 'Regülatörler Sayfası',
         url: '/products/speed-governors',
@@ -214,7 +214,7 @@ export const KNOWLEDGE_BASE: Record<string, KnowledgeItem[]> = {
     },
     {
       keywords: ['iletisim', 'telefon', 'e-posta', 'eposta', 'whatsapp', 'adres', 'ofis', 'ulasim'],
-      answer: 'Bizimle iletişime geçebileceğiniz kanallar:\n- Telefon: +90 531 613 9223\n- E-posta: info@faslift.com\n- WhatsApp: +90 531 613 9223\n- Adres: Zone Industrielle, Bloc B, No 7, Kazablanka 20250, Fas.',
+      answer: 'Bizimle iletişime geçebileceğiniz kanallar:\n- Telefon: +90 531 613 9223 / +90 531 634 8986\n- E-posta: info@faslift.com / faslift@outlook.com\n- WhatsApp: +90 531 613 9223\n- Adres: İkitelli OSB, Aykosan Sanayi Sitesi 34490 Başakşehir/İstanbul, Türkiye.',
       action: {
         label: 'İletişim Bilgileri',
         url: '/corporate/contact',

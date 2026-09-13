@@ -377,11 +377,19 @@ const Footer: React.FC = () => {
                 <a href="tel:+905316139223" className="ft-contact-link">
                   +90 531 613 9223
                 </a>
+                <span style={{ color: '#6b7280', margin: '0 4px' }}>/</span>
+                <a href="tel:+905316348986" className="ft-contact-link">
+                  +90 531 634 8986
+                </a>
               </div>
               <div className="ft-contact-item">
                 <span style={{ color: '#6b7280' }}>{t('footer.emailLabel')}: </span>
                 <a href="mailto:info@faslift.com" className="ft-contact-link">
                   info@faslift.com
+                </a>
+                <span style={{ color: '#6b7280', margin: '0 4px' }}>/</span>
+                <a href="mailto:faslift@outlook.com" className="ft-contact-link">
+                  faslift@outlook.com
                 </a>
               </div>
             </div>

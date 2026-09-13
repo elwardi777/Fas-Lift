@@ -15,7 +15,7 @@ export default function StatsCounter() {
 
   const stats: Stat[] = [
     { target: 5, suffix: '+', label: t('about.years') },
-    { target: 2, suffix: '+', label: t('about.products') },
+    { target: 3, suffix: '+', label: t('about.products') },
     { target: 92, suffix: '+', label: t('about.countries') },
     { target: 1500, suffix: '+', label: t('about.clients') },
   ];

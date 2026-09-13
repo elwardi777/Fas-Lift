@@ -158,7 +158,7 @@ const Contact: React.FC = () => {
           >
             <div className="rounded-xl overflow-hidden h-full min-h-[400px] relative">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3323.8471131920807!2d-7.619077224213768!3d33.57037747334057!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda7cd4778aa113b9%3A0x550c1477c680cfd2!2sCasablanca!5e0!3m2!1sen!2sma!4v1716300000000!5m2!1sen!2sma"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3007.4107123984186!2d28.790956276587635!3d41.08182991554522!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14caa5e07661ebbd%3A0xb3bd6a8bcf447f54!2sAykosan%20Sanayi%20Sitesi!5e0!3m2!1str!2str!4v1716300000000!5m2!1str!2str"
                 className="w-full h-full absolute inset-0 border-0"
                 allowFullScreen
                 loading="lazy"
