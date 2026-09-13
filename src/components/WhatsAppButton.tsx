@@ -62,14 +62,14 @@ const WhatsAppButton: React.FC = () => {
   // Handle click outside to close bubble on mobile
   useEffect(() => {
     if (!isMobile) return;
-    
+
     const handleClickOutside = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       if (!target.closest('.whatsapp-widget')) {
         setActiveBubble(null);
       }
     };
-    
+
     document.addEventListener('click', handleClickOutside);
     return () => document.removeEventListener('click', handleClickOutside);
   }, [isMobile]);
@@ -101,8 +101,8 @@ const WhatsAppButton: React.FC = () => {
   return (
     <div className="fixed bottom-5 left-4 md:bottom-[30px] md:left-[20px] lg:bottom-[40px] lg:left-[24px] z-[9999] flex flex-col gap-4 whatsapp-widget">
       {LANGUAGES.map((lang, index) => (
-        <div 
-          key={lang.id} 
+        <div
+          key={lang.id}
           className="relative flex items-center group"
           onMouseEnter={() => !isMobile && setActiveBubble(lang.id)}
           onMouseLeave={() => !isMobile && setActiveBubble(null)}
@@ -135,13 +135,13 @@ const WhatsAppButton: React.FC = () => {
                 transition={{ duration: 0.2, ease: 'easeOut' }}
                 className="absolute left-[64px] pointer-events-none"
               >
-                <div 
+                <div
                   className="relative bg-white text-[#111] px-[18px] py-[12px] rounded-[16px] shadow-[0_2px_15px_rgba(0,0,0,0.1)] w-max max-w-[280px]"
                   dir={lang.dir || 'ltr'}
                 >
                   {/* Speech Tail */}
                   <div className="absolute top-1/2 -left-[6px] -translate-y-1/2 w-0 h-0 border-t-[6px] border-t-transparent border-r-[8px] border-r-white border-b-[6px] border-b-transparent filter drop-shadow-[-1px_0_1px_rgba(0,0,0,0.03)]" />
-                  
+
                   <p className="m-0 text-[14px] font-medium leading-snug">
                     {lang.bubbleText}
                   </p>
