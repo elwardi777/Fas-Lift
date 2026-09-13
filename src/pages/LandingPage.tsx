@@ -1,5 +1,6 @@
 import Navbar from '../components/Navbar'
 import Hero from '../components/Hero'
+import ProductFamilySection from '../components/ProductFamilySection'
 import PrecisionManufacturingSection from '../components/PrecisionManufacturingSection'
 import StatsCounter from '../components/StatsCounter'
 import Footer from '../components/Footer'
@@ -18,15 +19,16 @@ export default function LandingPage() {
 
       {/* Page Sections */}
       <main className="w-full max-w-full overflow-x-hidden">
-        <section id="hero">
-          <Hero />
-        </section>
+        {/* Hero + Floating Cards Block — Cards bridge Hero & section below */}
+        <div className="relative">
+          <section id="hero">
+            <Hero />
+          </section>
 
-        <section id="products">
-
-        </section>
-
-
+          <section id="products" className="relative z-30">
+            <ProductFamilySection />
+          </section>
+        </div>
 
         <section id="precision">
           <PrecisionManufacturingSection />
