@@ -31,9 +31,10 @@ const UI_TRANSLATIONS = {
     whatsapp: 'WhatsApp',
     suggestions: [
       'What is FAS LIFT?',
-      'Technical specifications',
+      'Speed Governors',
+      'Tensioner Pulley',
+      'Pulleys',
       'Download catalog',
-      'Order form',
       'Contact support'
     ]
   },
@@ -49,9 +50,10 @@ const UI_TRANSLATIONS = {
     whatsapp: 'WhatsApp',
     suggestions: [
       'C\'est quoi FAS LIFT ?',
-      'Spécifications techniques',
+      'Limiteurs de vitesse',
+      'Poulie Tendeuse',
+      'Poulies',
       'Télécharger catalogue',
-      'Bon de commande',
       'Contacter support'
     ]
   },
@@ -67,9 +69,10 @@ const UI_TRANSLATIONS = {
     whatsapp: 'WhatsApp',
     suggestions: [
       'FAS LIFT nedir?',
-      'Teknik özellikler',
+      'Hız Regülatörleri',
+      'Gergi Kasnağı',
+      'Kasnaklar',
       'Katalog indir',
-      'Sipariş formu',
       'İletişim desteği'
     ]
   }
@@ -112,27 +115,45 @@ const Chatbot: React.FC = () => {
   }, [messages, isOpen]);
 
   const searchKnowledge = (query: string): { found: boolean; item?: KnowledgeItem } => {
-    const cleanQuery = query.toLowerCase().trim();
-    const sourceList = indexCache.current[lang] || KNOWLEDGE_BASE[lang] || KNOWLEDGE_BASE.en;
+    const rawQuery = query.toLowerCase().trim();
+    const normalizedQuery = rawQuery.replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
+    
+    const sourceList = KNOWLEDGE_BASE[lang] || KNOWLEDGE_BASE.en;
+    const combinedList = Array.from(new Set([...sourceList, ...KNOWLEDGE_BASE.en]));
 
     let bestMatch: KnowledgeItem | null = null;
-    let maxMatchCount = 0;
+    let highestScore = 0;
 
-    for (const item of sourceList) {
-      let matches = 0;
-      for (const keyword of item.keywords) {
-        if (cleanQuery.includes(keyword) || keyword.includes(cleanQuery)) {
-          matches++;
+    for (const item of combinedList) {
+      let score = 0;
+      for (const rawKw of item.keywords) {
+        const kw = rawKw.toLowerCase();
+        const normKw = kw.replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
+
+        if (rawQuery === kw || normalizedQuery === normKw) {
+          score += 100;
+        } else if (rawQuery.includes(kw) || (kw.length >= 4 && rawQuery.includes(kw))) {
+          score += 60;
+        } else if (normalizedQuery.includes(normKw) || (normKw.length >= 4 && normKw.includes(normalizedQuery))) {
+          score += 50;
+        } else {
+          const queryTokens = normalizedQuery.split(' ').filter(t => t.length > 2);
+          const kwTokens = normKw.split(' ').filter(t => t.length > 2);
+          for (const qt of queryTokens) {
+            if (kwTokens.includes(qt)) {
+              score += 25;
+            }
+          }
         }
       }
-      
-      if (matches > maxMatchCount) {
-        maxMatchCount = matches;
+
+      if (score > highestScore) {
+        highestScore = score;
         bestMatch = item;
       }
     }
 
-    if (maxMatchCount > 0 && bestMatch) {
+    if (highestScore > 0 && bestMatch) {
       return { found: true, item: bestMatch };
     }
 
